@@ -87,7 +87,8 @@ Ecology generator (per lifetime; A3 primary  Physiology
 
 Agent: GRU actor-critic (meta-RL). Input = [cues, food, S_t, u_{t−1}, r_{t−1}]
        Output = Bernoulli salivation prob p_t (the "drops" readout), value V_t
-Outer loop: recurrent PPO across lifetimes (replication: OpenAI-ES)
+Outer loop: OpenAI-ES across lifetimes = PRIMARY (passed the Phase-2 gate in round 4);
+            recurrent PPO = replication arm (currently fails the gate; revisit in Phase 11)
 
 Lab (frozen agent): Scheduler (scripted | replay | human) + optional Contingency
   protocols: naive, acquisition (CS+ bell / CS− metronome), extinction, rest, recovery,
