@@ -1,0 +1,6 @@
+# Pilot after amendment A1 (cost 0.02 -> 0.01). Seeds 100-199 only.
+physiology:
+  cost: 0.01
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.0

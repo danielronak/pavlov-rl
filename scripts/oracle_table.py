@@ -5,7 +5,8 @@ Gate criteria (fixed before any agent exists, docs/IMPLEMENTATION_PLAN.md Phase 
   G2 cue_oracle > reflex         (anticipation pays)
   G3 cue_oracle > any_cue        (knowing WHICH cue predicts food pays -> association needed)
   G4 always < reflex             (constant salivation is not a shortcut)
-  Margins for G2, G3: >= 10% of the (cue_oracle - reflex) gap, and the 95% CI of the paired
+  G5 pred_cue_on > reflex        (learnability: a monotone path reflex -> cue identity -> timing; amendment A1)
+  Margins for G2, G3, G5: >= 10% of the (cue_oracle - reflex) gap, and the 95% CI of the paired
   difference excludes 0.
 """
 from __future__ import annotations
@@ -70,11 +71,12 @@ def main():
         "G2 cue_oracle>reflex": paired("cue_oracle", "reflex"),
         "G3 cue_oracle>any_cue": paired("cue_oracle", "any_cue"),
         "G4 reflex>always": paired("reflex", "always"),
+        "G5 pred_cue_on>reflex": paired("pred_cue_on", "reflex"),
     }
     print("\nGate checks (mean diff, 95% CI):")
     ok_all = True
     for name, (m, lo, hi) in checks.items():
-        need_margin = name.startswith(("G2", "G3"))
+        need_margin = name.startswith(("G2", "G3", "G5"))
         ok = lo > 0 and (not need_margin or m >= 0.10 * gap)
         ok_all &= ok
         print(f"  {name:<24} {m:+8.2f}  [{lo:+.2f}, {hi:+.2f}]  {'PASS' if ok else 'FAIL'}")

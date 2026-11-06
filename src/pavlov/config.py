@@ -15,7 +15,7 @@ class PhysiologyConfig:
     food_ticks: int = 3     # D: ticks food stays in the mouth after a US
     energy: float = 1.0     # E: total energy of one food item at perfect digestion
     b0: float = 0.3         # digestion efficiency with no saliva
-    cost: float = 0.02      # c: metabolic cost per salivation tick
+    cost: float = 0.01      # c: metabolic cost per salivation tick (0.02 -> 0.01: amendment A1, see DECISIONS.md)
 
 
 @dataclass(frozen=True)

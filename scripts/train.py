@@ -21,6 +21,7 @@ if __name__ == "__main__":
     ap.add_argument("--lifetime-batches", type=int, default=None)
     ap.add_argument("--n-envs", type=int, default=None)
     ap.add_argument("--hidden", type=int, default=64)
+    ap.add_argument("--ent-coef", type=float, default=None)
     args = ap.parse_args()
     check_seed(args.seed)
     cfg = load_config(args.config)
@@ -30,6 +31,8 @@ if __name__ == "__main__":
         kw["n_lifetime_batches"] = args.lifetime_batches
     if args.n_envs:
         kw["n_envs"] = args.n_envs
+    if args.ent_coef is not None:
+        kw["ent_coef"] = args.ent_coef
     p = PPOConfig(**{**p.__dict__, **kw})
     os.makedirs(args.out, exist_ok=True)
     try:
