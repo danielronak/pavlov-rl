@@ -1,0 +1,111 @@
+"""Training ecology ("the wild"): per-lifetime world schedule generator.
+
+Design property that enforces invariant I2 structurally: the entire world schedule (cues and food
+onsets) is generated BEFORE the agent acts, from the lifetime's random key alone. Actions cannot
+affect it. Lab contingencies (omission, etc.) live in pavlov.lab, never here (invariant I6).
+"""
+from __future__ import annotations
+
+from typing import NamedTuple
+
+import jax
+import jax.numpy as jnp
+
+from pavlov.config import EcologyConfig
+
+
+class LifetimeParams(NamedTuple):
+    perm: jnp.ndarray        # [N_c] logical cue L is shown on physical channel perm[L]
+    is_pred: jnp.ndarray     # [N_c] bool, logical
+    rate: jnp.ndarray        # [N_c] onset rate per idle tick, logical
+    dur: jnp.ndarray         # [N_c] cue duration, logical
+    isi: jnp.ndarray         # [N_c] CS-onset -> US interval (predictive cues only)
+    trace: jnp.ndarray       # [N_c] bool, trace cue
+    p0: jnp.ndarray          # [N_c] original contingency
+    food_rate: jnp.ndarray   # scalar unsignalled-food rate
+    flipped: jnp.ndarray     # scalar bool: saliva hurts digestion this lifetime (R-O arm)
+    resampled: jnp.ndarray   # scalar bool: cue->channel mapping was resampled (S-O arm)
+
+
+class Schedule(NamedTuple):
+    cues: jnp.ndarray         # [T, N_c] bool, PHYSICAL channels (what the agent sees)
+    food_onset: jnp.ndarray   # [T] bool
+    expected_us: jnp.ndarray  # [T] bool: tick a predictive-cue onset predicts a US (analysis/oracles only)
+    pred_on: jnp.ndarray      # [T] bool: some predictive cue is on (analysis/oracles only)
+    params: LifetimeParams
+
+
+def sample_params(key, cfg: EcologyConfig) -> LifetimeParams:
+    n = cfg.n_channels
+    ks = jax.random.split(key, 12)
+    two = jax.random.uniform(ks[0]) < cfg.p_two_predictive
+    idx = jnp.arange(n)
+    is_pred = (idx == 0) | ((idx == 1) & two)
+
+    isi = jax.random.randint(ks[1], (n,), cfg.isi_min, cfg.isi_max + 1)
+    trace = jax.random.uniform(ks[2], (n,)) < cfg.p_trace
+    gap = jax.random.randint(ks[3], (n,), cfg.trace_gap_min, cfg.trace_gap_max + 1)
+    gap = jnp.minimum(gap, isi - 1)
+    pred_dur = jnp.where(trace, isi - gap, isi + 1)  # delay cue stays on through US onset
+    dist_dur = jax.random.randint(ks[4], (n,), cfg.distractor_dur_min, cfg.distractor_dur_max + 1)
+    dur = jnp.where(is_pred, pred_dur, dist_dur)
+
+    pred_rate = jax.random.uniform(ks[5], (n,), minval=cfg.pred_rate_min, maxval=cfg.pred_rate_max)
+    dist_rate = jax.random.uniform(
+        ks[6], (n,), minval=cfg.distractor_rate_min, maxval=cfg.distractor_rate_max
+    )
+    rate = jnp.where(is_pred, pred_rate, dist_rate)
+    p0 = jax.random.uniform(ks[7], (n,), minval=cfg.contingency_min, maxval=cfg.contingency_max)
+
+    resampled = jax.random.uniform(ks[8]) < cfg.q_so_variability
+    perm = jnp.where(resampled, jax.random.permutation(ks[9], n), idx)
+    flipped = jax.random.uniform(ks[10]) < cfg.v_ro_variability
+    food_rate = jax.random.uniform(ks[11], minval=0.0, maxval=cfg.unsignalled_food_max)
+    return LifetimeParams(perm, is_pred, rate, dur, isi, trace, p0, food_rate, flipped, resampled)
+
+
+def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
+    kp, ks = jax.random.split(key)
+    P = sample_params(kp, cfg)
+    n = cfg.n_channels
+    neg = -jnp.ones(n, jnp.int32)
+
+    def tick(carry, k):
+        timer, countdown, expected, active, p_cur = carry
+        k1, k2, k3, k4, k5, k6 = jax.random.split(k, 6)
+        # non-stationarity: predictive cues toggle between active and silent
+        toggle = P.is_pred & (jax.random.uniform(k1, (n,)) < cfg.hazard)
+        reactivate = toggle & ~active
+        revert = jax.random.uniform(k2, (n,)) < cfg.reversion
+        p_new = jax.random.uniform(k3, (n,), minval=cfg.contingency_min, maxval=cfg.contingency_max)
+        p_cur = jnp.where(reactivate, jnp.where(revert, P.p0, p_new), p_cur)
+        active = jnp.where(toggle, ~active, active)
+        # cue onsets (a predictive cue waits until its previous trial has resolved)
+        idle = (timer == 0) & (expected < 0)
+        onset = idle & (jax.random.uniform(k4, (n,)) < P.rate)
+        timer = jnp.where(onset, P.dur, timer)
+        on = timer > 0
+        # US scheduling
+        success = jax.random.uniform(k5, (n,)) < p_cur * active
+        countdown = jnp.where(onset & P.is_pred & success, P.isi, countdown)
+        expected = jnp.where(onset & P.is_pred, P.isi, expected)
+        us = jnp.any(countdown == 0)
+        exp_us = jnp.any(expected == 0)
+        food = us | (jax.random.uniform(k6) < P.food_rate)
+        # advance timers
+        timer = jnp.maximum(timer - 1, 0)
+        countdown = jnp.where(countdown > 0, countdown - 1, -1)
+        expected = jnp.where(expected > 0, expected - 1, -1)
+        out = (on, food, exp_us, jnp.any(on & P.is_pred))
+        return (timer, countdown, expected, active, p_cur), out
+
+    init = (jnp.zeros(n, jnp.int32), neg, neg, jnp.ones(n, bool), P.p0)
+    _, (on_logical, food, exp_us, pred_on) = jax.lax.scan(
+        tick, init, jax.random.split(ks, cfg.lifetime)
+    )
+    cues = jnp.zeros_like(on_logical).at[:, P.perm].set(on_logical)
+    return Schedule(cues=cues, food_onset=food, expected_us=exp_us, pred_on=pred_on, params=P)
+
+
+def generate_batch(key, cfg: EcologyConfig, n: int) -> Schedule:
+    return jax.vmap(lambda k: generate_schedule(k, cfg))(jax.random.split(key, n))

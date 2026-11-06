@@ -1,0 +1,5 @@
+# Pilot: default Pavlovian ecology (q = 1, v = 0). Seeds 100-199 only.
+physiology: {}
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.0

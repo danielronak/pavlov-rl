@@ -1,0 +1,71 @@
+{
+  "config": {
+    "physiology": {
+      "k_up": 0.35,
+      "k_down": 0.15,
+      "food_ticks": 3,
+      "energy": 1.0,
+      "b0": 0.3,
+      "cost": 0.02
+    },
+    "ecology": {
+      "lifetime": 3000,
+      "n_channels": 6,
+      "p_two_predictive": 0.5,
+      "isi_min": 3,
+      "isi_max": 12,
+      "p_trace": 0.5,
+      "trace_gap_min": 1,
+      "trace_gap_max": 4,
+      "contingency_min": 0.5,
+      "contingency_max": 1.0,
+      "pred_rate_min": 0.016666666666666666,
+      "pred_rate_max": 0.04,
+      "distractor_rate_min": 0.005,
+      "distractor_rate_max": 0.03,
+      "distractor_dur_min": 3,
+      "distractor_dur_max": 12,
+      "unsignalled_food_max": 0.005,
+      "q_so_variability": 1.0,
+      "v_ro_variability": 0.0,
+      "hazard": 0.0006666666666666666,
+      "reversion": 0.5
+    }
+  },
+  "means": {
+    "never": 16.120899200439453,
+    "always": -17.549959182739258,
+    "reflex": 25.515785217285156,
+    "any_cue": 6.245248794555664,
+    "pred_cue_on": 23.70962905883789,
+    "cue_oracle": 31.02283477783203,
+    "prophet": 34.5208740234375
+  },
+  "best_k": {
+    "cue_oracle": 2,
+    "prophet": 3
+  },
+  "checks": {
+    "G1 reflex>never": [
+      9.394887924194336,
+      8.95101973442926,
+      9.838756113959413
+    ],
+    "G2 cue_oracle>reflex": [
+      5.507049560546875,
+      5.1570221230379305,
+      5.8570769980558195
+    ],
+    "G3 cue_oracle>any_cue": [
+      24.777585983276367,
+      24.376310593611596,
+      25.17886137294114
+    ],
+    "G4 reflex>always": [
+      43.06574249267578,
+      42.408315691298654,
+      43.72316929405291
+    ]
+  },
+  "pass": true
+}
