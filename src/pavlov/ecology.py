@@ -42,19 +42,14 @@ def sample_params(key, cfg: EcologyConfig) -> LifetimeParams:
     idx = jnp.arange(n)
     is_pred = (idx == 0) | ((idx == 1) & two)
 
+    # EVERY channel (predictive or distractor) draws its temporal structure from the SAME
+    # distributions, so a cue's type is identifiable only from its relation to food (I3).
     isi = jax.random.randint(ks[1], (n,), cfg.isi_min, cfg.isi_max + 1)
     trace = jax.random.uniform(ks[2], (n,)) < cfg.p_trace
     gap = jax.random.randint(ks[3], (n,), cfg.trace_gap_min, cfg.trace_gap_max + 1)
     gap = jnp.minimum(gap, isi - 1)
-    pred_dur = jnp.where(trace, isi - gap, isi + 1)  # delay cue stays on through US onset
-    dist_dur = jax.random.randint(ks[4], (n,), cfg.distractor_dur_min, cfg.distractor_dur_max + 1)
-    dur = jnp.where(is_pred, pred_dur, dist_dur)
-
-    pred_rate = jax.random.uniform(ks[5], (n,), minval=cfg.pred_rate_min, maxval=cfg.pred_rate_max)
-    dist_rate = jax.random.uniform(
-        ks[6], (n,), minval=cfg.distractor_rate_min, maxval=cfg.distractor_rate_max
-    )
-    rate = jnp.where(is_pred, pred_rate, dist_rate)
+    dur = jnp.where(trace, isi - gap, isi + 1)  # delay cue stays on through the (would-be) US tick
+    rate = jax.random.uniform(ks[5], (n,), minval=cfg.cue_rate_min, maxval=cfg.cue_rate_max)
     p0 = jax.random.uniform(ks[7], (n,), minval=cfg.contingency_min, maxval=cfg.contingency_max)
 
     resampled = jax.random.uniform(ks[8]) < cfg.q_so_variability
@@ -71,7 +66,7 @@ def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
     neg = -jnp.ones(n, jnp.int32)
 
     def tick(carry, k):
-        timer, countdown, expected, active, p_cur = carry
+        timer, countdown, pending, active, p_cur = carry
         k1, k2, k3, k4, k5, k6 = jax.random.split(k, 6)
         # non-stationarity: predictive cues toggle between active and silent
         toggle = P.is_pred & (jax.random.uniform(k1, (n,)) < cfg.hazard)
@@ -80,24 +75,25 @@ def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
         p_new = jax.random.uniform(k3, (n,), minval=cfg.contingency_min, maxval=cfg.contingency_max)
         p_cur = jnp.where(reactivate, jnp.where(revert, P.p0, p_new), p_cur)
         active = jnp.where(toggle, ~active, active)
-        # cue onsets (a predictive cue waits until its previous trial has resolved)
-        idle = (timer == 0) & (expected < 0)
+        # cue onsets: every channel waits until its previous "trial" window (isi) has elapsed,
+        # predictive or not, so refractory structure is identical across cue types
+        idle = (timer == 0) & (pending < 0)
         onset = idle & (jax.random.uniform(k4, (n,)) < P.rate)
         timer = jnp.where(onset, P.dur, timer)
         on = timer > 0
         # US scheduling
         success = jax.random.uniform(k5, (n,)) < p_cur * active
         countdown = jnp.where(onset & P.is_pred & success, P.isi, countdown)
-        expected = jnp.where(onset & P.is_pred, P.isi, expected)
+        pending = jnp.where(onset, P.isi, pending)
         us = jnp.any(countdown == 0)
-        exp_us = jnp.any(expected == 0)
+        exp_us = jnp.any((pending == 0) & P.is_pred)
         food = us | (jax.random.uniform(k6) < P.food_rate)
         # advance timers
         timer = jnp.maximum(timer - 1, 0)
         countdown = jnp.where(countdown > 0, countdown - 1, -1)
-        expected = jnp.where(expected > 0, expected - 1, -1)
+        pending = jnp.where(pending > 0, pending - 1, -1)
         out = (on, food, exp_us, jnp.any(on & P.is_pred))
-        return (timer, countdown, expected, active, p_cur), out
+        return (timer, countdown, pending, active, p_cur), out
 
     init = (jnp.zeros(n, jnp.int32), neg, neg, jnp.ones(n, bool), P.p0)
     _, (on_logical, food, exp_us, pred_on) = jax.lax.scan(

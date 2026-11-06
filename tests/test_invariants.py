@@ -103,3 +103,28 @@ def test_flip_arm_inverts_saliva_effect():
     base = run_open_loop(food, jnp.zeros(20, bool), jnp.bool_(True), PC)["energy"].sum()
     sal = run_open_loop(food, pre, jnp.bool_(True), PC)["energy"].sum()
     assert sal < base
+
+
+def _runs(on):
+    """Onset count and on-run durations of one binary channel."""
+    on = np.asarray(on).astype(int)
+    d = np.diff(np.concatenate([[0], on, [0]]))
+    starts, ends = np.where(d == 1)[0], np.where(d == -1)[0]
+    return len(starts), (ends - starts)
+
+
+def test_cue_types_statistically_identical_except_food():
+    """I3: a predictive cue and a distractor cue must be indistinguishable from cue statistics
+    alone (onset counts, durations). Only their relation to food may differ."""
+    from scipy.stats import ks_2samp
+    cfg = EcologyConfig(lifetime=3000, hazard=0.0)
+    b = generate_batch(jax.random.PRNGKey(11), cfg, 300)
+    cues, perm = np.asarray(b.cues), np.asarray(b.params.perm)
+    n_pred, n_dist, d_pred, d_dist = [], [], [], []
+    for i in range(cues.shape[0]):
+        cp, dp = _runs(cues[i, :, perm[i, 0]])               # logical 0: always predictive
+        cd, dd = _runs(cues[i, :, perm[i, cfg.n_channels - 1]])  # last logical: always distractor
+        n_pred.append(cp); n_dist.append(cd); d_pred.append(dp.mean()); d_dist.append(dd.mean())  # one value per lifetime (durations are fixed within a lifetime)
+    assert ks_2samp(n_pred, n_dist).pvalue > 1e-3
+    assert ks_2samp(d_pred, d_dist).pvalue > 1e-3
+    assert abs(np.mean(n_pred) / np.mean(n_dist) - 1) < 0.05

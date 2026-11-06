@@ -30,12 +30,8 @@ class EcologyConfig:
     trace_gap_max: int = 4
     contingency_min: float = 0.5    # P(US | CS onset)
     contingency_max: float = 1.0
-    pred_rate_min: float = 1 / 60   # onset rate of predictive cues (per tick, when idle)
-    pred_rate_max: float = 1 / 25
-    distractor_rate_min: float = 0.005
-    distractor_rate_max: float = 0.03
-    distractor_dur_min: int = 3
-    distractor_dur_max: int = 12
+    cue_rate_min: float = 1 / 60    # onset rate of EVERY cue channel (per idle tick); predictive and
+    cue_rate_max: float = 1 / 25    # distractor cues share all temporal statistics (fix, see DECISIONS)
     unsignalled_food_max: float = 0.005
     # Ecological knobs (the independent variables of the phase diagram)
     q_so_variability: float = 1.0   # prob cue->channel mapping is resampled this lifetime
