@@ -89,3 +89,7 @@
 {"generation": 880, "env_steps": 1374360000, "wall_s": 1458.9, "steps_per_s": 942030, "fitness_members": 8.4981689453125, "fitness_center": 8.468205451965332, "theta_norm": 92.70987701416016}
 {"generation": 890, "env_steps": 1389960000, "wall_s": 1475.5, "steps_per_s": 942018, "fitness_members": 13.479448318481445, "fitness_center": 13.613039016723633, "theta_norm": 93.22845458984375}
 {"generation": 900, "env_steps": 1405560000, "wall_s": 1506.8, "steps_per_s": 932836, "fitness_members": 10.255970001220703, "fitness_center": 10.262621879577637, "theta_norm": 93.66500091552734}
+{"generation": 910, "env_steps": 1421160000, "wall_s": 1508.4, "steps_per_s": 942156, "fitness_members": 11.98505973815918, "fitness_center": 12.058937072753906, "theta_norm": 94.10041809082031}
+{"generation": 920, "env_steps": 1436760000, "wall_s": 1525.5, "steps_per_s": 941857, "fitness_members": 12.858402252197266, "fitness_center": 12.878684043884277, "theta_norm": 94.59184265136719}
+{"generation": 930, "env_steps": 1452360000, "wall_s": 1542.5, "steps_per_s": 941537, "fitness_members": 14.152183532714844, "fitness_center": 14.174128532409668, "theta_norm": 95.0493392944336}
+{"generation": 940, "env_steps": 1467960000, "wall_s": 1559.3, "steps_per_s": 941452, "fitness_members": 11.95114517211914, "fitness_center": 12.040816307067871, "theta_norm": 95.51206970214844}

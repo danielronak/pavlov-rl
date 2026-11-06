@@ -89,3 +89,7 @@
 [  880] steps=1.37e+09 fit_mean=8.50 fit_center=8.47 |θ|=92.7 sps=942030
 [  890] steps=1.39e+09 fit_mean=13.48 fit_center=13.61 |θ|=93.2 sps=942018
 [  900] steps=1.41e+09 fit_mean=10.26 fit_center=10.26 |θ|=93.7 sps=932836
+[  910] steps=1.42e+09 fit_mean=11.99 fit_center=12.06 |θ|=94.1 sps=942156
+[  920] steps=1.44e+09 fit_mean=12.86 fit_center=12.88 |θ|=94.6 sps=941857
+[  930] steps=1.45e+09 fit_mean=14.15 fit_center=14.17 |θ|=95.0 sps=941537
+[  940] steps=1.47e+09 fit_mean=11.95 fit_center=12.04 |θ|=95.5 sps=941452
