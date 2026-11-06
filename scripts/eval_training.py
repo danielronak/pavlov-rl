@@ -19,7 +19,7 @@ import numpy as np
 from pavlov import agent as A
 from pavlov.config import Config, EcologyConfig, PhysiologyConfig
 from pavlov.ecology import generate_batch
-from pavlov.env import env_step, init_env, observe
+from pavlov.rollout import run_lifetimes
 from pavlov.oracles import ORACLES, _lead_window, cue_oracle
 from pavlov.physiology import run_open_loop
 
@@ -27,23 +27,8 @@ EVAL_KEY = 987654  # held-out schedule key, never used for training
 
 
 def run_agent(params, sched, cfg: Config, hidden, key):
-    pc = cfg.physiology
-    B = sched.food_onset.shape[0]
-
-    def body(carry, xs):
-        es, h, key = carry
-        cues_t, food_t = xs
-        key, k = jax.random.split(key)
-        obs = observe(es, cues_t, food_t, pc)
-        h, logit, _ = A.step(params, h, obs)
-        p = jax.nn.sigmoid(logit)
-        u = (jax.random.uniform(k, p.shape) < p).astype(jnp.float32)
-        es, r, _ = env_step(es, food_t, u, sched.params.flipped, pc)
-        return (es, h, key), (r, p)
-
-    xs = (jnp.swapaxes(sched.cues, 0, 1), jnp.swapaxes(sched.food_onset, 0, 1))
-    _, (r, p) = jax.lax.scan(body, (init_env(B), jnp.zeros((B, hidden)), key), xs)
-    return np.asarray(r.sum(0)), np.asarray(p.T)
+    r, p = run_lifetimes(params, sched.cues, sched.food_onset, sched.params.flipped, cfg, hidden, key)
+    return np.asarray(r), np.asarray(p)
 
 
 def oracle_returns(sched, actions, pc):
