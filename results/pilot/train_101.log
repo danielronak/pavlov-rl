@@ -1,0 +1,11 @@
+[   0] steps=7.68e+05 ret=13.74 sal=0.272 p_pre=0.270 p_oth=0.272 ent=0.503 kl=0.0006 sps=47180
+[   1] steps=1.54e+06 ret=20.88 sal=0.109 p_pre=0.119 p_oth=0.109 ent=0.325 kl=0.0004 sps=56800
+[   2] steps=2.30e+06 ret=22.43 sal=0.154 p_pre=0.176 p_oth=0.152 ent=0.349 kl=0.0006 sps=60506
+[   3] steps=3.07e+06 ret=25.66 sal=0.152 p_pre=0.172 p_oth=0.151 ent=0.320 kl=0.0005 sps=62640
+[   4] steps=3.84e+06 ret=25.12 sal=0.101 p_pre=0.113 p_oth=0.100 ent=0.217 kl=0.0003 sps=63453
+[   5] steps=4.61e+06 ret=26.25 sal=0.107 p_pre=0.130 p_oth=0.105 ent=0.209 kl=0.0004 sps=64286
+[   6] steps=5.38e+06 ret=27.57 sal=0.082 p_pre=0.095 p_oth=0.081 ent=0.129 kl=0.0003 sps=64737
+[   7] steps=6.14e+06 ret=28.91 sal=0.075 p_pre=0.085 p_oth=0.074 ent=0.104 kl=0.0003 sps=64865
+[   8] steps=6.91e+06 ret=27.00 sal=0.076 p_pre=0.088 p_oth=0.075 ent=0.111 kl=0.0003 sps=65002
+[   9] steps=7.68e+06 ret=25.96 sal=0.087 p_pre=0.108 p_oth=0.086 ent=0.133 kl=0.0003 sps=65409
+[  10] steps=8.45e+06 ret=27.09 sal=0.094 p_pre=0.112 p_oth=0.092 ent=0.128 kl=0.0003 sps=65360
