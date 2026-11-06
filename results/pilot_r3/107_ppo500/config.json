@@ -1,0 +1,51 @@
+{
+  "config": {
+    "physiology": {
+      "k_up": 0.35,
+      "k_down": 0.15,
+      "food_ticks": 3,
+      "energy": 1.0,
+      "b0": 0.3,
+      "cost": 0.01
+    },
+    "ecology": {
+      "lifetime": 3000,
+      "n_channels": 6,
+      "p_two_predictive": 0.5,
+      "isi_min": 3,
+      "isi_max": 12,
+      "p_trace": 0.5,
+      "trace_gap_min": 1,
+      "trace_gap_max": 4,
+      "contingency_min": 0.5,
+      "contingency_max": 1.0,
+      "cue_rate_min": 0.016666666666666666,
+      "cue_rate_max": 0.04,
+      "unsignalled_food_max": 0.005,
+      "q_so_variability": 1.0,
+      "v_ro_variability": 0.0,
+      "hazard": 0.0006666666666666666,
+      "reversion": 0.5
+    }
+  },
+  "agent": {
+    "hidden": 64,
+    "embed": 64
+  },
+  "ppo": {
+    "n_envs": 256,
+    "seg_len": 500,
+    "n_lifetime_batches": 130,
+    "gamma": 0.99,
+    "lam": 0.95,
+    "lr": 0.0003,
+    "clip": 0.2,
+    "vf_coef": 0.5,
+    "ent_coef": 0.003,
+    "epochs": 4,
+    "minibatches": 4,
+    "max_grad_norm": 0.5
+  },
+  "seed": 107,
+  "jax": "0.12.0.1"
+}
