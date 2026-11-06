@@ -21,15 +21,18 @@ class PhysiologyConfig:
 @dataclass(frozen=True)
 class EcologyConfig:
     lifetime: int = 3000            # T ticks
-    n_channels: int = 6             # N_c cue channels
+    n_channels: int = 4             # N_c cue channels (6 -> 4: amendment A3)
     p_two_predictive: float = 0.5   # prob a lifetime has 2 predictive cues (else 1)
     isi_min: int = 3
     isi_max: int = 12
-    p_trace: float = 0.5            # prob a predictive cue is a trace cue (offset before US)
+    p_trace: float = 0.0            # prob a cue is a trace cue (0.5 -> 0: A3; trace = lab test)
     trace_gap_min: int = 1
     trace_gap_max: int = 4
     contingency_min: float = 0.5    # P(US | CS onset)
     contingency_max: float = 1.0
+    exclusive_events: bool = True   # A3: one stimulus at a time (world-level events, uniform channel)
+    event_rate_min: float = 1 / 40  # per idle tick, used when exclusive_events (A3 rule, DECISIONS.md)
+    event_rate_max: float = 1 / 20
     cue_rate_min: float = 1 / 60    # onset rate of EVERY cue channel (per idle tick); predictive and
     cue_rate_max: float = 1 / 25    # distractor cues share all temporal statistics (fix, see DECISIONS)
     unsignalled_food_max: float = 0.005

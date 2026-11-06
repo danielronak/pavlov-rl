@@ -42,13 +42,13 @@ def test_one_training_segment_runs():
     acfg = A.AgentConfig(hidden=16, embed=8)
     pcfg = ppo.PPOConfig(n_envs=8, seg_len=50, minibatches=2, epochs=1)
     opt, rollout, update = ppo.make_fns(cfg, acfg, pcfg)
-    params = A.init_params(jax.random.PRNGKey(0), 10, acfg)
+    params = A.init_params(jax.random.PRNGKey(0), obs_dim(cfg.ecology.n_channels), acfg)
     from pavlov.ecology import generate_batch
     s = generate_batch(jax.random.PRNGKey(1), cfg.ecology, 8)
     es, h = init_env(8), jnp.zeros((8, 16))
     pre = jnp.zeros_like(s.food_onset)
     es, h, key, h0, traj, lv = rollout(params, es, h, s.cues, s.food_onset, s.params.flipped, pre,
                                        jax.random.PRNGKey(2))
-    assert traj["obs"].shape == (50, 8, 10) and int(es.t) == 50
+    assert traj["obs"].shape == (50, 8, obs_dim(cfg.ecology.n_channels)) and int(es.t) == 50
     params2, _, aux = update(params, opt.init(params), h0, traj, lv, jax.random.PRNGKey(3))
     assert np.isfinite(float(aux["pg"]))

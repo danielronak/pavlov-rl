@@ -72,14 +72,26 @@ def main():
         "G3 cue_oracle>any_cue": paired("cue_oracle", "any_cue"),
         "G4 reflex>always": paired("reflex", "always"),
         "G5 pred_cue_on>reflex": paired("pred_cue_on", "reflex"),
+        "G8 pred_cue_on>any_cue": paired("pred_cue_on", "any_cue"),
     }
     print("\nGate checks (mean diff, 95% CI):")
     ok_all = True
     for name, (m, lo, hi) in checks.items():
         need_margin = name.startswith(("G2", "G3", "G5"))
-        ok = lo > 0 and (not need_margin or m >= 0.10 * gap)
+        margin = 0.25 if name.startswith("G8") else 0.10
+        ok = lo > 0 and ((not need_margin and not name.startswith("G8")) or m >= margin * gap)
         ok_all &= ok
         print(f"  {name:<24} {m:+8.2f}  [{lo:+.2f}, {hi:+.2f}]  {'PASS' if ok else 'FAIL'}")
+    cues = np.asarray(sched.cues)
+    n_on = cues.sum(-1)
+    overlap = float(n_on[n_on > 0].mean())
+    pairings = float(np.asarray(sched.expected_us).sum(-1).mean())
+    g6, g7 = overlap <= 1.05, pairings >= 30
+    print(f"  G6 overlap (mean #cues on | any on) = {overlap:.3f} (<= 1.05)  {'PASS' if g6 else 'FAIL'}")
+    print(f"  G7 predictive-cue onsets/lifetime = {pairings:.1f} (>= 30)  {'PASS' if g7 else 'FAIL'}")
+    ok_all = ok_all and g6 and g7
+    checks["G6 overlap"] = overlap
+    checks["G7 pairings"] = pairings
     print(f"\nGATE: {'PASS' if ok_all else 'FAIL'}")
     if args.out:
         with open(args.out, "w") as f:

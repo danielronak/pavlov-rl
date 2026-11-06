@@ -128,3 +128,14 @@ def test_cue_types_statistically_identical_except_food():
     assert ks_2samp(n_pred, n_dist).pvalue > 1e-3
     assert ks_2samp(d_pred, d_dist).pvalue > 1e-3
     assert abs(np.mean(n_pred) / np.mean(n_dist) - 1) < 0.05
+
+
+def test_exclusive_events_one_stimulus_at_a_time():
+    """A3: in the primary ecology at most one cue is on at any tick, and channels are used uniformly."""
+    cfg = EcologyConfig()
+    assert cfg.exclusive_events
+    b = generate_batch(jax.random.PRNGKey(5), cfg, 100)
+    cues = np.asarray(b.cues)
+    assert cues.sum(-1).max() == 1
+    onsets = (cues[:, 1:] & ~cues[:, :-1]).sum((0, 1))
+    assert onsets.min() > 0.8 * onsets.mean()

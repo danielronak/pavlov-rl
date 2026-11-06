@@ -76,11 +76,12 @@ Things that are **not** violations but must be stated openly in the paper:
 ## 3. System overview
 
 ```
-Ecology generator (per lifetime)            Physiology
-  cues: N_c binary channels                   saliva S_{t+1} = S_t + k_up·u_t·(1−S_t) − k_down·S_t
+Ecology generator (per lifetime; A3 primary  Physiology
+  ecology: N_c=4, delay cues only, one         saliva S_{t+1} = S_t + k_up·u_t·(1−S_t) − k_down·S_t
+  stimulus at a time, event rate U(1/40,1/20))
   predictive cue(s): random channel,          food in mouth for D ticks after US
     ISI, contingency, delay/trace             energy_t = (E/D)·[b0 + (1−b0)·S_t] while food in mouth
-  distractor cues, unsignalled food           r_t = energy_t − c·u_t
+  distractor cues, unsignalled food           r_t = energy_t − c·u_t   (c = 0.01, A1)
   S-O variability q, R-O variability v,
   contingency hazard h, reversion ρ
 

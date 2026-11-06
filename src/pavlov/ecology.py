@@ -25,6 +25,7 @@ class LifetimeParams(NamedTuple):
     food_rate: jnp.ndarray   # scalar unsignalled-food rate
     flipped: jnp.ndarray     # scalar bool: saliva hurts digestion this lifetime (R-O arm)
     resampled: jnp.ndarray   # scalar bool: cue->channel mapping was resampled (S-O arm)
+    event_rate: jnp.ndarray  # scalar world-level stimulus rate (exclusive_events mode)
 
 
 class Schedule(NamedTuple):
@@ -37,7 +38,7 @@ class Schedule(NamedTuple):
 
 def sample_params(key, cfg: EcologyConfig) -> LifetimeParams:
     n = cfg.n_channels
-    ks = jax.random.split(key, 12)
+    ks = jax.random.split(key, 13)
     two = jax.random.uniform(ks[0]) < cfg.p_two_predictive
     idx = jnp.arange(n)
     is_pred = (idx == 0) | ((idx == 1) & two)
@@ -56,7 +57,9 @@ def sample_params(key, cfg: EcologyConfig) -> LifetimeParams:
     perm = jnp.where(resampled, jax.random.permutation(ks[9], n), idx)
     flipped = jax.random.uniform(ks[10]) < cfg.v_ro_variability
     food_rate = jax.random.uniform(ks[11], minval=0.0, maxval=cfg.unsignalled_food_max)
-    return LifetimeParams(perm, is_pred, rate, dur, isi, trace, p0, food_rate, flipped, resampled)
+    event_rate = jax.random.uniform(ks[12], minval=cfg.event_rate_min, maxval=cfg.event_rate_max)
+    return LifetimeParams(perm, is_pred, rate, dur, isi, trace, p0, food_rate, flipped, resampled,
+                          event_rate)
 
 
 def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
@@ -67,7 +70,7 @@ def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
 
     def tick(carry, k):
         timer, countdown, pending, active, p_cur = carry
-        k1, k2, k3, k4, k5, k6 = jax.random.split(k, 6)
+        k1, k2, k3, k4, k5, k6, k7 = jax.random.split(k, 7)
         # non-stationarity: predictive cues toggle between active and silent
         toggle = P.is_pred & (jax.random.uniform(k1, (n,)) < cfg.hazard)
         reactivate = toggle & ~active
@@ -78,7 +81,14 @@ def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
         # cue onsets: every channel waits until its previous "trial" window (isi) has elapsed,
         # predictive or not, so refractory structure is identical across cue types
         idle = (timer == 0) & (pending < 0)
-        onset = idle & (jax.random.uniform(k4, (n,)) < P.rate)
+        if cfg.exclusive_events:
+            # one stimulus at a time: a world-level event presents ONE uniformly chosen channel,
+            # and only when every channel is idle (identical statistics across channels, I3)
+            start = jnp.all(idle) & (jax.random.uniform(k4) < P.event_rate)
+            ch = jax.random.randint(k7, (), 0, n)
+            onset = start & (jnp.arange(n) == ch)
+        else:
+            onset = idle & (jax.random.uniform(k4, (n,)) < P.rate)
         timer = jnp.where(onset, P.dur, timer)
         on = timer > 0
         # US scheduling

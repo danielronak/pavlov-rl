@@ -15,6 +15,12 @@ Target venues, in order of fit:
 
 ### Training ecology ("the wild")
 
+> **Current primary ecology = amendment A3** (see `docs/DECISIONS.md`): 4 channels, delay cues
+> only, one stimulus at a time, world event rate U(1/40, 1/20), metabolic cost 0.01 (A1). The
+> table below is the original draft; where it conflicts, A3/A1 and `src/pavlov/config.py` win.
+> Trace conditioning, compound cues (blocking, overshadowing) and overlapping stimuli are now
+> out-of-sample lab tests.
+
 Each lifetime lasts T ticks (default 3000; must be ≥ the longest lab protocol).
 
 | Element | Default (to be fixed in Phase 1 by oracle-gap analysis, not lab results) |
