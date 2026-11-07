@@ -64,6 +64,12 @@ def prophet(s: Schedule, cfg: PhysiologyConfig, k: int = 4):
     return _lead_window(s.food_onset, k) | reflex(s, cfg)
 
 
+def ro_aware(actions, s: Schedule):
+    """R-O-aware version of any oracle: in lifetimes where saliva hurts digestion (flipped), never
+    salivate. Used for the instrumental-ecology arm (v > 0) only."""
+    return actions & ~s.params.flipped[:, None]
+
+
 ORACLES = {
     "never": never,
     "always": always,

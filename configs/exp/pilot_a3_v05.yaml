@@ -1,0 +1,5 @@
+# Instrumental-arm pilot: A3 ecology with R-O variability v = 0.5. Seeds 100-199 only.
+physiology: {}
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.5

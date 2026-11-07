@@ -20,7 +20,7 @@ from pavlov import agent as A
 from pavlov.config import Config, EcologyConfig, PhysiologyConfig
 from pavlov.ecology import generate_batch
 from pavlov.rollout import run_lifetimes
-from pavlov.oracles import ORACLES, _lead_window, cue_oracle
+from pavlov.oracles import ORACLES, _lead_window, cue_oracle, ro_aware
 from pavlov.physiology import run_open_loop
 
 EVAL_KEY = 987654  # held-out schedule key, never used for training
@@ -57,13 +57,19 @@ def main():
     sc = {k: oracle_returns(sched, cue_oracle(sched, pc, k), pc) for k in range(1, 11)}
     kb = max(sc, key=lambda k: sc[k].mean())
     res["cue_oracle"] = sc[kb]
+    lo_key, hi_key = "reflex", "cue_oracle"
+    if cfg.ecology.v_ro_variability > 0:  # instrumental arm: gate against R-O-aware oracles (DECISIONS 2026-11-07)
+        res["reflex_aware"] = oracle_returns(sched, ro_aware(ORACLES["reflex"](sched, pc), sched), pc)
+        sa = {k: oracle_returns(sched, ro_aware(cue_oracle(sched, pc, k), sched), pc) for k in range(1, 11)}
+        res["cue_oracle_aware"] = sa[max(sa, key=lambda k: sa[k].mean())]
+        lo_key, hi_key = "reflex_aware", "cue_oracle_aware"
 
     for name, r in sorted(res.items(), key=lambda kv: -kv[1].mean()):
         print(f"  {name:<12}{r.mean():8.2f}")
-    gap = res["cue_oracle"] - res["reflex"]
-    frac = (res["agent"] - res["reflex"]) / gap.mean()
+    gap = res[hi_key] - res[lo_key]
+    frac = (res["agent"] - res[lo_key]) / gap.mean()
     se = frac.std(ddof=1) / np.sqrt(len(frac))
-    print(f"  fraction of reflex->cue_oracle gap closed: {frac.mean():+.2f} [{frac.mean()-1.96*se:+.2f}, {frac.mean()+1.96*se:+.2f}]")
+    print(f"  fraction of {lo_key}->{hi_key} gap closed: {frac.mean():+.2f} [{frac.mean()-1.96*se:+.2f}, {frac.mean()+1.96*se:+.2f}]")
     pre = np.asarray(_lead_window(sched.expected_us, 2))
     print(f"  [diagnostic] p(saliva) pre-expected-US={p[pre].mean():.3f}  elsewhere={p[~pre].mean():.3f}")
     ok = frac.mean() >= 0.5

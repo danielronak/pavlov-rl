@@ -20,7 +20,7 @@ import numpy as np
 
 from pavlov.config import Config, load_config
 from pavlov.ecology import generate_batch
-from pavlov.oracles import ORACLES, cue_oracle, prophet
+from pavlov.oracles import ORACLES, cue_oracle, prophet, ro_aware
 from pavlov.physiology import run_open_loop
 
 
@@ -53,6 +53,13 @@ def main():
         rets[name] = scores[kbest]
         best[name] = kbest
 
+    if cfg.ecology.v_ro_variability > 0:
+        rets["reflex_aware"] = lifetime_returns(sched, ro_aware(ORACLES["reflex"](sched, pc), sched), cfg)
+        sc = {k: lifetime_returns(sched, ro_aware(cue_oracle(sched, pc, k), sched), cfg) for k in range(1, 9)}
+        ka = max(sc, key=lambda k: sc[k].mean())
+        rets["cue_oracle_aware"] = sc[ka]
+        best["cue_oracle_aware"] = ka
+
     n_food = float(np.asarray(sched.food_onset).sum(-1).mean())
     print(f"lifetime={cfg.ecology.lifetime}  lifetimes={args.n}  mean food events/lifetime={n_food:.1f}")
     print(f"best lead k: {best}")
@@ -82,6 +89,13 @@ def main():
         ok = lo > 0 and ((not need_margin and not name.startswith("G8")) or m >= margin * gap)
         ok_all &= ok
         print(f"  {name:<24} {m:+8.2f}  [{lo:+.2f}, {hi:+.2f}]  {'PASS' if ok else 'FAIL'}")
+    if cfg.ecology.v_ro_variability > 0:
+        agap = rets["cue_oracle_aware"].mean() - rets["reflex_aware"].mean()
+        m, lo, hi = paired("cue_oracle_aware", "cue_oracle")
+        g9 = lo > 0 and m >= 0.10 * agap
+        print(f"  {'G9 R-O knowledge pays':<24} {m:+8.2f}  [{lo:+.2f}, {hi:+.2f}]  (aware gap {agap:.2f})  {'PASS' if g9 else 'FAIL'}")
+        checks["G9 cue_oracle_aware>cue_oracle"] = (m, lo, hi)
+        ok_all = ok_all and g9
     cues = np.asarray(sched.cues)
     n_on = cues.sum(-1)
     overlap = float(n_on[n_on > 0].mean())

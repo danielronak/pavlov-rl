@@ -1,0 +1,90 @@
+{
+  "config": {
+    "physiology": {
+      "k_up": 0.35,
+      "k_down": 0.15,
+      "food_ticks": 3,
+      "energy": 1.0,
+      "b0": 0.3,
+      "cost": 0.01
+    },
+    "ecology": {
+      "lifetime": 3000,
+      "n_channels": 4,
+      "p_two_predictive": 0.5,
+      "isi_min": 3,
+      "isi_max": 12,
+      "p_trace": 0.0,
+      "trace_gap_min": 1,
+      "trace_gap_max": 4,
+      "contingency_min": 0.5,
+      "contingency_max": 1.0,
+      "exclusive_events": true,
+      "event_rate_min": 0.025,
+      "event_rate_max": 0.05,
+      "cue_rate_min": 0.016666666666666666,
+      "cue_rate_max": 0.04,
+      "unsignalled_food_max": 0.005,
+      "q_so_variability": 1.0,
+      "v_ro_variability": 0.5,
+      "hazard": 0.0006666666666666666,
+      "reversion": 0.5
+    }
+  },
+  "means": {
+    "never": 14.947005271911621,
+    "always": -15.598928451538086,
+    "reflex": 14.021549224853516,
+    "any_cue": 6.609913349151611,
+    "pred_cue_on": 11.257591247558594,
+    "cue_oracle": 13.606375694274902,
+    "prophet": 13.651463508605957,
+    "reflex_aware": 16.929443359375,
+    "cue_oracle_aware": 18.228076934814453
+  },
+  "best_k": {
+    "cue_oracle": 1,
+    "prophet": 1,
+    "cue_oracle_aware": 3
+  },
+  "checks": {
+    "G1 reflex>never": [
+      -0.9254556894302368,
+      -1.3917080384078437,
+      -0.45920334045262984
+    ],
+    "G2 cue_oracle>reflex": [
+      -0.4151739180088043,
+      -0.6282299642771875,
+      -0.20211787174042117
+    ],
+    "G3 cue_oracle>any_cue": [
+      6.996462345123291,
+      6.710404258005146,
+      7.282520432241436
+    ],
+    "G4 reflex>always": [
+      29.620479583740234,
+      29.0412471585846,
+      30.19971200889587
+    ],
+    "G5 pred_cue_on>reflex": [
+      -2.763957977294922,
+      -3.2091644964017387,
+      -2.318751458188105
+    ],
+    "G8 pred_cue_on>any_cue": [
+      4.647677898406982,
+      4.49830741367918,
+      4.7970483831347845
+    ],
+    "G9 cue_oracle_aware>cue_oracle": [
+      4.621700286865234,
+      4.233464789897322,
+      5.009935783833146
+    ],
+    "G6 overlap": 1.0,
+    "G7 pairings": 32.259765625
+  },
+  "pass": false
+}
