@@ -4,3 +4,5 @@ __pycache__/
 *.pyc
 .pytest_cache/
 results/**/lab/*.npz
+results/gpu_smoke/
+results/gpu_smoke.log
