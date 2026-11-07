@@ -1,0 +1,15 @@
+{
+  "agent": 7.140625,
+  "never": 7.140625,
+  "reflex": 8.188426971435547,
+  "pred_cue_on": 7.085058212280273,
+  "any_cue": 2.8057198524475098,
+  "cue_oracle": 8.703009605407715,
+  "reflex_aware": 9.54340934753418,
+  "cue_oracle_aware": 11.189651489257812,
+  "gap_fraction": -1.4595574140548706,
+  "gate_pass": false,
+  "ckpt": "params_00500.pkl",
+  "diag_p_pre": 7.203304335234861e-07,
+  "diag_p_other": 3.90109818226847e-07
+}
