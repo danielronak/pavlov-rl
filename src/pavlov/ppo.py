@@ -43,6 +43,8 @@ class PPOConfig:
 
 def make_fns(cfg: Config, acfg: A.AgentConfig, pcfg: PPOConfig):
     pc = cfg.physiology
+    assert cfg.ecology.ro_family != "partial_omission" or cfg.ecology.v_ro_variability == 0, \
+        "PPO rollout does not implement the declared R-O gate; use ES"
     T = cfg.ecology.lifetime
     L = pcfg.seg_len
     assert T % L == 0, "seg_len must divide lifetime"

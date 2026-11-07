@@ -26,6 +26,7 @@ class LifetimeParams(NamedTuple):
     flipped: jnp.ndarray     # scalar bool: saliva hurts digestion this lifetime (R-O arm)
     resampled: jnp.ndarray   # scalar bool: cue->channel mapping was resampled (S-O arm)
     event_rate: jnp.ndarray  # scalar world-level stimulus rate (exclusive_events mode)
+    gated: jnp.ndarray       # scalar bool: declared R-O gate active this lifetime (ro_family partial_omission)
 
 
 class Schedule(NamedTuple):
@@ -34,6 +35,11 @@ class Schedule(NamedTuple):
     expected_us: jnp.ndarray  # [T] bool: tick a predictive-cue onset predicts a US (analysis/oracles only)
     pred_on: jnp.ndarray      # [T] bool: some predictive cue is on (analysis/oracles only)
     params: LifetimeParams
+    pred_window: jnp.ndarray  # [T] bool: a predictive cue's response window (CS onset .. tick before US)
+    window_start: jnp.ndarray # [T] bool: first tick of a predictive window
+    us_pred: jnp.ndarray      # [T] bool: planned US caused by a predictive cue
+    food_free: jnp.ndarray    # [T] bool: unsignalled food (never gated)
+    gate_draw: jnp.ndarray    # [T] float: pre-drawn uniform used by the declared gate
 
 
 def sample_params(key, cfg: EcologyConfig) -> LifetimeParams:
@@ -55,11 +61,17 @@ def sample_params(key, cfg: EcologyConfig) -> LifetimeParams:
 
     resampled = jax.random.uniform(ks[8]) < cfg.q_so_variability
     perm = jnp.where(resampled, jax.random.permutation(ks[9], n), idx)
-    flipped = jax.random.uniform(ks[10]) < cfg.v_ro_variability
+    altered = jax.random.uniform(ks[10]) < cfg.v_ro_variability
+    if cfg.ro_family == "digestion_flip":
+        flipped, gated = altered, jnp.bool_(False)
+    elif cfg.ro_family == "partial_omission":
+        flipped, gated = jnp.bool_(False), altered
+    else:
+        raise ValueError(cfg.ro_family)
     food_rate = jax.random.uniform(ks[11], minval=0.0, maxval=cfg.unsignalled_food_max)
     event_rate = jax.random.uniform(ks[12], minval=cfg.event_rate_min, maxval=cfg.event_rate_max)
     return LifetimeParams(perm, is_pred, rate, dur, isi, trace, p0, food_rate, flipped, resampled,
-                          event_rate)
+                          event_rate, gated)
 
 
 def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
@@ -97,20 +109,27 @@ def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
         pending = jnp.where(onset, P.isi, pending)
         us = jnp.any(countdown == 0)
         exp_us = jnp.any((pending == 0) & P.is_pred)
-        food = us | (jax.random.uniform(k6) < P.food_rate)
+        window = jnp.any((pending > 0) & P.is_pred)
+        free = jax.random.uniform(k6) < P.food_rate
+        food = us | free
         # advance timers
         timer = jnp.maximum(timer - 1, 0)
         countdown = jnp.where(countdown > 0, countdown - 1, -1)
         pending = jnp.where(pending > 0, pending - 1, -1)
-        out = (on, food, exp_us, jnp.any(on & P.is_pred))
+        out = (on, food, exp_us, jnp.any(on & P.is_pred), window, us, free)
         return (timer, countdown, pending, active, p_cur), out
 
     init = (jnp.zeros(n, jnp.int32), neg, neg, jnp.ones(n, bool), P.p0)
-    _, (on_logical, food, exp_us, pred_on) = jax.lax.scan(
+    _, (on_logical, food, exp_us, pred_on, window, us, free) = jax.lax.scan(
         tick, init, jax.random.split(ks, cfg.lifetime)
     )
     cues = jnp.zeros_like(on_logical).at[:, P.perm].set(on_logical)
-    return Schedule(cues=cues, food_onset=food, expected_us=exp_us, pred_on=pred_on, params=P)
+    start = window & ~jnp.concatenate([jnp.zeros(1, bool), window[:-1]])
+    # separate key stream so existing schedules stay bit-identical
+    gate_draw = jax.random.uniform(jax.random.fold_in(key, 7919), (cfg.lifetime,))
+    return Schedule(cues=cues, food_onset=food, expected_us=exp_us, pred_on=pred_on, params=P,
+                    pred_window=window, window_start=start, us_pred=us, food_free=free,
+                    gate_draw=gate_draw)
 
 
 def generate_batch(key, cfg: EcologyConfig, n: int) -> Schedule:

@@ -19,8 +19,8 @@ import numpy as np
 from pavlov import agent as A
 from pavlov.config import Config, EcologyConfig, PhysiologyConfig
 from pavlov.ecology import generate_batch
-from pavlov.rollout import run_lifetimes
-from pavlov.oracles import ORACLES, _lead_window, cue_oracle, ro_aware
+from pavlov.rollout import fixed_action_returns, run_lifetimes, run_schedule
+from pavlov.oracles import ORACLES, _lead_window, cue_oracle, gate_aware, ro_aware
 from pavlov.physiology import run_open_loop
 
 EVAL_KEY = 987654  # held-out schedule key, never used for training
@@ -31,7 +31,7 @@ def run_agent(params, sched, cfg: Config, hidden, key):
     return np.asarray(r), np.asarray(p)
 
 
-def oracle_returns(sched, actions, pc):
+def _open_loop_returns(sched, actions, pc):
     f = jax.vmap(lambda fo, a, fl: run_open_loop(fo, a, fl, pc)["reward"].sum())
     return np.asarray(f(sched.food_onset, actions, sched.params.flipped))
 
@@ -50,7 +50,15 @@ def main():
     sched = generate_batch(jax.random.PRNGKey(EVAL_KEY), cfg.ecology, args.n)
     pc = cfg.physiology
 
-    agent_r, p = run_agent(params, sched, cfg, hidden, jax.random.PRNGKey(1))
+    if cfg.ecology.ro_family == "partial_omission":
+        r_, p_ = run_schedule(params, sched, cfg, hidden, jax.random.PRNGKey(1))
+        agent_r, p = np.asarray(r_), np.asarray(p_)
+        oracle_returns = lambda sch, act, pc_: np.asarray(fixed_action_returns(sch, act, cfg))  # noqa: E731
+        aware = gate_aware
+    else:
+        agent_r, p = run_agent(params, sched, cfg, hidden, jax.random.PRNGKey(1))
+        oracle_returns = _open_loop_returns
+        aware = ro_aware
     res = {"agent": agent_r}
     for name in ("never", "reflex", "pred_cue_on", "any_cue"):
         res[name] = oracle_returns(sched, ORACLES[name](sched, pc), pc)
@@ -59,8 +67,8 @@ def main():
     res["cue_oracle"] = sc[kb]
     lo_key, hi_key = "reflex", "cue_oracle"
     if cfg.ecology.v_ro_variability > 0:  # instrumental arm: gate against R-O-aware oracles (DECISIONS 2026-11-07)
-        res["reflex_aware"] = oracle_returns(sched, ro_aware(ORACLES["reflex"](sched, pc), sched), pc)
-        sa = {k: oracle_returns(sched, ro_aware(cue_oracle(sched, pc, k), sched), pc) for k in range(1, 11)}
+        res["reflex_aware"] = oracle_returns(sched, aware(ORACLES["reflex"](sched, pc), sched), pc)
+        sa = {k: oracle_returns(sched, aware(cue_oracle(sched, pc, k), sched), pc) for k in range(1, 11)}
         res["cue_oracle_aware"] = sa[max(sa, key=lambda k: sa[k].mean())]
         lo_key, hi_key = "reflex_aware", "cue_oracle_aware"
 
@@ -82,3 +90,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+oracle_returns = _open_loop_returns  # backwards-compatible name for other scripts

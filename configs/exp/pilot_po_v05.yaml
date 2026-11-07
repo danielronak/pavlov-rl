@@ -1,0 +1,7 @@
+# Partial-omission R-O arm (DECISIONS 2026-11-07). Seeds 100-199 only.
+physiology: {}
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.5
+  ro_family: partial_omission
+  gate_factor: 0.5

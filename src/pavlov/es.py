@@ -23,7 +23,7 @@ from pavlov import agent as A
 from pavlov.config import Config
 from pavlov.ecology import generate_batch
 from pavlov.env import obs_dim
-from pavlov.rollout import run_lifetimes
+from pavlov.rollout import run_schedule
 
 
 @dataclass(frozen=True)
@@ -46,8 +46,7 @@ def make_generation(cfg: Config, acfg: A.AgentConfig, ecfg: ESConfig, unravel, o
 
     def fitness(flat, sched, key):
         params = unravel(flat)
-        ret, _ = run_lifetimes(params, sched.cues, sched.food_onset, sched.params.flipped, cfg,
-                               acfg.hidden, key)
+        ret, _ = run_schedule(params, sched, cfg, acfg.hidden, key)
         return ret.mean()
 
     @jax.jit

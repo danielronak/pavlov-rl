@@ -42,7 +42,11 @@ class EcologyConfig:
     unsignalled_food_max: float = 0.005
     # Ecological knobs (the independent variables of the phase diagram)
     q_so_variability: float = 1.0   # prob cue->channel mapping is resampled this lifetime
-    v_ro_variability: float = 0.0   # prob saliva's digestion effect is flipped this lifetime
+    v_ro_variability: float = 0.0   # prob a lifetime has an altered response->outcome relation
+    # which R-O relation v alters: "digestion_flip" (saliva hurts digestion; A4) or
+    # "partial_omission" (salivating in a predictive cue's window scales its US prob by gate_factor)
+    ro_family: str = "digestion_flip"
+    gate_factor: float = 0.5
     hazard: float = 1 / 1500        # per-tick prob a predictive cue toggles active/silent
     reversion: float = 0.5          # rho: prob a reactivated cue reverts to its original contingency
 

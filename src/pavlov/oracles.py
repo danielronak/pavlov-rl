@@ -87,3 +87,18 @@ ORACLES = {
     "cue_oracle": cue_oracle,
     "prophet": prophet,
 }
+
+
+def gate_aware(actions, s: Schedule):
+    """Aware version for ro_family partial_omission: never salivate inside a predictive window in
+    gated lifetimes (salivating there halves the US); reflex and other ticks unchanged."""
+    return actions & ~(s.params.gated[:, None] & s.pred_window)
+
+
+def gate_probe_then_aware(s: Schedule, cfg: PhysiologyConfig, k: int = 4, n_probe: int = 2):
+    """Learnability oracle for partial_omission: behave blind (anticipate inside the window) for the
+    first n_probe predictive windows of every lifetime, then gate-aware."""
+    nth = jnp.cumsum(s.window_start, -1)
+    blind = cue_oracle(s, cfg, k)
+    probing = nth <= n_probe
+    return jnp.where(probing, blind, gate_aware(blind, s))
