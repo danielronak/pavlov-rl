@@ -1,0 +1,97 @@
+{
+  "config": {
+    "physiology": {
+      "k_up": 0.35,
+      "k_down": 0.15,
+      "food_ticks": 3,
+      "energy": 1.0,
+      "b0": 0.3,
+      "cost": 0.01,
+      "flip_family": "matched_baseline"
+    },
+    "ecology": {
+      "lifetime": 3000,
+      "n_channels": 4,
+      "p_two_predictive": 0.5,
+      "isi_min": 3,
+      "isi_max": 12,
+      "p_trace": 0.0,
+      "trace_gap_min": 1,
+      "trace_gap_max": 4,
+      "contingency_min": 0.5,
+      "contingency_max": 1.0,
+      "exclusive_events": true,
+      "event_rate_min": 0.025,
+      "event_rate_max": 0.05,
+      "cue_rate_min": 0.016666666666666666,
+      "cue_rate_max": 0.04,
+      "unsignalled_food_max": 0.005,
+      "q_so_variability": 1.0,
+      "v_ro_variability": 0.5,
+      "hazard": 0.0006666666666666666,
+      "reversion": 0.5
+    }
+  },
+  "means": {
+    "never": 6.71835994720459,
+    "always": -20.536745071411133,
+    "reflex": 7.2530412673950195,
+    "any_cue": 1.2547110319137573,
+    "pred_cue_on": 5.756119728088379,
+    "cue_oracle": 7.469305515289307,
+    "prophet": 7.971045970916748,
+    "reflex_aware": 8.700799942016602,
+    "cue_oracle_aware": 9.999429702758789,
+    "probe_then_aware": 9.869572639465332
+  },
+  "best_k": {
+    "cue_oracle": 1,
+    "prophet": 2,
+    "cue_oracle_aware": 3
+  },
+  "checks": {
+    "G1 reflex>never": [
+      0.5346813201904297,
+      0.20124260745792077,
+      0.8681200329229386
+    ],
+    "G2 cue_oracle>reflex": [
+      0.21626432240009308,
+      0.06278465607679948,
+      0.36974398872338665
+    ],
+    "G3 cue_oracle>any_cue": [
+      6.21459436416626,
+      5.9903851465762825,
+      6.438803581756237
+    ],
+    "G4 reflex>always": [
+      27.78978729248047,
+      27.366317080733666,
+      28.213257504227272
+    ],
+    "G5 pred_cue_on>reflex": [
+      -1.4969210624694824,
+      -1.819218045063894,
+      -1.174624079875071
+    ],
+    "G8 pred_cue_on>any_cue": [
+      4.501408576965332,
+      4.360750863249654,
+      4.64206629068101
+    ],
+    "G9 cue_oracle_aware>cue_oracle": [
+      2.530125141143799,
+      2.348848510282414,
+      2.7114017720051837
+    ],
+    "G10 probe_then_aware>never": [
+      3.151212692260742,
+      2.766741385967178,
+      3.5356839985543065
+    ],
+    "G6 overlap": 1.0,
+    "G7 pairings": 32.259765625
+  },
+  "pass": false
+}

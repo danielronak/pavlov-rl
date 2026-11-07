@@ -1,0 +1,6 @@
+# Instrumental-arm pilot after A4 (baseline-matched R-O family), v = 0.5. Seeds 100-199 only.
+physiology:
+  flip_family: matched_baseline
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.5

@@ -70,6 +70,14 @@ def ro_aware(actions, s: Schedule):
     return actions & ~s.params.flipped[:, None]
 
 
+def probe_then_aware(s: Schedule, cfg: PhysiologyConfig, k: int = 4, n_probe: int = 2):
+    """Learnability oracle (G10): reflex-salivate during the first n_probe meals of every lifetime
+    (the only way to discover the lifetime type under A4), then behave R-O-aware."""
+    nth = jnp.cumsum(s.food_onset, -1)
+    probe = food_present(s.food_onset, cfg.food_ticks) & (nth <= n_probe)
+    return ro_aware(cue_oracle(s, cfg, k), s) | probe
+
+
 ORACLES = {
     "never": never,
     "always": always,

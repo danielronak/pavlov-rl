@@ -16,6 +16,10 @@ class PhysiologyConfig:
     energy: float = 1.0     # E: total energy of one food item at perfect digestion
     b0: float = 0.3         # digestion efficiency with no saliva
     cost: float = 0.01      # c: metabolic cost per salivation tick (0.02 -> 0.01: amendment A1, see DECISIONS.md)
+    # R-O family for flipped lifetimes (v > 0 arms only). "matched_baseline" (A4): b0*(1-S), equal to
+    # the normal efficiency at S = 0, so only salivating reveals the lifetime type. "unmatched": the
+    # flawed pre-A4 family 1 - (1-b0)*S used by pilot runs 112/113.
+    flip_family: str = "matched_baseline"
 
 
 @dataclass(frozen=True)

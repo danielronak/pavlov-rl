@@ -20,7 +20,7 @@ import numpy as np
 
 from pavlov.config import Config, load_config
 from pavlov.ecology import generate_batch
-from pavlov.oracles import ORACLES, cue_oracle, prophet, ro_aware
+from pavlov.oracles import ORACLES, cue_oracle, probe_then_aware, prophet, ro_aware
 from pavlov.physiology import run_open_loop
 
 
@@ -59,6 +59,7 @@ def main():
         ka = max(sc, key=lambda k: sc[k].mean())
         rets["cue_oracle_aware"] = sc[ka]
         best["cue_oracle_aware"] = ka
+        rets["probe_then_aware"] = lifetime_returns(sched, probe_then_aware(sched, pc, ka), cfg)
 
     n_food = float(np.asarray(sched.food_onset).sum(-1).mean())
     print(f"lifetime={cfg.ecology.lifetime}  lifetimes={args.n}  mean food events/lifetime={n_food:.1f}")
@@ -95,7 +96,11 @@ def main():
         g9 = lo > 0 and m >= 0.10 * agap
         print(f"  {'G9 R-O knowledge pays':<24} {m:+8.2f}  [{lo:+.2f}, {hi:+.2f}]  (aware gap {agap:.2f})  {'PASS' if g9 else 'FAIL'}")
         checks["G9 cue_oracle_aware>cue_oracle"] = (m, lo, hi)
-        ok_all = ok_all and g9
+        m10, lo10, hi10 = paired("probe_then_aware", "never")
+        g10 = lo10 > 0 and m10 >= 0.25 * agap
+        print(f"  {'G10 learnability':<24} {m10:+8.2f}  [{lo10:+.2f}, {hi10:+.2f}]  {'PASS' if g10 else 'FAIL'}")
+        checks["G10 probe_then_aware>never"] = (m10, lo10, hi10)
+        ok_all = ok_all and g9 and g10
     cues = np.asarray(sched.cues)
     n_on = cues.sum(-1)
     overlap = float(n_on[n_on > 0].mean())

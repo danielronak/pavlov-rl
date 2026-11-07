@@ -139,3 +139,13 @@ def test_exclusive_events_one_stimulus_at_a_time():
     assert cues.sum(-1).max() == 1
     onsets = (cues[:, 1:] & ~cues[:, :-1]).sum((0, 1))
     assert onsets.min() > 0.8 * onsets.mean()
+
+
+def test_a4_flip_family_matches_baseline():
+    """A4: with no saliva, flipped and normal lifetimes give identical energy, so the lifetime type
+    can only be discovered by salivating (genuine response-outcome learning)."""
+    from pavlov.physiology import efficiency
+    pc = PhysiologyConfig()
+    assert pc.flip_family == "matched_baseline"
+    assert np.isclose(float(efficiency(0.0, True, pc)), float(efficiency(0.0, False, pc)))
+    assert float(efficiency(0.5, True, pc)) < float(efficiency(0.0, True, pc)) < float(efficiency(0.5, False, pc))

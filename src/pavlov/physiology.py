@@ -24,9 +24,16 @@ def init_phys() -> PhysState:
 
 
 def efficiency(saliva, flipped, cfg: PhysiologyConfig):
-    """Digestion efficiency. Normal: saliva helps. Flipped (R-O variability arm): saliva hurts."""
+    """Digestion efficiency. Normal: saliva helps. Flipped (R-O variability arm): saliva hurts.
+    With flip_family "matched_baseline" (A4) both types give b0 at S = 0, so the lifetime type is
+    observable only through the consequences of salivating (genuine R-O learning)."""
     normal = cfg.b0 + (1.0 - cfg.b0) * saliva
-    hurt = 1.0 - (1.0 - cfg.b0) * saliva
+    if cfg.flip_family == "matched_baseline":
+        hurt = cfg.b0 * (1.0 - saliva)
+    elif cfg.flip_family == "unmatched":
+        hurt = 1.0 - (1.0 - cfg.b0) * saliva
+    else:
+        raise ValueError(cfg.flip_family)
     return jnp.where(flipped, hurt, normal)
 
 
