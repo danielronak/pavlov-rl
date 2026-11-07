@@ -1,0 +1,51 @@
+{
+  "config": {
+    "physiology": {
+      "k_up": 0.35,
+      "k_down": 0.15,
+      "food_ticks": 3,
+      "energy": 1.0,
+      "b0": 0.3,
+      "cost": 0.01,
+      "flip_family": "matched_baseline"
+    },
+    "ecology": {
+      "lifetime": 3000,
+      "n_channels": 4,
+      "p_two_predictive": 0.5,
+      "isi_min": 3,
+      "isi_max": 12,
+      "p_trace": 0.0,
+      "trace_gap_min": 1,
+      "trace_gap_max": 4,
+      "contingency_min": 0.5,
+      "contingency_max": 1.0,
+      "exclusive_events": true,
+      "event_rate_min": 0.025,
+      "event_rate_max": 0.05,
+      "cue_rate_min": 0.016666666666666666,
+      "cue_rate_max": 0.04,
+      "unsignalled_food_max": 0.005,
+      "q_so_variability": 1.0,
+      "v_ro_variability": 0.5,
+      "hazard": 0.0006666666666666666,
+      "reversion": 0.5
+    }
+  },
+  "agent": {
+    "hidden": 64,
+    "embed": 64
+  },
+  "es": {
+    "pop": 64,
+    "lifetimes": 8,
+    "sigma": 0.03,
+    "lr": 0.02,
+    "weight_decay": 0.005,
+    "generations": 2000
+  },
+  "seed": 117,
+  "outer_loop": "openai_es",
+  "init_from": "results/pilot_r4/109_es/checkpoints/params_04000.pkl",
+  "jax": "0.12.0.1"
+}
