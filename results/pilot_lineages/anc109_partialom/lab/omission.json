@@ -547,6 +547,6 @@
    ]
   }
  },
- "OSI": 0.0,
+ "OSI": NaN,
  "ckpt": "params_02000.pkl"
 }

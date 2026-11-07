@@ -94,8 +94,12 @@ def protocol_metrics(name: str, p: np.ndarray, food: np.ndarray, scheds: list[La
     return m
 
 
+MIN_YOKED_CR = 0.05  # below this there is no CR for omission to act on (DECISIONS 2026-11-07)
+
+
 def osi(cr_contingent: float, cr_yoked: float) -> float:
-    """Omission Sensitivity Index on subject-averaged CRs; NaN if the yoked CR is not positive."""
-    if not np.isfinite(cr_yoked) or cr_yoked <= 0:
+    """Omission Sensitivity Index on subject-averaged CRs; NaN (undefined) if the yoked CR is below
+    MIN_YOKED_CR, i.e. there is no conditioned response to test."""
+    if not np.isfinite(cr_yoked) or cr_yoked < MIN_YOKED_CR:
         return float("nan")
     return float(np.clip(1.0 - cr_contingent / cr_yoked, 0.0, 1.0))

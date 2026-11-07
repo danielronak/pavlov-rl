@@ -96,3 +96,11 @@ def test_yoked_partner_gets_identical_cues_and_food():
     res = experiment.run_protocol(lambda B: policies.oracle_policy("bell_reader", B), "omission", 4, 4, PC,
                                   jax.random.PRNGKey(0), return_raw=True)
     assert np.array_equal(res["raw"]["main"]["food"], res["raw"]["yoked"]["food"])
+
+
+def test_osi_undefined_without_a_cr():
+    import math
+    from pavlov.analysis.metrics import osi
+    assert math.isnan(osi(6.7e-7, 6.7e-7))
+    assert math.isnan(osi(0.0, 0.0))
+    assert osi(0.0, 0.5) == 1.0 and osi(0.5, 0.5) == 0.0
