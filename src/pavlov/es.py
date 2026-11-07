@@ -68,29 +68,57 @@ def make_generation(cfg: Config, acfg: A.AgentConfig, ecfg: ESConfig, unravel, o
     return generation
 
 
+def _atomic_pickle(obj, path):
+    tmp = path + ".tmp"
+    with open(tmp, "wb") as f:
+        pickle.dump(obj, f)
+    os.replace(tmp, path)
+
+
 def train_es(cfg: Config, acfg: A.AgentConfig, ecfg: ESConfig, seed: int, out_dir: str,
-             log_every: int = 10, ckpt_every: int = 100):
+             log_every: int = 10, ckpt_every: int = 100, init_from: str | None = None,
+             resume: bool = False):
+    """init_from: path to an ancestor's params pickle (common-ancestor design); the Adam state starts
+    fresh. resume: continue exactly (theta, Adam state, RNG key, generation) from
+    checkpoints/es_state.pkl written every `ckpt_every` generations."""
     os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, "config.json"), "w") as f:
-        json.dump({"config": cfg.to_dict(), "agent": asdict(acfg), "es": asdict(ecfg), "seed": seed,
-                   "outer_loop": "openai_es", "jax": jax.__version__}, f, indent=2)
+    ck = os.path.join(out_dir, "checkpoints")
+    os.makedirs(ck, exist_ok=True)
+    state_path = os.path.join(ck, "es_state.pkl")
+    if not (resume and os.path.exists(state_path)):
+        with open(os.path.join(out_dir, "config.json"), "w") as f:
+            json.dump({"config": cfg.to_dict(), "agent": asdict(acfg), "es": asdict(ecfg), "seed": seed,
+                       "outer_loop": "openai_es", "init_from": init_from, "jax": jax.__version__}, f, indent=2)
     key = jax.random.PRNGKey(seed)
     key, kp = jax.random.split(key)
     params = A.init_params(kp, obs_dim(cfg.ecology.n_channels), acfg)
     theta, unravel = ravel_pytree(params)
+    if init_from:
+        with open(init_from, "rb") as f:
+            anc = pickle.load(f)
+        theta_anc, _ = ravel_pytree(jax.tree.map(jnp.asarray, anc))
+        assert theta_anc.shape == theta.shape, "ancestor architecture mismatch"
+        theta = theta_anc
     opt = optax.adam(ecfg.lr)
     opt_state = opt.init(theta)
+    start_gen = 0
+    if resume and os.path.exists(state_path):
+        with open(state_path, "rb") as f:
+            st = pickle.load(f)
+        theta, key, start_gen = jnp.asarray(st["theta"]), jnp.asarray(st["key"]), st["gen"]
+        opt_state = jax.tree.map(jnp.asarray, st["opt_state"])
+        print(f"resumed at generation {start_gen}", flush=True)
     generation = make_generation(cfg, acfg, ecfg, unravel, opt)
     steps_per_gen = (ecfg.pop + 1) * ecfg.lifetimes * cfg.ecology.lifetime
     log_path = os.path.join(out_dir, "train_log.jsonl")
     t0 = time.time()
-    for gen in range(ecfg.generations):
+    for gen in range(start_gen, ecfg.generations):
         key, kg = jax.random.split(key)
         theta, opt_state, f_mean, f_center = generation(theta, opt_state, kg)
         if gen % log_every == 0 or gen == ecfg.generations - 1:
-            el = time.time() - t0
+            el = max(time.time() - t0, 1e-6)
             rec = {"generation": gen, "env_steps": (gen + 1) * steps_per_gen, "wall_s": round(el, 1),
-                   "steps_per_s": round((gen + 1) * steps_per_gen / el),
+                   "steps_per_s": round((gen + 1 - start_gen) * steps_per_gen / el),
                    "fitness_members": float(f_mean), "fitness_center": float(f_center),
                    "theta_norm": float(jnp.linalg.norm(theta))}
             with open(log_path, "a") as f:
@@ -99,10 +127,9 @@ def train_es(cfg: Config, acfg: A.AgentConfig, ecfg: ESConfig, seed: int, out_di
                   f"fit_center={rec['fitness_center']:.2f} |θ|={rec['theta_norm']:.1f} "
                   f"sps={rec['steps_per_s']}", flush=True)
         if (gen + 1) % ckpt_every == 0 or gen == ecfg.generations - 1:
-            ck = os.path.join(out_dir, "checkpoints")
-            os.makedirs(ck, exist_ok=True)
             p = jax.device_get(unravel(theta))
             for name in (f"params_{gen + 1:05d}.pkl", "params_latest.pkl"):
-                with open(os.path.join(ck, name), "wb") as f:
-                    pickle.dump(p, f)
+                _atomic_pickle(p, os.path.join(ck, name))
+            _atomic_pickle({"theta": np.asarray(theta), "opt_state": jax.device_get(opt_state),
+                            "key": np.asarray(key), "gen": gen + 1}, state_path)
     return unravel(theta)

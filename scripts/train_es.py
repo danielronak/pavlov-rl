@@ -21,6 +21,8 @@ if __name__ == "__main__":
     ap.add_argument("--pop", type=int, default=None)
     ap.add_argument("--lifetimes", type=int, default=None)
     ap.add_argument("--hidden", type=int, default=64)
+    ap.add_argument("--init-from", default=None, help="ancestor params pickle (common-ancestor design)")
+    ap.add_argument("--resume", action="store_true", help="continue exactly from checkpoints/es_state.pkl")
     args = ap.parse_args()
     check_seed(args.seed)
     cfg = load_config(args.config)
@@ -29,6 +31,8 @@ if __name__ == "__main__":
                             ("lifetimes", args.lifetimes)) if v is not None}
     e = ESConfig(**{**e.__dict__, **kw})
     os.makedirs(args.out, exist_ok=True)
-    h = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
-    open(os.path.join(args.out, "git_hash"), "w").write(h + "\n")
-    train_es(cfg, AgentConfig(hidden=args.hidden), e, args.seed, args.out)
+    if not args.resume:
+        h = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+        open(os.path.join(args.out, "git_hash"), "w").write(h + "\n")
+    train_es(cfg, AgentConfig(hidden=args.hidden), e, args.seed, args.out, init_from=args.init_from,
+             resume=args.resume)
