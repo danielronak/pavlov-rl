@@ -144,3 +144,8 @@ and is reported as such.
 About 200,000 ES generations in all: 20 × 4000 for ancestors and 60 × 2000 for sisters. On the
 4-core CPU this is roughly 1 day of wall time, with 4 parallel jobs and exact resume after
 interruptions.
+
+## Amendments
+
+- 2026-11-16 — Erratum, no change of content: the freeze date above should read 2026-11-16
+  (system clock), not 2026-11-17. The frozen content is commit b4d07cf.
