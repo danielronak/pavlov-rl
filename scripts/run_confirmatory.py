@@ -141,6 +141,11 @@ def main():
                 break
             if label in procs or (d is not None and running(d)):
                 continue
+            if d is not None:  # provenance: train_es.py skips git_hash under --resume
+                os.makedirs(d, exist_ok=True)
+                if not os.path.exists(os.path.join(d, "git_hash")):
+                    head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout
+                    open(os.path.join(d, "git_hash"), "w").write(head)
             name = label.replace(" ", "_").replace(".py", "")
             log = open(os.path.join(ROOT, f"{name}.log"), "a")
             procs[label] = (subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT), log)
