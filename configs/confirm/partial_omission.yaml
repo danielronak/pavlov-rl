@@ -1,0 +1,7 @@
+# Confirmatory PARTIAL-OMISSION sister lineage (declared response->US gate, v = 0.5, factor 0.5).
+physiology: {}
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.5
+  ro_family: partial_omission
+  gate_factor: 0.5

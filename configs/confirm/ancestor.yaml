@@ -1,0 +1,5 @@
+# Confirmatory ancestors (PREREGISTRATION.md, tag prereg-v1). Primary A3 ecology, v = 0.
+physiology: {}
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.0

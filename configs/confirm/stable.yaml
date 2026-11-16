@@ -1,0 +1,5 @@
+# Confirmatory STABLE sister lineage (same ecology as the ancestor, v = 0).
+physiology: {}
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.0

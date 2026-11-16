@@ -1,0 +1,6 @@
+# Confirmatory DIGESTION-VARIABLE sister lineage (amendment A4: baseline-matched digestion flip, v = 0.5).
+physiology:
+  flip_family: matched_baseline
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.5

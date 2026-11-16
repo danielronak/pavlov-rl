@@ -58,7 +58,7 @@ and confirmatory results produced under a violated invariant must be discarded.
 | I7 | **Experimenter blindness.** Lab schedulers (scripted or human) cannot read agent outputs. The only exception is a declared `Contingency` object (e.g. omission), which is logged. | `Scheduler` API exposes no agent state |
 | I8 | **Naive baseline is always measured.** CR to the bell *before* any pairing is reported for every protocol; pre-exposure and truly-random controls are always run. | `lab/protocols.py` |
 | I9 | **No tuning on target metrics.** Hyperparameters and ecology defaults are chosen only from (a) oracle-gap analysis of the physiology and (b) training return. Never from CR, omission or phenomena metrics. | `docs/DECISIONS.md` audit trail |
-| I10 | **Seed discipline.** Pilot/dev seeds = 100–199. Confirmatory seeds = 0–19, used only after `docs/PREREGISTRATION.md` is frozen (git tag `prereg-v1`). | `configs/` + `scripts/check_seeds.py` |
+| I10 | **Seed discipline.** Pilot/dev seeds = 100–199. Confirmatory seeds = 0–99 (ancestors 0–19, replacements 20–24, sister lineages 25–99; see the preregistration), used only after `docs/PREREGISTRATION.md` is frozen (git tag `prereg-v1`). | `configs/` + `scripts/check_seeds.py` |
 
 What counts as "spontaneous" in the paper:
 > The CR is spontaneous if it emerges from optimizing a physiology-only objective over an ecology
@@ -146,6 +146,8 @@ python scripts/oracle_table.py              # physiology sanity check: anticipat
 python scripts/train.py --config configs/exp/pilot.yaml --seed 100
 python scripts/run_lab.py --run results/pilot/100 --protocol pavlov_standard
 python scripts/check_seeds.py               # refuses confirmatory seeds before tag prereg-v1
+nohup .venv/bin/python scripts/run_confirmatory.py --jobs 4 >> results/confirm/driver.log 2>&1 &   # confirmatory pipeline (restart-safe)
+python scripts/analyze_confirmatory.py      # pre-registered analysis -> results/confirm/analysis.{json,md}
 ```
 
 ---

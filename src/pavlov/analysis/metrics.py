@@ -69,11 +69,13 @@ def protocol_metrics(name: str, p: np.ndarray, food: np.ndarray, scheds: list[La
         acq_p = block(crs, scheds, "acquisition", CS_PLUS, slice(-10, None))
         acq_m = block(crs, scheds, "acquisition", CS_MINUS, slice(-10, None))
         ext_end = block(crs, scheds, "extinction", CS_PLUS, slice(-5, None))
+        ext_start = block(crs, scheds, "extinction", CS_PLUS, slice(0, 5))
         rec_first = select(crs, scheds, "recovery", CS_PLUS, slice(0, 1))[:, 0]
         m.update({
             "acq_cs_plus_last10": summarize(acq_p),
             "acq_cs_minus_last10": summarize(acq_m),
             "acq_discrimination": summarize(acq_p - acq_m),
+            "ext_cs_plus_first5": summarize(ext_start),  # matched to the controls' 5 test trials
             "ext_cs_plus_last5": summarize(ext_end),
             "recovery_first": summarize(rec_first),
             "acq_curve_cs_plus": np.nanmean(select(crs, scheds, "acquisition", CS_PLUS), 0).tolist(),

@@ -22,3 +22,13 @@ contingency ∈ [0.5, 1], event rate U(1/40, 1/20), lifetime 3000 ticks).
 | Positive contingency | Salivation required for the US | OOD | never in training |
 | Yoked | Food replay of a partner | IN at the agent's level | the agent sees an ordinary food schedule |
 | Trace / compound / pre-exposure (Phase 9) | trace gaps, overlapping cues, long CS-alone runs | OOD | out-of-sample phenomena |
+
+## Sister lineages (confirmatory H2′, PREREGISTRATION.md)
+
+| Arm | Feature | Status | Note |
+|---|---|---|---|
+| Ancestor, stable sister | Omission / positive contingency | OOD (I6) | as above |
+| Digestion-variable sister | Salivation hurts digestion in half the lifetimes | IN for that arm | R-O relation about digestion, never about US delivery |
+| Digestion-variable sister | Omission (salivation cancels the US) | OOD (I6) | |
+| Partial-omission sister | Salivation in the CS window halves US probability in half the lifetimes | IN for that arm | declared `ro_gate.py` family (I2) |
+| Partial-omission sister | Full omission in the lab | NEAR-distribution | stronger and deterministic version of the training gate (DECISIONS 2026-11-07) |
