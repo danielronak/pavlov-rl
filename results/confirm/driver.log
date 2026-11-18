@@ -1,0 +1,673 @@
+15:40:41 started: train anc_00
+15:40:41 started: train anc_01
+15:40:41 started: train anc_02
+15:40:41 started: train anc_03
+15:42:48 started: train anc_04
+15:42:48 started: train anc_05
+15:42:48 started: train anc_06
+15:42:49 started: train anc_07
+20:15:02 started: train anc_00
+20:15:02 started: train anc_01
+20:15:02 started: train anc_02
+20:15:02 started: train anc_03
+22:02:02 finished (0): train anc_02
+22:02:02 started: post anc_02 eval_training.py
+22:02:32 finished (0): train anc_00
+22:02:32 finished (0): train anc_03
+22:02:32 finished (0): post anc_02 eval_training.py
+22:02:32 started: post anc_00 eval_training.py
+22:02:32 started: post anc_02 ro_learning_check.py
+22:02:32 started: train stable_02
+22:03:02 finished (0): train anc_01
+22:03:02 finished (0): post anc_00 eval_training.py
+22:03:02 finished (0): post anc_02 ro_learning_check.py
+22:03:02 started: post anc_00 ro_learning_check.py
+22:03:02 started: train stable_00
+22:03:02 started: train digestion_00
+22:03:32 finished (0): post anc_00 ro_learning_check.py
+22:03:32 started: post anc_00 run_lab.py
+22:04:02 finished (0): post anc_00 run_lab.py
+22:04:02 started: train partial_omission_00
+22:29:38 started: train stable_00
+22:29:38 started: train digestion_00
+22:29:38 started: train partial_omission_00
+22:29:38 started: post anc_01 eval_training.py
+22:30:38 finished (0): post anc_01 eval_training.py
+22:30:38 started: post anc_01 ro_learning_check.py
+22:31:08 finished (0): post anc_01 ro_learning_check.py
+22:31:08 started: post anc_01 run_lab.py
+22:31:38 finished (0): post anc_01 run_lab.py
+22:31:38 started: train stable_01
+23:22:39 finished (0): train stable_00
+23:22:39 finished (0): train digestion_00
+23:22:39 started: post stable_00 eval_training.py
+23:22:39 started: post digestion_00 eval_training.py
+23:23:09 finished (0): post stable_00 eval_training.py
+23:23:09 finished (0): post digestion_00 eval_training.py
+23:23:09 started: post stable_00 ro_learning_check.py
+23:23:09 started: post digestion_00 ro_learning_check.py
+23:23:39 finished (0): post stable_00 ro_learning_check.py
+23:23:39 finished (0): post digestion_00 ro_learning_check.py
+23:23:39 started: post stable_00 run_lab.py
+23:23:39 started: post digestion_00 run_lab.py
+23:24:09 finished (0): post stable_00 run_lab.py
+23:24:09 finished (0): post digestion_00 run_lab.py
+23:24:09 started: train digestion_01
+23:24:09 started: train partial_omission_01
+23:30:09 finished (0): train partial_omission_00
+23:30:09 started: post partial_omission_00 eval_training.py
+23:30:39 finished (0): post partial_omission_00 eval_training.py
+23:30:39 started: post partial_omission_00 ro_learning_check.py
+23:31:09 finished (0): post partial_omission_00 ro_learning_check.py
+23:31:09 started: post partial_omission_00 run_lab.py
+23:31:39 finished (0): post partial_omission_00 run_lab.py
+23:31:39 started: post anc_02 run_lab.py
+23:32:09 finished (0): post anc_02 run_lab.py
+23:32:09 started: train stable_02
+23:43:39 finished (0): train stable_01
+23:43:39 started: post stable_01 eval_training.py
+23:44:09 finished (0): post stable_01 eval_training.py
+23:44:09 started: post stable_01 ro_learning_check.py
+23:44:39 finished (0): post stable_01 ro_learning_check.py
+23:44:39 started: post stable_01 run_lab.py
+23:45:09 finished (0): post stable_01 run_lab.py
+23:45:09 started: train digestion_02
+00:21:09 finished (0): train stable_02
+00:21:09 started: post stable_02 eval_training.py
+00:21:39 finished (0): post stable_02 eval_training.py
+00:21:39 started: post stable_02 ro_learning_check.py
+00:22:09 finished (0): post stable_02 ro_learning_check.py
+00:22:09 started: post stable_02 run_lab.py
+00:22:39 finished (0): post stable_02 run_lab.py
+00:22:39 started: train partial_omission_02
+00:33:39 finished (0): train digestion_01
+00:33:39 started: post digestion_01 eval_training.py
+00:34:09 finished (0): post digestion_01 eval_training.py
+00:34:09 started: post digestion_01 ro_learning_check.py
+00:34:39 finished (0): post digestion_01 ro_learning_check.py
+00:34:39 started: post digestion_01 run_lab.py
+00:35:09 finished (0): post digestion_01 run_lab.py
+00:35:09 started: post anc_03 eval_training.py
+00:35:39 finished (0): post anc_03 eval_training.py
+00:35:39 started: post anc_03 ro_learning_check.py
+00:36:09 finished (0): post anc_03 ro_learning_check.py
+00:36:09 started: post anc_03 run_lab.py
+00:36:39 finished (0): post anc_03 run_lab.py
+00:36:39 started: train stable_03
+00:39:09 finished (0): train partial_omission_01
+00:39:09 started: post partial_omission_01 eval_training.py
+00:39:39 finished (0): post partial_omission_01 eval_training.py
+00:39:39 started: post partial_omission_01 ro_learning_check.py
+00:40:09 finished (0): post partial_omission_01 ro_learning_check.py
+00:40:09 started: post partial_omission_01 run_lab.py
+00:40:39 finished (0): post partial_omission_01 run_lab.py
+00:40:39 started: train digestion_03
+00:54:09 finished (0): train digestion_02
+00:54:09 started: post digestion_02 eval_training.py
+00:54:39 finished (0): post digestion_02 eval_training.py
+00:54:39 started: post digestion_02 ro_learning_check.py
+00:55:09 finished (0): post digestion_02 ro_learning_check.py
+00:55:09 started: post digestion_02 run_lab.py
+00:55:39 finished (0): post digestion_02 run_lab.py
+00:55:39 started: train partial_omission_03
+01:37:09 finished (0): train partial_omission_02
+01:37:09 started: post partial_omission_02 eval_training.py
+01:37:39 finished (0): post partial_omission_02 eval_training.py
+01:37:39 started: post partial_omission_02 ro_learning_check.py
+01:38:09 finished (0): post partial_omission_02 ro_learning_check.py
+01:38:09 started: post partial_omission_02 run_lab.py
+01:38:39 finished (0): post partial_omission_02 run_lab.py
+01:38:39 started: train anc_04
+01:45:09 finished (0): train stable_03
+01:45:09 started: post stable_03 eval_training.py
+01:45:39 finished (0): post stable_03 eval_training.py
+01:45:39 started: post stable_03 ro_learning_check.py
+01:46:09 finished (0): post stable_03 ro_learning_check.py
+01:46:09 started: post stable_03 run_lab.py
+01:46:39 finished (0): post stable_03 run_lab.py
+01:46:39 started: train anc_05
+01:47:55 started: train digestion_03
+01:47:55 started: train partial_omission_03
+01:47:55 started: train anc_04
+01:47:55 started: train anc_05
+01:52:25 finished (0): train digestion_03
+01:52:25 started: post digestion_03 eval_training.py
+01:52:55 finished (0): post digestion_03 eval_training.py
+01:52:55 started: post digestion_03 ro_learning_check.py
+01:53:25 finished (0): post digestion_03 ro_learning_check.py
+01:53:25 started: post digestion_03 run_lab.py
+01:53:55 finished (0): post digestion_03 run_lab.py
+01:53:55 started: train anc_06
+02:18:25 finished (0): train partial_omission_03
+02:18:25 started: post partial_omission_03 eval_training.py
+02:18:55 finished (0): post partial_omission_03 eval_training.py
+02:18:55 started: post partial_omission_03 ro_learning_check.py
+02:19:25 finished (0): post partial_omission_03 ro_learning_check.py
+02:19:25 started: post partial_omission_03 run_lab.py
+02:19:55 finished (0): post partial_omission_03 run_lab.py
+02:19:55 started: train anc_07
+03:24:25 finished (0): train anc_04
+03:24:25 started: post anc_04 eval_training.py
+03:24:55 finished (0): post anc_04 eval_training.py
+03:24:55 started: post anc_04 ro_learning_check.py
+03:25:25 finished (0): post anc_04 ro_learning_check.py
+03:25:25 started: post anc_04 run_lab.py
+03:25:55 finished (0): post anc_04 run_lab.py
+03:25:55 started: train stable_04
+03:31:55 finished (0): train anc_05
+03:31:55 started: train digestion_04
+03:42:25 finished (0): train anc_06
+03:42:25 started: train partial_omission_04
+04:04:25 finished (0): train anc_07
+04:04:25 started: post anc_05 eval_training.py
+04:04:55 finished (0): post anc_05 eval_training.py
+04:04:55 started: post anc_05 ro_learning_check.py
+04:05:25 finished (0): post anc_05 ro_learning_check.py
+04:05:25 started: post anc_05 run_lab.py
+04:05:55 finished (0): post anc_05 run_lab.py
+04:05:55 started: train stable_05
+04:46:55 finished (0): train stable_04
+04:46:55 started: post stable_04 eval_training.py
+04:47:25 finished (0): post stable_04 eval_training.py
+04:47:25 started: post stable_04 ro_learning_check.py
+04:47:55 finished (0): post stable_04 ro_learning_check.py
+04:47:55 started: post stable_04 run_lab.py
+04:48:25 finished (0): post stable_04 run_lab.py
+04:48:25 started: train digestion_05
+04:51:55 finished (0): train digestion_04
+04:51:55 started: post digestion_04 eval_training.py
+04:52:25 finished (0): post digestion_04 eval_training.py
+04:52:26 started: post digestion_04 ro_learning_check.py
+04:52:56 finished (0): post digestion_04 ro_learning_check.py
+04:52:56 started: post digestion_04 run_lab.py
+04:53:26 finished (0): post digestion_04 run_lab.py
+04:53:26 started: train partial_omission_05
+05:09:26 finished (0): train partial_omission_04
+05:09:26 started: post partial_omission_04 eval_training.py
+05:09:56 finished (0): post partial_omission_04 eval_training.py
+05:09:56 started: post partial_omission_04 ro_learning_check.py
+05:10:26 finished (0): post partial_omission_04 ro_learning_check.py
+05:10:26 started: post partial_omission_04 run_lab.py
+05:10:56 finished (0): post partial_omission_04 run_lab.py
+05:10:56 started: post anc_06 eval_training.py
+05:11:26 finished (0): post anc_06 eval_training.py
+05:11:26 started: post anc_06 ro_learning_check.py
+05:11:56 finished (0): post anc_06 ro_learning_check.py
+05:11:56 started: post anc_06 run_lab.py
+05:12:26 finished (0): post anc_06 run_lab.py
+05:12:26 started: train stable_06
+05:25:56 finished (0): train stable_05
+05:25:56 started: post stable_05 eval_training.py
+05:26:26 finished (0): post stable_05 eval_training.py
+05:26:26 started: post stable_05 ro_learning_check.py
+05:26:56 finished (0): post stable_05 ro_learning_check.py
+05:26:56 started: post stable_05 run_lab.py
+05:27:26 finished (0): post stable_05 run_lab.py
+05:27:26 started: train digestion_06
+06:08:26 finished (0): train digestion_05
+06:08:26 started: post digestion_05 eval_training.py
+06:08:56 finished (0): post digestion_05 eval_training.py
+06:08:56 started: post digestion_05 ro_learning_check.py
+06:09:26 finished (0): post digestion_05 ro_learning_check.py
+06:09:26 started: post digestion_05 run_lab.py
+06:09:56 finished (0): post digestion_05 run_lab.py
+06:09:56 started: train partial_omission_06
+06:18:56 finished (0): train partial_omission_05
+06:18:56 started: post partial_omission_05 eval_training.py
+06:19:26 finished (0): post partial_omission_05 eval_training.py
+06:19:26 started: post partial_omission_05 ro_learning_check.py
+06:19:56 finished (0): post partial_omission_05 ro_learning_check.py
+06:19:56 started: post partial_omission_05 run_lab.py
+06:20:26 finished (0): post partial_omission_05 run_lab.py
+06:20:26 started: post anc_07 eval_training.py
+06:20:56 finished (0): post anc_07 eval_training.py
+06:20:56 started: post anc_07 ro_learning_check.py
+06:21:26 finished (0): post anc_07 ro_learning_check.py
+06:21:26 started: post anc_07 run_lab.py
+06:21:56 finished (0): post anc_07 run_lab.py
+06:21:56 started: train stable_07
+06:31:56 finished (0): train stable_06
+06:31:56 started: post stable_06 eval_training.py
+06:32:26 finished (0): post stable_06 eval_training.py
+06:32:26 started: post stable_06 ro_learning_check.py
+06:32:56 finished (0): post stable_06 ro_learning_check.py
+06:32:56 started: post stable_06 run_lab.py
+06:33:26 finished (0): post stable_06 run_lab.py
+06:33:26 started: train digestion_07
+06:47:26 finished (0): train digestion_06
+06:47:26 started: post digestion_06 eval_training.py
+06:47:56 finished (0): post digestion_06 eval_training.py
+06:47:56 started: post digestion_06 ro_learning_check.py
+06:48:26 finished (0): post digestion_06 ro_learning_check.py
+06:48:26 started: post digestion_06 run_lab.py
+06:48:56 finished (0): post digestion_06 run_lab.py
+06:48:56 started: train partial_omission_07
+07:37:26 finished (0): train partial_omission_06
+07:37:26 started: post partial_omission_06 eval_training.py
+07:37:56 finished (0): post partial_omission_06 eval_training.py
+07:37:56 started: post partial_omission_06 ro_learning_check.py
+07:38:26 finished (0): post partial_omission_06 ro_learning_check.py
+07:38:26 started: post partial_omission_06 run_lab.py
+07:38:56 finished (0): post partial_omission_06 run_lab.py
+07:38:56 started: train anc_08
+07:43:56 finished (0): train stable_07
+07:43:56 started: post stable_07 eval_training.py
+07:44:26 finished (0): post stable_07 eval_training.py
+07:44:26 started: post stable_07 ro_learning_check.py
+07:44:56 finished (0): post stable_07 ro_learning_check.py
+07:44:56 started: post stable_07 run_lab.py
+07:45:26 finished (0): post stable_07 run_lab.py
+07:45:26 started: train anc_09
+07:55:26 finished (0): train digestion_07
+07:55:26 started: post digestion_07 eval_training.py
+07:55:56 finished (0): post digestion_07 eval_training.py
+07:55:56 started: post digestion_07 ro_learning_check.py
+07:56:26 finished (0): post digestion_07 ro_learning_check.py
+07:56:26 started: post digestion_07 run_lab.py
+07:56:56 finished (0): post digestion_07 run_lab.py
+07:56:56 started: train anc_10
+08:17:56 finished (0): train partial_omission_07
+08:17:56 started: post partial_omission_07 eval_training.py
+08:18:26 finished (0): post partial_omission_07 eval_training.py
+08:18:26 started: post partial_omission_07 ro_learning_check.py
+08:18:56 finished (0): post partial_omission_07 ro_learning_check.py
+08:18:56 started: post partial_omission_07 run_lab.py
+08:19:26 finished (0): post partial_omission_07 run_lab.py
+08:19:26 started: train anc_11
+10:28:27 finished (0): train anc_08
+10:28:27 started: post anc_08 eval_training.py
+10:28:57 finished (0): post anc_08 eval_training.py
+10:28:57 started: post anc_08 ro_learning_check.py
+10:29:27 finished (0): post anc_08 ro_learning_check.py
+10:29:27 started: post anc_08 run_lab.py
+10:29:57 finished (0): post anc_08 run_lab.py
+10:29:57 started: train stable_08
+10:35:27 finished (0): train anc_09
+10:35:27 started: train digestion_08
+10:47:57 finished (0): train anc_10
+10:47:57 started: train partial_omission_08
+11:10:57 finished (0): train anc_11
+11:10:57 started: post anc_09 eval_training.py
+11:11:27 finished (0): post anc_09 eval_training.py
+11:11:27 started: post anc_09 ro_learning_check.py
+11:11:57 finished (0): post anc_09 ro_learning_check.py
+11:11:57 started: post anc_09 run_lab.py
+11:12:27 finished (0): post anc_09 run_lab.py
+11:12:27 started: train stable_09
+13:03:54 started: train stable_08
+13:03:55 started: train digestion_08
+13:03:55 started: train partial_omission_08
+13:03:55 started: train stable_09
+13:34:25 finished (0): train stable_08
+13:34:25 started: post stable_08 eval_training.py
+13:34:55 finished (0): post stable_08 eval_training.py
+13:34:55 started: post stable_08 ro_learning_check.py
+13:35:25 finished (0): post stable_08 ro_learning_check.py
+13:35:25 started: post stable_08 run_lab.py
+13:35:55 finished (0): post stable_08 run_lab.py
+13:35:55 started: train digestion_09
+13:37:55 finished (0): train digestion_08
+13:37:55 started: post digestion_08 eval_training.py
+13:38:25 finished (0): post digestion_08 eval_training.py
+13:38:25 started: post digestion_08 ro_learning_check.py
+13:38:55 finished (0): post digestion_08 ro_learning_check.py
+13:38:55 started: post digestion_08 run_lab.py
+13:39:25 finished (0): post digestion_08 run_lab.py
+13:39:25 started: train partial_omission_09
+13:59:25 finished (0): train partial_omission_08
+13:59:25 started: post partial_omission_08 eval_training.py
+13:59:55 finished (0): post partial_omission_08 eval_training.py
+13:59:55 started: post partial_omission_08 ro_learning_check.py
+14:00:25 finished (0): post partial_omission_08 ro_learning_check.py
+14:00:25 started: post partial_omission_08 run_lab.py
+14:00:55 finished (0): post partial_omission_08 run_lab.py
+14:00:55 started: post anc_10 eval_training.py
+14:01:25 finished (0): post anc_10 eval_training.py
+14:01:25 started: post anc_10 ro_learning_check.py
+14:01:55 finished (0): post anc_10 ro_learning_check.py
+14:01:55 started: post anc_10 run_lab.py
+14:02:25 finished (0): post anc_10 run_lab.py
+14:02:25 started: train stable_10
+14:15:25 finished (0): train stable_09
+14:15:25 started: post stable_09 eval_training.py
+14:15:55 finished (0): post stable_09 eval_training.py
+14:15:55 started: post stable_09 ro_learning_check.py
+14:16:25 finished (0): post stable_09 ro_learning_check.py
+14:16:25 started: post stable_09 run_lab.py
+14:16:55 finished (0): post stable_09 run_lab.py
+14:16:55 started: train digestion_10
+15:00:25 finished (0): train digestion_09
+15:00:25 started: post digestion_09 eval_training.py
+15:00:55 finished (0): post digestion_09 eval_training.py
+15:00:55 started: post digestion_09 ro_learning_check.py
+15:01:25 finished (0): post digestion_09 ro_learning_check.py
+15:01:25 started: post digestion_09 run_lab.py
+15:01:55 finished (0): post digestion_09 run_lab.py
+15:01:55 started: train partial_omission_10
+15:10:55 finished (0): train partial_omission_09
+15:10:55 started: post partial_omission_09 eval_training.py
+15:11:25 finished (0): post partial_omission_09 eval_training.py
+15:11:25 started: post partial_omission_09 ro_learning_check.py
+15:11:55 finished (0): post partial_omission_09 ro_learning_check.py
+15:11:55 started: post partial_omission_09 run_lab.py
+15:12:25 finished (0): post partial_omission_09 run_lab.py
+15:12:25 started: post anc_11 eval_training.py
+15:12:55 finished (0): post anc_11 eval_training.py
+15:12:55 started: post anc_11 ro_learning_check.py
+15:13:25 finished (0): post anc_11 ro_learning_check.py
+15:13:25 started: post anc_11 run_lab.py
+15:13:55 finished (0): post anc_11 run_lab.py
+15:13:55 started: train stable_11
+15:26:55 finished (0): train stable_10
+15:26:55 started: post stable_10 eval_training.py
+15:27:25 finished (0): post stable_10 eval_training.py
+15:27:25 started: post stable_10 ro_learning_check.py
+15:27:55 finished (0): post stable_10 ro_learning_check.py
+15:27:55 started: post stable_10 run_lab.py
+15:28:25 finished (0): post stable_10 run_lab.py
+15:28:25 started: train digestion_11
+15:41:25 finished (0): train digestion_10
+15:41:25 started: post digestion_10 eval_training.py
+15:41:55 finished (0): post digestion_10 eval_training.py
+15:41:55 started: post digestion_10 ro_learning_check.py
+15:42:25 finished (0): post digestion_10 ro_learning_check.py
+15:42:25 started: post digestion_10 run_lab.py
+15:42:55 finished (0): post digestion_10 run_lab.py
+15:42:55 started: train partial_omission_11
+16:33:56 finished (0): train partial_omission_10
+16:33:56 started: post partial_omission_10 eval_training.py
+16:34:26 finished (0): post partial_omission_10 eval_training.py
+16:34:26 started: post partial_omission_10 ro_learning_check.py
+16:34:56 finished (0): post partial_omission_10 ro_learning_check.py
+16:34:56 started: post partial_omission_10 run_lab.py
+16:35:26 finished (0): post partial_omission_10 run_lab.py
+16:35:26 started: train anc_12
+16:38:56 finished (0): train stable_11
+16:38:56 started: post stable_11 eval_training.py
+16:39:26 finished (0): post stable_11 eval_training.py
+16:39:26 started: post stable_11 ro_learning_check.py
+16:39:56 finished (0): post stable_11 ro_learning_check.py
+16:39:56 started: post stable_11 run_lab.py
+16:40:26 finished (0): post stable_11 run_lab.py
+16:40:26 started: train anc_13
+16:53:56 finished (0): train digestion_11
+16:53:56 started: post digestion_11 eval_training.py
+16:54:26 finished (0): post digestion_11 eval_training.py
+16:54:26 started: post digestion_11 ro_learning_check.py
+16:54:56 finished (0): post digestion_11 ro_learning_check.py
+16:54:56 started: post digestion_11 run_lab.py
+16:55:26 finished (0): post digestion_11 run_lab.py
+16:55:26 started: train anc_14
+17:14:26 finished (0): train partial_omission_11
+17:14:26 started: post partial_omission_11 eval_training.py
+17:14:56 finished (0): post partial_omission_11 eval_training.py
+17:14:56 started: post partial_omission_11 ro_learning_check.py
+17:15:26 finished (0): post partial_omission_11 ro_learning_check.py
+17:15:26 started: post partial_omission_11 run_lab.py
+17:15:56 finished (0): post partial_omission_11 run_lab.py
+17:15:56 started: train anc_15
+19:26:26 finished (0): train anc_12
+19:26:27 started: post anc_12 eval_training.py
+19:26:57 finished (0): post anc_12 eval_training.py
+19:26:57 started: post anc_12 ro_learning_check.py
+19:27:27 finished (0): post anc_12 ro_learning_check.py
+19:27:27 started: post anc_12 run_lab.py
+19:27:57 finished (0): post anc_12 run_lab.py
+19:27:57 started: train stable_12
+19:31:27 finished (0): train anc_13
+19:31:27 started: train digestion_12
+19:47:27 finished (0): train anc_14
+19:47:27 started: train partial_omission_12
+20:09:27 finished (0): train anc_15
+20:09:27 started: post anc_13 eval_training.py
+20:09:57 finished (0): post anc_13 eval_training.py
+20:09:57 started: post anc_13 ro_learning_check.py
+20:10:27 finished (0): post anc_13 ro_learning_check.py
+20:10:27 started: post anc_13 run_lab.py
+20:10:57 finished (0): post anc_13 run_lab.py
+20:10:57 started: train stable_13
+20:52:27 finished (0): train stable_12
+20:52:27 started: post stable_12 eval_training.py
+20:52:57 finished (0): post stable_12 eval_training.py
+20:52:57 started: post stable_12 ro_learning_check.py
+20:53:27 finished (0): post stable_12 ro_learning_check.py
+20:53:27 started: post stable_12 run_lab.py
+20:53:57 finished (0): post stable_12 run_lab.py
+20:53:57 started: train digestion_13
+20:55:27 finished (0): train digestion_12
+20:55:27 started: post digestion_12 eval_training.py
+20:55:57 finished (0): post digestion_12 eval_training.py
+20:55:57 started: post digestion_12 ro_learning_check.py
+20:56:27 finished (0): post digestion_12 ro_learning_check.py
+20:56:27 started: post digestion_12 run_lab.py
+20:56:57 finished (0): post digestion_12 run_lab.py
+20:56:57 started: train partial_omission_13
+21:16:57 finished (0): train partial_omission_12
+21:16:57 started: post partial_omission_12 eval_training.py
+21:17:27 finished (0): post partial_omission_12 eval_training.py
+21:17:27 started: post partial_omission_12 ro_learning_check.py
+21:17:57 finished (0): post partial_omission_12 ro_learning_check.py
+21:17:57 started: post partial_omission_12 run_lab.py
+21:18:27 finished (0): post partial_omission_12 run_lab.py
+21:18:27 started: post anc_14 eval_training.py
+21:18:57 finished (0): post anc_14 eval_training.py
+21:18:57 started: post anc_14 ro_learning_check.py
+21:19:27 finished (0): post anc_14 ro_learning_check.py
+21:19:27 started: post anc_14 run_lab.py
+21:19:57 finished (0): post anc_14 run_lab.py
+21:19:57 started: train stable_14
+21:31:57 finished (0): train stable_13
+21:31:57 started: post stable_13 eval_training.py
+21:32:27 finished (0): post stable_13 eval_training.py
+21:32:27 started: post stable_13 ro_learning_check.py
+21:32:57 finished (0): post stable_13 ro_learning_check.py
+21:32:57 started: post stable_13 run_lab.py
+21:33:27 finished (0): post stable_13 run_lab.py
+21:33:27 started: train digestion_14
+22:14:57 finished (0): train digestion_13
+22:14:58 started: post digestion_13 eval_training.py
+22:15:28 finished (0): post digestion_13 eval_training.py
+22:15:28 started: post digestion_13 ro_learning_check.py
+22:15:58 finished (0): post digestion_13 ro_learning_check.py
+22:15:58 started: post digestion_13 run_lab.py
+22:16:28 finished (0): post digestion_13 run_lab.py
+22:16:28 started: train partial_omission_14
+22:24:28 finished (0): train partial_omission_13
+22:24:28 started: post partial_omission_13 eval_training.py
+22:24:58 finished (0): post partial_omission_13 eval_training.py
+22:24:58 started: post partial_omission_13 ro_learning_check.py
+22:25:28 finished (0): post partial_omission_13 ro_learning_check.py
+22:25:28 started: post partial_omission_13 run_lab.py
+22:25:58 finished (0): post partial_omission_13 run_lab.py
+22:25:58 started: post anc_15 eval_training.py
+22:26:28 finished (0): post anc_15 eval_training.py
+22:26:28 started: post anc_15 ro_learning_check.py
+22:26:58 finished (0): post anc_15 ro_learning_check.py
+22:26:58 started: post anc_15 run_lab.py
+22:27:28 finished (0): post anc_15 run_lab.py
+22:27:28 started: train stable_15
+22:40:28 finished (0): train stable_14
+22:40:28 started: post stable_14 eval_training.py
+22:40:58 finished (0): post stable_14 eval_training.py
+22:40:58 started: post stable_14 ro_learning_check.py
+22:41:28 finished (0): post stable_14 ro_learning_check.py
+22:41:28 started: post stable_14 run_lab.py
+22:41:58 finished (0): post stable_14 run_lab.py
+22:41:58 started: train digestion_15
+22:53:58 finished (0): train digestion_14
+22:53:58 started: post digestion_14 eval_training.py
+22:54:28 finished (0): post digestion_14 eval_training.py
+22:54:28 started: post digestion_14 ro_learning_check.py
+22:54:58 finished (0): post digestion_14 ro_learning_check.py
+22:54:58 started: post digestion_14 run_lab.py
+22:55:28 finished (0): post digestion_14 run_lab.py
+22:55:28 started: train partial_omission_15
+23:42:58 finished (0): train partial_omission_14
+23:42:58 started: post partial_omission_14 eval_training.py
+23:43:28 finished (0): post partial_omission_14 eval_training.py
+23:43:28 started: post partial_omission_14 ro_learning_check.py
+23:43:58 finished (0): post partial_omission_14 ro_learning_check.py
+23:43:58 started: post partial_omission_14 run_lab.py
+23:44:28 finished (0): post partial_omission_14 run_lab.py
+23:44:28 started: train anc_16
+23:47:58 finished (0): train stable_15
+23:47:58 started: post stable_15 eval_training.py
+23:48:28 finished (0): post stable_15 eval_training.py
+23:48:28 started: post stable_15 ro_learning_check.py
+23:48:58 finished (0): post stable_15 ro_learning_check.py
+23:48:58 started: post stable_15 run_lab.py
+23:49:28 finished (0): post stable_15 run_lab.py
+23:49:28 started: train anc_17
+00:01:58 finished (0): train digestion_15
+00:01:58 started: post digestion_15 eval_training.py
+00:02:28 finished (0): post digestion_15 eval_training.py
+00:02:28 started: post digestion_15 ro_learning_check.py
+00:02:58 finished (0): post digestion_15 ro_learning_check.py
+00:02:58 started: post digestion_15 run_lab.py
+00:03:28 finished (0): post digestion_15 run_lab.py
+00:03:28 started: train anc_18
+00:21:28 finished (0): train partial_omission_15
+00:21:28 started: post partial_omission_15 eval_training.py
+00:21:58 finished (0): post partial_omission_15 eval_training.py
+00:21:58 started: post partial_omission_15 ro_learning_check.py
+00:22:28 finished (0): post partial_omission_15 ro_learning_check.py
+00:22:28 started: post partial_omission_15 run_lab.py
+00:22:58 finished (0): post partial_omission_15 run_lab.py
+00:22:58 started: train anc_19
+00:57:50 started: train anc_16
+00:57:50 started: train anc_17
+00:57:50 started: train anc_18
+00:57:50 started: train anc_19
+02:11:51 finished (0): train anc_16
+02:11:51 started: post anc_16 eval_training.py
+02:12:21 finished (0): post anc_16 eval_training.py
+02:12:21 started: post anc_16 ro_learning_check.py
+02:12:51 finished (0): post anc_16 ro_learning_check.py
+02:12:51 started: post anc_16 run_lab.py
+02:13:21 finished (0): post anc_16 run_lab.py
+02:13:21 started: train stable_16
+02:18:51 finished (0): train anc_17
+02:18:51 started: train digestion_16
+02:28:51 finished (0): train anc_18
+02:28:51 started: train partial_omission_16
+02:46:51 finished (0): train anc_19
+02:46:51 started: post anc_17 eval_training.py
+02:47:21 finished (0): post anc_17 eval_training.py
+02:47:21 started: post anc_17 ro_learning_check.py
+02:47:51 finished (0): post anc_17 ro_learning_check.py
+02:47:51 started: post anc_17 run_lab.py
+02:48:21 finished (0): post anc_17 run_lab.py
+02:48:21 started: train stable_17
+03:08:21 started: train stable_16
+03:08:21 started: train digestion_16
+03:08:21 started: train partial_omission_16
+03:08:21 started: train stable_17
+03:26:22 finished (0): train stable_16
+03:26:22 started: post stable_16 eval_training.py
+03:26:52 finished (0): post stable_16 eval_training.py
+03:26:52 started: post stable_16 ro_learning_check.py
+03:27:22 finished (0): post stable_16 ro_learning_check.py
+03:27:22 started: post stable_16 run_lab.py
+03:27:52 finished (0): post stable_16 run_lab.py
+03:27:52 started: train digestion_17
+03:29:22 finished (0): train digestion_16
+03:29:22 started: post digestion_16 eval_training.py
+03:29:52 finished (0): post digestion_16 eval_training.py
+03:29:52 started: post digestion_16 ro_learning_check.py
+03:30:22 finished (0): post digestion_16 ro_learning_check.py
+03:30:22 started: post digestion_16 run_lab.py
+03:30:52 finished (0): post digestion_16 run_lab.py
+03:30:52 started: train partial_omission_17
+03:44:22 finished (0): train partial_omission_16
+03:44:22 started: post partial_omission_16 eval_training.py
+03:44:52 finished (0): post partial_omission_16 eval_training.py
+03:44:52 started: post partial_omission_16 ro_learning_check.py
+03:45:22 finished (0): post partial_omission_16 ro_learning_check.py
+03:45:22 started: post partial_omission_16 run_lab.py
+03:45:52 finished (0): post partial_omission_16 run_lab.py
+03:45:52 started: post anc_18 eval_training.py
+03:46:22 finished (0): post anc_18 eval_training.py
+03:46:22 started: post anc_18 ro_learning_check.py
+03:46:52 finished (0): post anc_18 ro_learning_check.py
+03:46:52 started: post anc_18 run_lab.py
+03:47:22 finished (0): post anc_18 run_lab.py
+03:47:22 started: train stable_18
+03:48:36 started: train stable_17
+03:48:36 started: train digestion_17
+03:48:36 started: train partial_omission_17
+03:48:36 started: train stable_18
+04:00:36 finished (0): train stable_17
+04:00:36 started: post stable_17 eval_training.py
+04:01:06 finished (0): post stable_17 eval_training.py
+04:01:06 started: post stable_17 ro_learning_check.py
+04:01:36 finished (0): post stable_17 ro_learning_check.py
+04:01:36 started: post stable_17 run_lab.py
+04:02:06 finished (0): post stable_17 run_lab.py
+04:02:06 started: train digestion_18
+04:43:36 finished (0): train digestion_17
+04:43:36 started: post digestion_17 eval_training.py
+04:44:06 finished (0): post digestion_17 eval_training.py
+04:44:06 started: post digestion_17 ro_learning_check.py
+04:44:36 finished (0): post digestion_17 ro_learning_check.py
+04:44:36 started: post digestion_17 run_lab.py
+04:45:06 finished (0): post digestion_17 run_lab.py
+04:45:06 started: train partial_omission_18
+04:51:36 finished (0): train partial_omission_17
+04:51:36 started: post partial_omission_17 eval_training.py
+04:52:06 finished (0): post partial_omission_17 eval_training.py
+04:52:06 started: post partial_omission_17 ro_learning_check.py
+04:52:36 finished (0): post partial_omission_17 ro_learning_check.py
+04:52:36 started: post partial_omission_17 run_lab.py
+04:53:06 finished (0): post partial_omission_17 run_lab.py
+04:53:06 started: post anc_19 eval_training.py
+04:53:36 finished (0): post anc_19 eval_training.py
+04:53:36 started: post anc_19 ro_learning_check.py
+04:54:06 finished (0): post anc_19 ro_learning_check.py
+04:54:06 started: post anc_19 run_lab.py
+04:54:36 finished (0): post anc_19 run_lab.py
+04:54:36 started: train stable_19
+05:06:06 finished (0): train stable_18
+05:06:06 started: post stable_18 eval_training.py
+05:06:36 finished (0): post stable_18 eval_training.py
+05:06:36 started: post stable_18 ro_learning_check.py
+05:07:06 finished (0): post stable_18 ro_learning_check.py
+05:07:06 started: post stable_18 run_lab.py
+05:07:36 finished (0): post stable_18 run_lab.py
+05:07:36 started: train digestion_19
+05:18:36 finished (0): train digestion_18
+05:18:36 started: post digestion_18 eval_training.py
+05:19:06 finished (0): post digestion_18 eval_training.py
+05:19:06 started: post digestion_18 ro_learning_check.py
+05:19:36 finished (0): post digestion_18 ro_learning_check.py
+05:19:36 started: post digestion_18 run_lab.py
+05:20:07 finished (0): post digestion_18 run_lab.py
+05:20:07 started: train partial_omission_19
+06:08:07 finished (0): train partial_omission_18
+06:08:07 started: post partial_omission_18 eval_training.py
+06:08:37 finished (0): post partial_omission_18 eval_training.py
+06:08:37 started: post partial_omission_18 ro_learning_check.py
+06:09:07 finished (0): post partial_omission_18 ro_learning_check.py
+06:09:07 started: post partial_omission_18 run_lab.py
+06:09:37 finished (0): post partial_omission_18 run_lab.py
+06:11:07 finished (0): train stable_19
+06:11:07 started: post stable_19 eval_training.py
+06:11:37 finished (0): post stable_19 eval_training.py
+06:11:37 started: post stable_19 ro_learning_check.py
+06:12:07 finished (0): post stable_19 ro_learning_check.py
+06:12:07 started: post stable_19 run_lab.py
+06:12:37 finished (0): post stable_19 run_lab.py
+06:19:37 finished (0): train digestion_19
+06:19:37 started: post digestion_19 eval_training.py
+06:20:07 finished (0): post digestion_19 eval_training.py
+06:20:07 started: post digestion_19 ro_learning_check.py
+06:20:37 finished (0): post digestion_19 ro_learning_check.py
+06:20:37 started: post digestion_19 run_lab.py
+06:21:07 finished (0): post digestion_19 run_lab.py
+06:26:07 finished (0): train partial_omission_19
+06:26:07 started: post partial_omission_19 eval_training.py
+06:26:37 finished (0): post partial_omission_19 eval_training.py
+06:26:37 started: post partial_omission_19 ro_learning_check.py
+06:27:07 finished (0): post partial_omission_19 ro_learning_check.py
+06:27:07 started: post partial_omission_19 run_lab.py
+06:27:37 finished (0): post partial_omission_19 run_lab.py
+06:27:37 ALL DONE

@@ -1,0 +1,10 @@
+{
+ "p_food_normal_late": 0.711742639541626,
+ "p_food_flipped_late": 0.7212432026863098,
+ "M": -0.009500563144683838,
+ "p_food_flipped_early": 0.7303466796875,
+ "n_flipped": 125,
+ "n_lifetimes": 256,
+ "late_start": 800,
+ "ckpt": "params_04000.pkl"
+}
