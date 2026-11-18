@@ -1,0 +1,5 @@
+# S-O variability control (exploratory, DECISIONS 2026-11-18). As configs/confirm/ancestor.yaml but q = 0.0.
+physiology: {}
+ecology:
+  q_so_variability: 0.0
+  v_ro_variability: 0.0
