@@ -1,0 +1,81 @@
+13:37:14 started: train compound_00
+13:37:14 started: train compound_01
+13:37:14 started: train compound_02
+13:37:14 started: train compound_03
+14:52:44 finished (0): train compound_00
+14:52:44 finished (0): train compound_01
+14:52:44 finished (0): train compound_02
+14:52:44 finished (0): train compound_03
+14:52:44 started: post compound_00 eval_training.py
+14:52:44 started: post compound_01 eval_training.py
+14:52:44 started: post compound_02 eval_training.py
+14:52:44 started: post compound_03 eval_training.py
+14:53:14 finished (0): post compound_00 eval_training.py
+14:53:14 finished (0): post compound_01 eval_training.py
+14:53:14 finished (0): post compound_02 eval_training.py
+14:53:14 finished (0): post compound_03 eval_training.py
+14:53:14 started: post compound_00 run_lab.py
+14:53:14 started: post compound_01 run_lab.py
+14:53:14 started: post compound_02 run_lab.py
+14:53:14 started: post compound_03 run_lab.py
+14:53:44 finished (0): post compound_00 run_lab.py
+14:53:44 finished (0): post compound_01 run_lab.py
+14:53:44 finished (0): post compound_02 run_lab.py
+14:53:44 finished (0): post compound_03 run_lab.py
+14:53:44 started: post compound_00 run_phenomena.py
+14:53:44 started: post compound_01 run_phenomena.py
+14:53:44 started: post compound_02 run_phenomena.py
+14:53:44 started: post compound_03 run_phenomena.py
+14:54:14 finished (0): post compound_00 run_phenomena.py
+14:54:14 finished (0): post compound_01 run_phenomena.py
+14:54:14 finished (0): post compound_02 run_phenomena.py
+14:54:14 finished (0): post compound_03 run_phenomena.py
+14:54:14 started: train compound_04
+14:54:14 started: train compound_05
+14:54:14 started: train compound_06
+14:54:14 started: train compound_07
+16:07:44 finished (0): train compound_05
+16:07:44 finished (0): train compound_06
+16:07:44 finished (0): train compound_07
+16:07:44 started: post compound_05 eval_training.py
+16:07:44 started: post compound_06 eval_training.py
+16:07:44 started: post compound_07 eval_training.py
+16:08:14 finished (0): train compound_04
+16:08:14 finished (0): post compound_05 eval_training.py
+16:08:14 finished (0): post compound_06 eval_training.py
+16:08:14 finished (0): post compound_07 eval_training.py
+16:08:14 started: post compound_04 eval_training.py
+16:08:14 started: post compound_05 run_lab.py
+16:08:14 started: post compound_06 run_lab.py
+16:08:14 started: post compound_07 run_lab.py
+16:08:44 finished (0): post compound_04 eval_training.py
+16:08:44 finished (0): post compound_05 run_lab.py
+16:08:44 finished (0): post compound_06 run_lab.py
+16:08:44 finished (0): post compound_07 run_lab.py
+16:08:44 started: post compound_04 run_lab.py
+16:08:44 started: post compound_05 run_phenomena.py
+16:08:44 started: post compound_06 run_phenomena.py
+16:08:44 started: post compound_07 run_phenomena.py
+16:09:14 finished (0): post compound_04 run_lab.py
+16:09:14 finished (0): post compound_05 run_phenomena.py
+16:09:14 finished (0): post compound_06 run_phenomena.py
+16:09:14 finished (0): post compound_07 run_phenomena.py
+16:09:14 started: post compound_04 run_phenomena.py
+16:09:14 started: train compound_08
+16:09:14 started: train compound_09
+16:09:44 finished (0): post compound_04 run_phenomena.py
+16:52:44 finished (0): train compound_08
+16:52:44 finished (0): train compound_09
+16:52:44 started: post compound_08 eval_training.py
+16:52:44 started: post compound_09 eval_training.py
+16:53:14 finished (0): post compound_08 eval_training.py
+16:53:14 finished (0): post compound_09 eval_training.py
+16:53:14 started: post compound_08 run_lab.py
+16:53:14 started: post compound_09 run_lab.py
+16:53:44 finished (0): post compound_08 run_lab.py
+16:53:44 finished (0): post compound_09 run_lab.py
+16:53:44 started: post compound_08 run_phenomena.py
+16:53:44 started: post compound_09 run_phenomena.py
+16:54:14 finished (0): post compound_08 run_phenomena.py
+16:54:14 finished (0): post compound_09 run_phenomena.py
+16:54:14 ALL DONE

@@ -1,0 +1,514 @@
+{
+ "compound": {
+  "D_acq": {
+   "n": 10,
+   "mean": 0.6715691875270959,
+   "sd": 0.13022813878695597,
+   "ci95": [
+    0.6028967621281636,
+    0.7536705737843205
+   ],
+   "dz": 5.156866970399813
+  },
+  "D_naive": {
+   "n": 10,
+   "mean": 0.0035741025822351503,
+   "sd": 0.023620689882409486,
+   "ci95": [
+    -0.011531750290880062,
+    0.015600270911625446
+   ],
+   "dz": 0.1513123706389631
+  },
+  "OSI": {
+   "n": 10,
+   "mean": 0.027382536278880987,
+   "sd": 0.06969060136536849,
+   "ci95": [
+    0.0,
+    0.07132942436846135
+   ],
+   "dz": 0.39291576973660974
+  },
+  "gap_fraction": {
+   "n": 10,
+   "mean": 0.6040509223937989,
+   "sd": 0.03530264777560405,
+   "ci95": [
+    0.5833462145924568,
+    0.6253828653693199
+   ],
+   "dz": 17.11064071548846
+  },
+  "gate_pass": {
+   "n": 10,
+   "mean": 1.0,
+   "sd": 0.0,
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "dz": NaN
+  },
+  "blocking: CR(X) blocking - overshadowing": {
+   "n": 10,
+   "mean": 0.011634507775306701,
+   "sd": 0.05286068878066577,
+   "ci95": [
+    -0.018234104551374912,
+    0.04431260090321302
+   ],
+   "dz": 0.22009754401009843
+  },
+  "latent inhibition: acquisition CR pre-exposed - control": {
+   "n": 10,
+   "mean": -0.0015438586473464967,
+   "sd": 0.07146345967357505,
+   "ci95": [
+    -0.04132085412740706,
+    0.04230411678552627
+   ],
+   "dz": -0.021603469163099687
+  },
+  "PREE: relative extinction CR 50% - 100%": {
+   "n": 10,
+   "mean": 0.06323160026080876,
+   "sd": 0.09910753367212725,
+   "ci95": [
+    0.010059621988716114,
+    0.12608497826723733
+   ],
+   "dz": 0.6380100272699234
+  },
+  "inhibition of delay: slope of p over a 24-tick CS": {
+   "n": 10,
+   "mean": -0.001246426168944658,
+   "sd": 0.004644310650072137,
+   "ci95": [
+    -0.003962772050658424,
+    0.0013799808762976192
+   ],
+   "dz": -0.2683770020692518
+  },
+  "second-order: CR(B) paired - unpaired": {
+   "n": 10,
+   "mean": 0.023927814792841673,
+   "sd": 0.02938592172595839,
+   "ci95": [
+    0.006931988617870961,
+    0.04133677906356752
+   ],
+   "dz": 0.814261162742592
+  }
+ },
+ "stable": {
+  "D_acq": {
+   "n": 10,
+   "mean": 0.7471164139605656,
+   "sd": 0.07601956943337501,
+   "ci95": [
+    0.7090404201251792,
+    0.7971979429672855
+   ],
+   "dz": 9.827948507592543
+  },
+  "D_naive": {
+   "n": 10,
+   "mean": 0.00511282089981722,
+   "sd": 0.0282949815545282,
+   "ci95": [
+    -0.011297693294786398,
+    0.021685532921538853
+   ],
+   "dz": 0.18069709252024543
+  },
+  "OSI": {
+   "n": 10,
+   "mean": 0.0,
+   "sd": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "dz": NaN
+  },
+  "gap_fraction": {
+   "n": 10,
+   "mean": 0.6460249722003937,
+   "sd": 0.03583301334951494,
+   "ci95": [
+    0.6242967267334462,
+    0.666026760339737
+   ],
+   "dz": 18.028764868281407
+  },
+  "gate_pass": {
+   "n": 10,
+   "mean": 1.0,
+   "sd": 0.0,
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "dz": NaN
+  },
+  "blocking: CR(X) blocking - overshadowing": {
+   "n": 10,
+   "mean": 0.01344349980354309,
+   "sd": 0.059793994795808506,
+   "ci95": [
+    -0.02030297964811325,
+    0.0497932270541787
+   ],
+   "dz": 0.22483026680942658
+  },
+  "latent inhibition: acquisition CR pre-exposed - control": {
+   "n": 10,
+   "mean": -0.022198054194450378,
+   "sd": 0.051072122485004645,
+   "ci95": [
+    -0.05592104777693749,
+    0.001736083850264546
+   ],
+   "dz": -0.4346413094730492
+  },
+  "PREE: relative extinction CR 50% - 100%": {
+   "n": 10,
+   "mean": 0.03519168898013639,
+   "sd": 0.0965075412303873,
+   "ci95": [
+    -0.017950142822025502,
+    0.09487732193776617
+   ],
+   "dz": 0.3646522181735534
+  },
+  "inhibition of delay: slope of p over a 24-tick CS": {
+   "n": 10,
+   "mean": 0.002627653823456832,
+   "sd": 0.002889309841708288,
+   "ci95": [
+    0.0008840299812214361,
+    0.0042543362302286305
+   ],
+   "dz": 0.9094399588184168
+  },
+  "second-order: CR(B) paired - unpaired": {
+   "n": 10,
+   "mean": 0.017776472913101315,
+   "sd": 0.017548487265571962,
+   "ci95": [
+    0.0075039645598735695,
+    0.028021876226412133
+   ],
+   "dz": 1.0129917550201968
+  }
+ },
+ "C1_blocking_in_compound": {
+  "p": 0.5039983039077858,
+  "degenerate": false,
+  "direction_ok": false,
+  "n": 10,
+  "mean": 0.011634507775306701,
+  "sd": 0.05286068878066577,
+  "ci95": [
+   -0.018234104551374912,
+   0.04431260090321302
+  ],
+  "dz": 0.22009754401009843
+ },
+ "C1_compound_minus_stable_blocking": {
+  "p": 0.9572640151508254,
+  "degenerate": false,
+  "direction_ok": true,
+  "n": 10,
+  "mean": -0.001808992028236389,
+  "sd": 0.10382445380390419,
+  "ci95": [
+   -0.06457938443869347,
+   0.05920393913984299
+  ],
+  "dz": -0.017423564121541897
+ },
+ "C2_D_acq_compound": {
+  "n": 10,
+  "mean": 0.6715691875270959,
+  "sd": 0.13022813878695597,
+  "ci95": [
+   0.6028967621281636,
+   0.7536705737843205
+  ],
+  "dz": 5.156866970399813
+ },
+ "C2_OSI_compound": {
+  "n": 10,
+  "mean": 0.027382536278880987,
+  "sd": 0.06969060136536849,
+  "ci95": [
+   0.0,
+   0.07132942436846135
+  ],
+  "dz": 0.39291576973660974
+ },
+ "per_ancestor": {
+  "0": {
+   "compound": {
+    "D_acq": 0.5453075782025479,
+    "D_naive": 0.0019445276136167422,
+    "OSI": 0.054090922340908065,
+    "gap_fraction": 0.5820313692092896,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.0197526216506958,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.03818470239639282,
+    "PREE: relative extinction CR 50% - 100%": 0.06119110112557846,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.0007429656722176242,
+    "second-order: CR(B) paired - unpaired": 0.021418094635009766
+   },
+   "stable": {
+    "D_acq": 0.8291318191300991,
+    "D_naive": 0.042450950391870634,
+    "OSI": 0.0,
+    "gap_fraction": 0.6452449560165405,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.08556704223155975,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.006123900413513184,
+    "PREE: relative extinction CR 50% - 100%": 0.0072637931481689955,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.0004349107458223578,
+    "second-order: CR(B) paired - unpaired": 0.03198134899139404
+   }
+  },
+  "1": {
+   "compound": {
+    "D_acq": 0.5528435314650778,
+    "D_naive": 0.00452043273031677,
+    "OSI": 0.0,
+    "gap_fraction": 0.6174945831298828,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.07893237471580505,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.03814530372619629,
+    "PREE: relative extinction CR 50% - 100%": -0.01281792967443074,
+    "inhibition of delay: slope of p over a 24-tick CS": -0.007229676336983006,
+    "second-order: CR(B) paired - unpaired": 0.04545687139034271
+   },
+   "stable": {
+    "D_acq": 0.7266744259374364,
+    "D_naive": -0.03256218690033452,
+    "OSI": 0.0,
+    "gap_fraction": 0.5911004543304443,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.12402573227882385,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.012521624565124512,
+    "PREE: relative extinction CR 50% - 100%": -0.04478821464109073,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.006096537693769784,
+    "second-order: CR(B) paired - unpaired": 0.0152045339345932
+   }
+  },
+  "2": {
+   "compound": {
+    "D_acq": 0.5816834998197009,
+    "D_naive": -0.052911519930333384,
+    "OSI": 0.0,
+    "gap_fraction": 0.5612159967422485,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.0015249699354171753,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.053074806928634644,
+    "PREE: relative extinction CR 50% - 100%": 0.17444729874593756,
+    "inhibition of delay: slope of p over a 24-tick CS": -0.008599199389938845,
+    "second-order: CR(B) paired - unpaired": 0.05408714711666107
+   },
+   "stable": {
+    "D_acq": 0.7122810352894168,
+    "D_naive": -0.033247570594003406,
+    "OSI": 0.0,
+    "gap_fraction": 0.688629150390625,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.04791256785392761,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.018741607666015625,
+    "PREE: relative extinction CR 50% - 100%": 0.21641974396980684,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.0013433420908717964,
+    "second-order: CR(B) paired - unpaired": 0.012467829510569572
+   }
+  },
+  "3": {
+   "compound": {
+    "D_acq": 0.9590470480211181,
+    "D_naive": 0.015606063415354754,
+    "OSI": 0.0,
+    "gap_fraction": 0.6472034454345703,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.022192180156707764,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.011494159698486328,
+    "PREE: relative extinction CR 50% - 100%": 0.05222522118017736,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.0036412409440834586,
+    "second-order: CR(B) paired - unpaired": 0.030874021351337433
+   },
+   "stable": {
+    "D_acq": 0.7238027816186353,
+    "D_naive": 0.040028913693440415,
+    "OSI": 0.0,
+    "gap_fraction": 0.6620129346847534,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.0009379535913467407,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.014785706996917725,
+    "PREE: relative extinction CR 50% - 100%": -0.014839308374955007,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.003843686146060503,
+    "second-order: CR(B) paired - unpaired": 0.02074968721717596
+   }
+  },
+  "4": {
+   "compound": {
+    "D_acq": 0.586384034902028,
+    "D_naive": 0.019676158342917915,
+    "OSI": 0.0,
+    "gap_fraction": 0.6132035255432129,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.0629539042711258,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.010805070400238037,
+    "PREE: relative extinction CR 50% - 100%": 0.2796436138632169,
+    "inhibition of delay: slope of p over a 24-tick CS": -0.0024425803387326172,
+    "second-order: CR(B) paired - unpaired": 0.04122344870120287
+   },
+   "stable": {
+    "D_acq": 0.7189072809727725,
+    "D_naive": -0.007241835914927733,
+    "OSI": 0.0,
+    "gap_fraction": 0.6141324639320374,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.025008663535118103,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.15490704774856567,
+    "PREE: relative extinction CR 50% - 100%": 0.17514063414870817,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.0037843860976278397,
+    "second-order: CR(B) paired - unpaired": -0.0007561594247817993
+   }
+  },
+  "5": {
+   "compound": {
+    "D_acq": 0.8111006056841006,
+    "D_naive": 0.012938288088335359,
+    "OSI": 0.2197344404479018,
+    "gap_fraction": 0.6528457403182983,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.006826624274253845,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.018596529960632324,
+    "PREE: relative extinction CR 50% - 100%": 0.061641088969235924,
+    "inhibition of delay: slope of p over a 24-tick CS": -0.0050116753047800555,
+    "second-order: CR(B) paired - unpaired": -0.0007649343460798264
+   },
+   "stable": {
+    "D_acq": 0.6821271697308248,
+    "D_naive": 0.013394181018639983,
+    "OSI": 0.0,
+    "gap_fraction": 0.6808947920799255,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.02858734130859375,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.006203353404998779,
+    "PREE: relative extinction CR 50% - 100%": 0.05945166458905293,
+    "inhibition of delay: slope of p over a 24-tick CS": -0.0021916182240219375,
+    "second-order: CR(B) paired - unpaired": 0.045029712840914726
+   }
+  },
+  "6": {
+   "compound": {
+    "D_acq": 0.6174848751745555,
+    "D_naive": 0.023190602999731136,
+    "OSI": 0.0,
+    "gap_fraction": 0.5555287599563599,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.11964647471904755,
+    "latent inhibition: acquisition CR pre-exposed - control": 0.14472460746765137,
+    "PREE: relative extinction CR 50% - 100%": 0.04769773243815206,
+    "inhibition of delay: slope of p over a 24-tick CS": -1.0654810335570912e-05,
+    "second-order: CR(B) paired - unpaired": -0.003223847597837448
+   },
+   "stable": {
+    "D_acq": 0.9288760274791585,
+    "D_naive": -0.022674071829953846,
+    "OSI": 0.0,
+    "gap_fraction": 0.6753919720649719,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.05486677587032318,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.010122060775756836,
+    "PREE: relative extinction CR 50% - 100%": 0.020522742440603786,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.005092581541109604,
+    "second-order: CR(B) paired - unpaired": 0.03273338824510574
+   }
+  },
+  "7": {
+   "compound": {
+    "D_acq": 0.6927065640597383,
+    "D_naive": -0.018437609799889287,
+    "OSI": 0.0,
+    "gap_fraction": 0.5814498662948608,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.006816700100898743,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.10119903087615967,
+    "PREE: relative extinction CR 50% - 100%": 0.04920575774073413,
+    "inhibition of delay: slope of p over a 24-tick CS": -0.00017414902873995133,
+    "second-order: CR(B) paired - unpaired": -0.002438671886920929
+   },
+   "stable": {
+    "D_acq": 0.6793101602281367,
+    "D_naive": 0.016526677635559484,
+    "OSI": 0.0,
+    "gap_fraction": 0.5928059816360474,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.020480036735534668,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.05771955847740173,
+    "PREE: relative extinction CR 50% - 100%": -0.0974656155265029,
+    "inhibition of delay: slope of p over a 24-tick CS": -0.0013039713093215251,
+    "second-order: CR(B) paired - unpaired": 0.030170988291502
+   }
+  },
+  "8": {
+   "compound": {
+    "D_acq": 0.6577504471876636,
+    "D_naive": 0.025160477077776022,
+    "OSI": 0.0,
+    "gap_fraction": 0.6402071714401245,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.027624621987342834,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.04037761688232422,
+    "PREE: relative extinction CR 50% - 100%": -0.06638953239049256,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.0004274521972723436,
+    "second-order: CR(B) paired - unpaired": 0.07099631428718567
+   },
+   "stable": {
+    "D_acq": 0.7440660832982872,
+    "D_naive": 0.005306709650196861,
+    "OSI": 0.0,
+    "gap_fraction": 0.6687756180763245,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.06235557794570923,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.0031346678733825684,
+    "PREE: relative extinction CR 50% - 100%": -0.020289222853477007,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.005418396526219068,
+    "second-order: CR(B) paired - unpaired": -0.008994914591312408
+   }
+  },
+  "9": {
+   "compound": {
+    "D_acq": 0.7113836907544282,
+    "D_naive": 0.004053605284525474,
+    "OSI": 0.0,
+    "gap_fraction": 0.5893287658691406,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": -0.015872061252593994,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.0827375054359436,
+    "PREE: relative extinction CR 50% - 100%": -0.014528349390021511,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.00619201470649004,
+    "second-order: CR(B) paired - unpaired": -0.01835029572248459
+   },
+   "stable": {
+    "D_acq": 0.7259873559208885,
+    "D_naive": 0.029146441847684335,
+    "OSI": 0.0,
+    "gap_fraction": 0.6412613987922668,
+    "gate_pass": 1.0,
+    "blocking: CR(X) blocking - overshadowing": 0.014963150024414062,
+    "latent inhibition: acquisition CR pre-exposed - control": -0.01265418529510498,
+    "PREE: relative extinction CR 50% - 100%": 0.050500672901048815,
+    "inhibition of delay: slope of p over a 24-tick CS": 0.0037582869264308257,
+    "second-order: CR(B) paired - unpaired": -0.0008216858841478825
+   }
+  }
+ }
+}
