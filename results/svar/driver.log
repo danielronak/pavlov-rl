@@ -1,0 +1,61 @@
+11:14:31 started: train q0_130
+11:14:31 started: train q0_131
+11:14:31 started: train q0_132
+11:14:31 started: train q0_133
+13:44:02 finished (0): train q0_130
+13:44:02 started: post q0_130 eval_training.py
+13:44:32 finished (0): train q0_131
+13:44:32 finished (0): train q0_132
+13:44:32 finished (0): train q0_133
+13:44:32 finished (0): post q0_130 eval_training.py
+13:44:32 started: post q0_130 run_lab.py
+13:44:32 started: post q0_131 eval_training.py
+13:44:32 started: post q0_132 eval_training.py
+13:44:32 started: post q0_133 eval_training.py
+13:45:02 finished (0): post q0_130 run_lab.py
+13:45:02 finished (0): post q0_131 eval_training.py
+13:45:02 finished (0): post q0_132 eval_training.py
+13:45:02 finished (0): post q0_133 eval_training.py
+13:45:02 started: post q0_131 run_lab.py
+13:45:02 started: post q0_132 run_lab.py
+13:45:02 started: post q0_133 run_lab.py
+13:45:02 started: train q0_134
+13:45:32 finished (0): post q0_131 run_lab.py
+13:45:32 finished (0): post q0_132 run_lab.py
+13:45:32 finished (0): post q0_133 run_lab.py
+13:45:32 started: train q05_135
+13:45:32 started: train q05_136
+13:45:32 started: train q05_137
+16:16:02 finished (0): train q0_134
+16:16:02 started: post q0_134 eval_training.py
+16:16:32 finished (0): train q05_135
+16:16:32 finished (0): train q05_136
+16:16:32 finished (0): train q05_137
+16:16:32 finished (0): post q0_134 eval_training.py
+16:16:32 started: post q0_134 run_lab.py
+16:16:32 started: post q05_135 eval_training.py
+16:16:32 started: post q05_136 eval_training.py
+16:16:32 started: post q05_137 eval_training.py
+16:17:02 finished (0): post q0_134 run_lab.py
+16:17:02 finished (0): post q05_135 eval_training.py
+16:17:02 finished (0): post q05_136 eval_training.py
+16:17:02 finished (0): post q05_137 eval_training.py
+16:17:02 started: post q05_135 run_lab.py
+16:17:02 started: post q05_136 run_lab.py
+16:17:02 started: post q05_137 run_lab.py
+16:17:02 started: train q05_138
+16:17:32 finished (0): post q05_135 run_lab.py
+16:17:32 finished (0): post q05_136 run_lab.py
+16:17:32 finished (0): post q05_137 run_lab.py
+16:17:32 started: train q05_139
+17:45:02 finished (0): train q05_138
+17:45:02 started: post q05_138 eval_training.py
+17:45:32 finished (0): train q05_139
+17:45:32 finished (0): post q05_138 eval_training.py
+17:45:32 started: post q05_138 run_lab.py
+17:45:32 started: post q05_139 eval_training.py
+17:46:02 finished (0): post q05_138 run_lab.py
+17:46:02 finished (0): post q05_139 eval_training.py
+17:46:02 started: post q05_139 run_lab.py
+17:46:32 finished (0): post q05_139 run_lab.py
+17:46:32 ALL DONE

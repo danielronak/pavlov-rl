@@ -188,7 +188,44 @@ def main():
     fig2_controls(per, seeds, args.out)
     fig3_omission(per, seeds, args.out)
     fig4_arms(per, seeds, args.out)
+    split = "results/svar/channel_split.json"
+    if os.path.exists(split):
+        fig5_svar(json.load(open(split)), args.out)
     print("wrote", sorted(os.listdir(args.out)))
+
+
+def fig5_svar(split, out):
+    """S-O variability control (exploratory; channel split post hoc): innate vs learned responding
+    per bell channel, as a function of how often cue meanings were reshuffled during evolution."""
+    groups = [("ch0", "Light 0 (always predicts food when q = 0)", "#2a78d6"),
+              ("ch1", "Light 1 (predicts food in some lives)", "#eb6834"),
+              ("ch2-3", "Lights 2–3 (never predict food when q = 0)", "#1baf7a")]
+    qs = ["0", "0.5", "1"]
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.9), sharey=True)
+    panels = [("naive_cs_plus_cr", "Inborn: response before any pairing"),
+              ("D_acq", "Learned: bell − metronome after 25 pairings")]
+    for ax, (key, title) in zip(axes, panels):
+        for j, (g, lab, c) in enumerate(groups):
+            x = np.arange(3) + (j - 1) * 0.12
+            d = [split[q][f"{key}|{g}"] for q in qs]
+            m = np.array([v["mean"] for v in d])
+            lo = np.array([v["ci95"][0] for v in d])
+            hi = np.array([v["ci95"][1] for v in d])
+            ax.plot(x, m, color=c, lw=2, alpha=0.5)
+            ax.errorbar(x, m, yerr=[m - lo, hi - m], fmt="o", color=c, ms=7, lw=2, label=lab,
+                        markeredgecolor="#fcfcfb", markeredgewidth=1.5, zorder=3)
+        ax.set_xticks(range(3), ["q = 0\nmeanings fixed\n(N = 5)", "q = 0.5\nhalf reshuffled\n(N = 5)",
+                                 "q = 1\nall reshuffled\n(N = 20)"])
+        ax.axhline(0, color=AXIS, lw=0.8)
+        ax.set_title(title)
+        ax.set_ylim(-0.12, 1.05)
+    axes[0].set_ylabel("Response to the bell")
+    axes[0].legend(loc="upper right", fontsize=7.5)
+    fig.suptitle("Fig. 5  Inborn responses to signals with a fixed meaning, learning for signals whose meaning varies (exploratory)",
+                 x=0.01, ha="left", fontsize=11, fontweight="bold")
+    fig.tight_layout()
+    fig.savefig(os.path.join(out, "fig5_so_variability.png"), dpi=200)
+    plt.close(fig)
 
 
 if __name__ == "__main__":
