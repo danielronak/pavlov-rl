@@ -191,7 +191,40 @@ def main():
     split = "results/svar/channel_split.json"
     if os.path.exists(split):
         fig5_svar(json.load(open(split)), args.out)
+    if all(os.path.exists(os.path.join(args.root, f"anc_{a:02d}", "phenomena.json")) for a in seeds):
+        fig6_phenomena(args.root, seeds, args.out)
     print("wrote", sorted(os.listdir(args.out)))
+
+
+def fig6_phenomena(root, seeds, out):
+    """Phenomena battery (exploratory): per-seed effect for each phenomenon, ancestors and stable
+    sisters, each panel on its own scale. Shaded side = the direction animals show."""
+    import sys
+    sys.path.insert(0, os.path.dirname(__file__))
+    from analyze_phenomena import effects
+    E = {arm: [effects(json.load(open(os.path.join(root, run_name(arm, a), "phenomena.json")))) for a in seeds]
+         for arm in ("ancestor", "stable")}
+    keys = list(E["ancestor"][0])
+    short = ["Blocking\nCR(X): blocked − control", "Latent inhibition\nacq. CR: pre-exposed − control",
+             "Partial reinforcement\nrel. extinction: 50% − 100%", "Inhibition of delay\nslope of p over 24-tick CS",
+             "Second-order\nCR(B): paired − unpaired"]
+    fig, axes = plt.subplots(1, 5, figsize=(13, 3.6))
+    for ax, k, title in zip(axes, keys, short):
+        sign = E["ancestor"][0][k][1]
+        for i, arm in enumerate(("ancestor", "stable")):
+            strip(ax, i, [e[k][0] for e in E[arm]], COLOR[arm], i)
+        lim = max(abs(v) for arm in E for e in E[arm] for v in [e[k][0]]) * 1.25
+        ax.set_ylim(-lim, lim)
+        ax.axhspan(0, -lim if sign == "less" else lim, color=GRID, alpha=0.45, lw=0, zorder=0)
+        ax.axhline(0, color=AXIS, lw=0.8)
+        ax.set_xticks([0.1, 1.1], ["Ancestors", "Stable\nsisters"], fontsize=8)
+        ax.set_title(title, fontsize=8.5)
+    axes[0].set_ylabel("Effect per seed\n(shaded = animal direction)")
+    fig.suptitle("Fig. 6  Beyond basic conditioning, the classic phenomena are absent or tiny (exploratory)",
+                 x=0.01, ha="left", fontsize=11, fontweight="bold")
+    fig.tight_layout()
+    fig.savefig(os.path.join(out, "fig6_phenomena.png"), dpi=200)
+    plt.close(fig)
 
 
 def fig5_svar(split, out):

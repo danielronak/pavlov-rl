@@ -1,0 +1,296 @@
+{
+ "ancestor": {
+  "runs": [
+   "anc_00",
+   "anc_01",
+   "anc_02",
+   "anc_03",
+   "anc_04",
+   "anc_05",
+   "anc_06",
+   "anc_07",
+   "anc_08",
+   "anc_09",
+   "anc_10",
+   "anc_11",
+   "anc_12",
+   "anc_13",
+   "anc_14",
+   "anc_15",
+   "anc_16",
+   "anc_17",
+   "anc_18",
+   "anc_19"
+  ],
+  "tests": {
+   "blocking: CR(X) blocking - overshadowing": {
+    "p": 0.7531039146548884,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": -0.004678206890821457,
+    "sd": 0.06555652006930725,
+    "ci95": [
+     -0.03327511748299001,
+     0.022854554057121276
+    ],
+    "dz": -0.07136142806048267,
+    "p_holm": 0.9337995928975538,
+    "reject": false,
+    "shown": false
+   },
+   "latent inhibition: acquisition CR pre-exposed - control": {
+    "p": 0.23360478322815814,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": -0.014504599571228027,
+    "sd": 0.05272468835398233,
+    "ci95": [
+     -0.03709473486989737,
+     0.007534813955426203
+    ],
+    "dz": -0.27510071702742434,
+    "p_holm": 0.7008143496844744,
+    "reject": false,
+    "shown": false
+   },
+   "PREE: relative extinction CR 50% - 100%": {
+    "p": 0.03095790975094075,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.053681752222967616,
+    "sd": 0.10301760933049095,
+    "ci95": [
+     0.008918716187501593,
+     0.09596646345305147
+    ],
+    "dz": 0.5210929720835503,
+    "p_holm": 0.15478954875470374,
+    "reject": false,
+    "shown": false
+   },
+   "inhibition of delay: slope of p over a 24-tick CS": {
+    "p": 0.4668997964487769,
+    "degenerate": false,
+    "direction_ok": false,
+    "n": 20,
+    "mean": -0.0006885352577772881,
+    "sd": 0.004147424498622874,
+    "ci95": [
+     -0.00254168279763649,
+     0.0010254255316045047
+    ],
+    "dz": -0.16601513975864102,
+    "p_holm": 0.9337995928975538,
+    "reject": false,
+    "shown": false
+   },
+   "second-order: CR(B) paired - unpaired": {
+    "p": 0.1212392070824482,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.011762979114428163,
+    "sd": 0.032428786832261185,
+    "ci95": [
+     -0.0015856018278282132,
+     0.025760898804292078
+    ],
+    "dz": 0.36273262935405215,
+    "p_holm": 0.4849568283297928,
+    "reject": false,
+    "shown": false
+   }
+  },
+  "secondary": {
+   "IoD slope, 12-tick CS (in-distribution)": {
+    "p": 0.0002812650185305892,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.007911780622659488,
+    "sd": 0.007969866002742248,
+    "ci95": [
+     0.004540598146102673,
+     0.011449158084207892
+    ],
+    "dz": 0.9927118749471103
+   },
+   "blocking: pretraining CR (last 5)": {
+    "p": 4.1801994038235145e-14,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.6532446384429932,
+    "sd": 0.1482731751469496,
+    "ci95": [
+     0.5883151271566749,
+     0.7134221412986517
+    ],
+    "dz": 4.405683211380479
+   },
+   "SOC: first-order CR (last 5)": {
+    "p": 3.5229740435265693e-13,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.6532539755105973,
+    "sd": 0.16685737334997447,
+    "ci95": [
+     0.5804686711356044,
+     0.7209243750199675
+    ],
+    "dz": 3.91504410260871
+   }
+  }
+ },
+ "stable": {
+  "runs": [
+   "stable_00",
+   "stable_01",
+   "stable_02",
+   "stable_03",
+   "stable_04",
+   "stable_05",
+   "stable_06",
+   "stable_07",
+   "stable_08",
+   "stable_09",
+   "stable_10",
+   "stable_11",
+   "stable_12",
+   "stable_13",
+   "stable_14",
+   "stable_15",
+   "stable_16",
+   "stable_17",
+   "stable_18",
+   "stable_19"
+  ],
+  "tests": {
+   "blocking: CR(X) blocking - overshadowing": {
+    "p": 0.38427864675703993,
+    "degenerate": false,
+    "direction_ok": false,
+    "n": 20,
+    "mean": 0.013420888781547546,
+    "sd": 0.06739221046784635,
+    "ci95": [
+     -0.01537258585914969,
+     0.04271617166697978
+    ],
+    "dz": 0.19914599459459512,
+    "p_holm": 0.7685572935140799,
+    "reject": false,
+    "shown": false
+   },
+   "latent inhibition: acquisition CR pre-exposed - control": {
+    "p": 0.08577044634844902,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": -0.03523769676685333,
+    "sd": 0.0869534247610449,
+    "ci95": [
+     -0.07515189286321401,
+     -0.0035386622697114985
+    ],
+    "dz": -0.40524794582489876,
+    "p_holm": 0.3430817853937961,
+    "reject": false,
+    "shown": false
+   },
+   "PREE: relative extinction CR 50% - 100%": {
+    "p": 0.09820552982624471,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.0372465601212803,
+    "sd": 0.09578390265064324,
+    "ci95": [
+     -0.0017331892682082557,
+     0.07977010609173556
+    ],
+    "dz": 0.38886033133491427,
+    "p_holm": 0.3430817853937961,
+    "reject": false,
+    "shown": false
+   },
+   "inhibition of delay: slope of p over a 24-tick CS": {
+    "p": 0.6208611580710515,
+    "degenerate": false,
+    "direction_ok": false,
+    "n": 20,
+    "mean": -0.0006973271312323129,
+    "sd": 0.006201956353989207,
+    "ci95": [
+     -0.003428880305562482,
+     0.0018127626960913676
+    ],
+    "dz": -0.11243663957483027,
+    "p_holm": 0.7685572935140799,
+    "reject": false,
+    "shown": false
+   },
+   "second-order: CR(B) paired - unpaired": {
+    "p": 0.009264521899725795,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.012144912057556212,
+    "sd": 0.018756263281584147,
+    "ci95": [
+     0.0037587726704077814,
+     0.01973959081165958
+    ],
+    "dz": 0.6475123469545613,
+    "p_holm": 0.04632260949862897,
+    "reject": true,
+    "shown": true
+   }
+  },
+  "secondary": {
+   "IoD slope, 12-tick CS (in-distribution)": {
+    "p": 0.00021334597128119738,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.011056333649789677,
+    "sd": 0.010840102298881495,
+    "ci95": [
+     0.006345723978538921,
+     0.01575375375268462
+    ],
+    "dz": 1.019947353350207
+   },
+   "blocking: pretraining CR (last 5)": {
+    "p": 1.2479939333414584e-17,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.7511383086442948,
+    "sd": 0.10976188146681566,
+    "ci95": [
+     0.7020130798965694,
+     0.7963271094858646
+    ],
+    "dz": 6.843343960638891
+   },
+   "SOC: first-order CR (last 5)": {
+    "p": 2.3668091897500743e-15,
+    "degenerate": false,
+    "direction_ok": true,
+    "n": 20,
+    "mean": 0.7489255636930465,
+    "sd": 0.14526883223948167,
+    "ci95": [
+     0.6837602443248033,
+     0.8073341952264309
+    ],
+    "dz": 5.155445611749751
+   }
+  }
+ }
+}
