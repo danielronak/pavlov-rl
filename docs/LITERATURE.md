@@ -1,7 +1,8 @@
 # Literature and novelty positioning (living document)
 
-Items marked [VERIFY] were cited from memory or from search snippets. Check them against the
-source before citing in the paper.
+Items marked [VERIFY] were cited from memory or from search snippets. **Everything cited in the paper
+was checked on 2026-11-19: see `docs/LITERATURE_CHECK.md`** (corrections, new prior work, revised
+novelty statement). [VERIFY] marks below remain only for items not cited in the paper.
 
 ## What already exists
 

@@ -216,6 +216,16 @@ generations** (so no fixed response is right for everyone) but is **predictable 
 The original hypothesis was: q makes conditioning evolve; v makes it instrumental. The first part
 held (and an exploratory test supports it). The second part did not (Part C, Part D).
 
+**Who has evolved learners before (and how we differ).** Burgos (1997) evolved neural networks for
+Pavlovian conditioning, but they learned with a designed learning rule. Izquierdo, Harvey and Beer
+(2007, 2008) evolved recurrent networks with fixed weights that learn an association in their
+dynamics, exactly our "learning in activations", but evolution rewarded doing the association task.
+Kozielska and Weissing (2023, 2024) evolved networks with a prediction-error learning rule and found,
+like us, that learning does not evolve in fairly constant worlds. What is new here: the objective
+is physiology only (no fitness term for association), there is no learning rule at all, and the
+evolved learner is tested in a held-out lab including the omission test. Details and the full
+reference check: `docs/LITERATURE_CHECK.md`.
+
 ---
 
 # Part B — The design and the reasons for it
@@ -862,7 +872,12 @@ events, or weighing within-lifetime evidence about distractor channels different
     the instrumental learner's failure might change with other parameters — stated as a caveat.
 13. *Process issues.* Several date errata, seven restarts, one control redesigned. All logged; none
     affected results.
-14. *Citations.* Many references are from memory and must be verified († in the paper).
+14. *Citations and prior work.* Checked on 2026-11-19 (`docs/LITERATURE_CHECK.md`): three
+    references corrected (Frost Hollow first author and title, Domjan DOI, Binz year), titles
+    added, one detail still † (Hollis page numbers). Five closely related papers that were missing
+    are now cited (A7). A reviewer from artificial life will know Izquierdo et al.; the answer is
+    the physiology-only objective, no learning rule, and the held-out omission test. The two
+    closest papers were checked at abstract level only and should be read in full.
 
 **What I would do to strengthen the paper (priority order).**
 1. Stronger blocking test: the same redundant cue throughout a lifetime and/or costlier false
@@ -871,7 +886,8 @@ events, or weighing within-lifetime evidence about distractor channels different
 3. Robustness: GRU size 32/128, LSTM, physiology ±25%, PPO replication.
 4. More R-O families and a stronger search for the instrumental solution.
 5. The human-experimenter lab bench (Phase 12) as a demonstration.
-6. Verify every reference; post the pre-registration publicly (e.g. OSF).
+6. Read the five closest papers in full (`docs/LITERATURE_CHECK.md` §2–3); post the
+   pre-registration publicly (e.g. OSF).
 
 ---
 

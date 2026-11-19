@@ -33,9 +33,11 @@ Classical conditioning is usually modelled in two parts. Prediction models such 
 
 Theory of the evolution of learning predicts when learning should be favoured over fixed behaviour: when the world varies between generations but is predictable within a lifetime \cite{stephens91,katsnelson12}. Meta-reinforcement learning (meta-RL) makes this testable: an outer optimisation loop over many lifetimes produces a recurrent network whose fixed weights implement a within-lifetime learning algorithm in its activations \cite{wang18,binz23}. Meta-learned agents have been compared with RW-type models in decision tasks \cite{schubert24}, but to our knowledge none has been taken through Pavlov's protocols or an omission test.
 
+Neural networks have been evolved in Pavlovian settings before. Burgos \cite{burgos97} evolved networks that learned with a designed neurocomputational rule; Izquierdo and colleagues \cite{izquierdo07,izquierdo08} evolved recurrent networks without synaptic plasticity that learn a food--temperature association in their dynamics; and evolved networks with a prediction-error rule show that learning is disfavoured in constant environments \cite{kozielska24,mendez23} (see also \cite{niv02}). In these models either the learning rule was designed or fitness rewarded performing the association task. Here neither holds: fitness is digestion only, there is no learning rule, and conditioning is assessed with held-out protocols, including the omission test, that evolution never saw.
+
 We built such a test. The agent's only effector is salivation, and its only consequence is physiological. An outer loop (evolution strategies, the analogue of evolution) optimises digestion over many lifetimes in an ecology where the meaning of cues varies between lifetimes. The inner loop is a single lifetime with frozen weights, in which any learning must happen in recurrent activity. Evolved agents are then frozen and run, blind, through a simulated laboratory that evolution never saw. We ask whether a CR-like response to a novel bell emerges (Q1); whether it is Pavlovian or instrumental, and what decides this (Q2); which classical phenomena emerge (Q3); and how it is implemented (Q4). Q1 and Q2 were tested in a pre-registered confirmatory study with 20 independent evolutionary histories; the rest is exploratory.
 
-\textit{Spontaneity.} We call the CR spontaneous because (i) reward is physiology only and never references cues, trials or the lab; (ii) salivation affects only the saliva level; (iii) which channel predicts food is resampled every lifetime, so no channel---in particular not the lab's bell channel---has an innate meaning; (iv) there are no auxiliary losses; (v) weights are frozen in the lab; and (vi) the lab protocols and the omission contingency never occur during evolution. These invariants are enforced by automated tests. What we build in, and state openly, is the premise that saliva improves digestion, and standard meta-RL inputs (food in the mouth, own saliva level, previous action and reward).
+\textit{Spontaneity.} We call the CR spontaneous because (i) reward is physiology only and never references cues, trials or the lab; (ii) salivation affects only the saliva level; (iii) which channel predicts food is resampled every lifetime, so no channel---in particular not the lab's bell channel---has an innate meaning; (iv) there are no auxiliary losses; (v) weights are frozen in the lab; and (vi) the lab protocols and the omission contingency never occur during evolution. These invariants are enforced by automated tests. What we build in, and state openly, is the premise that saliva improves digestion (a minimal homeostatic objective, cf.~\cite{keramati14}), and standard meta-RL inputs (food in the mouth, own saliva level, previous action and reward).
 
 \section{Methods}
 
@@ -185,7 +187,7 @@ Optimising nothing but digestion, over lifetimes in which cue meanings varied, p
 
 \textit{Why outcome-insensitivity?} In the ancestors' world, salivating never changed whether food came, only how well it was digested; a response that follows the food prediction and ignores its own consequences is then optimal. The sister lineages sharpen this: given response--outcome variability, evolution either added separate learning about digestion while keeping the bell response Pavlovian, or removed the bell response, rather than bringing it under instrumental control, although an instrumental policy would have paid more. A four-times larger search (pilot) did not change this, but a stronger search might. The result supports the view of Pavlovian control as a cheap, usually adequate default \cite{dayan06}.
 
-\textit{When does learning evolve?} Fixed meanings produced an inborn response and variable meanings produced learning, as theory predicts \cite{stephens91}; rarely relevant cues were neglected without any built-in attention mechanism.
+\textit{When does learning evolve?} Fixed meanings produced an inborn response and variable meanings produced learning, as theory and evolved-network models predict \cite{stephens91,kozielska24}; rarely relevant cues were neglected without any built-in attention mechanism.
 
 \textit{What kind of learner?} The evolved learner is fast and channel-specific, with a compact memory of 8--16 units. It is not error-correcting in the RW sense: it shows no blocking, latent inhibition or partial-reinforcement extinction effect. A world of one stimulus at a time could explain this, but agents evolved with compound cues adapted to them and still did not block. Blocking is therefore not a by-product of being a good conditioner, even in a world that contains compounds. Whether it needs a stronger pressure (a fixed redundant cue within a lifetime, or costlier false alarms) or a different architecture is open; latent inhibition and the partial-reinforcement extinction effect may similarly need frequent contingency changes.
 
@@ -199,21 +201,28 @@ All code, configurations, logs, lab outputs, final checkpoints and the decision 
 
 \begin{thebibliography}{99}
 \footnotesize
-\bibitem{rw72} R.~A. Rescorla and A.~R. Wagner, ``A theory of Pavlovian conditioning,'' 1972.\unv
-\bibitem{sb90} R.~S. Sutton and A.~G. Barto, ``Time-derivative models of Pavlovian reinforcement,'' 1990.\unv
-\bibitem{modayil14} J.~Modayil and R.~S. Sutton, ``Prediction driven behavior: learning predictions that drive fixed responses,'' 2014.\unv
-\bibitem{butcher22} J.~Butcher, P.~M. Pilarski \textit{et al.}, ``Frost Hollow: Pavlovian signalling,'' arXiv:2203.09498, 2022.
-\bibitem{domjan05} M.~Domjan, ``Pavlovian conditioning: a functional perspective,'' \textit{Annu. Rev. Psychol.}, vol.~56, 2005.
-\bibitem{hollis97} K.~L. Hollis, ``Contemporary research on Pavlovian conditioning: a `new' functional analysis,'' \textit{Am. Psychol.}, 1997.\unv
-\bibitem{sheffield65} F.~D. Sheffield, ``Relation between classical conditioning and instrumental learning,'' 1965.\unv
-\bibitem{williams69} D.~R. Williams and H.~Williams, ``Auto-maintenance in the pigeon,'' \textit{J. Exp. Anal. Behav.}, 1969.\unv
-\bibitem{dayan06} P.~Dayan, Y.~Niv, B.~Seymour and N.~D. Daw, ``The misbehavior of value and the discipline of the will,'' \textit{Neural Netw.}, 2006.\unv
-\bibitem{stephens91} D.~W. Stephens, ``Change, regularity, and value in the evolution of animal learning,'' \textit{Behav. Ecol.}, 1991.\unv
-\bibitem{katsnelson12} E.~Katsnelson \textit{et al.}, \textit{Proc. R. Soc. B}, 2012.\unv
-\bibitem{wang18} J.~X. Wang \textit{et al.}, ``Prefrontal cortex as a meta-reinforcement learning system,'' \textit{Nat. Neurosci.}, 2018.\unv
-\bibitem{binz23} M.~Binz \textit{et al.}, ``Meta-learned models of cognition,'' \textit{Behav. Brain Sci.}, 2023.\unv
-\bibitem{salimans17} T.~Salimans, J.~Ho, X.~Chen, S.~Sidor and I.~Sutskever, ``Evolution strategies as a scalable alternative to reinforcement learning,'' arXiv:1703.03864, 2017.\unv
-\bibitem{schubert24} J.~A. Schubert, A.~K. Jagadish, M.~Binz and E.~Schulz, arXiv:2402.03969, 2024.
+\bibitem{rw72} R.~A. Rescorla and A.~R. Wagner, ``A theory of Pavlovian conditioning: Variations in the effectiveness of reinforcement and nonreinforcement,'' in \textit{Classical Conditioning II}, A.~H. Black and W.~F. Prokasy, Eds. New York: Appleton-Century-Crofts, 1972, pp.~64--99.
+\bibitem{sb90} R.~S. Sutton and A.~G. Barto, ``Time-derivative models of Pavlovian reinforcement,'' in \textit{Learning and Computational Neuroscience: Foundations of Adaptive Networks}, M.~Gabriel and J.~Moore, Eds. Cambridge, MA: MIT Press, 1990, pp.~497--537.
+\bibitem{modayil14} J.~Modayil and R.~S. Sutton, ``Prediction driven behavior: Learning predictions that drive fixed responses,'' in \textit{AAAI-14 Workshop on Artificial Intelligence and Robotics}, 2014.
+\bibitem{butcher22} P.~M. Pilarski, A.~Butcher \textit{et al.}, ``The Frost Hollow experiments: Pavlovian signalling as a path to coordination and communication between agents,'' arXiv:2203.09498, 2022.
+\bibitem{domjan05} M.~Domjan, ``Pavlovian conditioning: A functional perspective,'' \textit{Annu. Rev. Psychol.}, vol.~56, pp.~179--206, 2005.
+\bibitem{hollis97} K.~L. Hollis, ``Contemporary research on Pavlovian conditioning: A `new' functional analysis,'' \textit{Am. Psychol.}, vol.~52, no.~9, pp.~956--965, 1997.\unv
+\bibitem{sheffield65} F.~D. Sheffield, ``Relation between classical conditioning and instrumental learning,'' in \textit{Classical Conditioning: A Symposium}, W.~F. Prokasy, Ed. New York: Appleton-Century-Crofts, 1965, pp.~302--321.
+\bibitem{williams69} D.~R. Williams and H.~Williams, ``Auto-maintenance in the pigeon: Sustained pecking despite contingent non-reinforcement,'' \textit{J. Exp. Anal. Behav.}, vol.~12, no.~4, pp.~511--520, 1969.
+\bibitem{dayan06} P.~Dayan, Y.~Niv, B.~Seymour and N.~D. Daw, ``The misbehavior of value and the discipline of the will,'' \textit{Neural Netw.}, vol.~19, no.~8, pp.~1153--1160, 2006.
+\bibitem{stephens91} D.~W. Stephens, ``Change, regularity, and value in the evolution of animal learning,'' \textit{Behav. Ecol.}, vol.~2, no.~1, pp.~77--89, 1991.
+\bibitem{katsnelson12} E.~Katsnelson, U.~Motro, M.~W. Feldman and A.~Lotem, ``Evolution of learned strategy choice in a frequency-dependent game,'' \textit{Proc. R. Soc. B}, vol.~279, no.~1731, pp.~1176--1184, 2012.
+\bibitem{wang18} J.~X. Wang \textit{et al.}, ``Prefrontal cortex as a meta-reinforcement learning system,'' \textit{Nat. Neurosci.}, vol.~21, no.~6, pp.~860--868, 2018.
+\bibitem{binz23} M.~Binz, I.~Dasgupta, A.~K. Jagadish, M.~Botvinick, J.~X. Wang and E.~Schulz, ``Meta-learned models of cognition,'' \textit{Behav. Brain Sci.}, vol.~47, e147, 2024.
+\bibitem{salimans17} T.~Salimans, J.~Ho, X.~Chen, S.~Sidor and I.~Sutskever, ``Evolution strategies as a scalable alternative to reinforcement learning,'' arXiv:1703.03864, 2017.
+\bibitem{schubert24} J.~A. Schubert, A.~K. Jagadish, M.~Binz and E.~Schulz, ``In-context learning agents are asymmetric belief updaters,'' in \textit{Proc. ICML}, PMLR vol.~235, pp.~43928--43946, 2024.
+\bibitem{burgos97} J.~E. Burgos, ``Evolving artificial neural networks in Pavlovian environments,'' in \textit{Neural-Network Models of Cognition: Biobehavioral Foundations}, J.~W. Donahoe and V.~P. Dorsel, Eds. Amsterdam: Elsevier, 1997, pp.~58--79.
+\bibitem{izquierdo07} E.~Izquierdo and I.~Harvey, ``The dynamics of associative learning in an evolved situated agent,'' in \textit{Proc. European Conf. Artificial Life (ECAL)}, LNAI vol.~4648, Springer, 2007.
+\bibitem{izquierdo08} E.~Izquierdo, I.~Harvey and R.~D. Beer, ``Associative learning on a continuum in evolved dynamical neural networks,'' \textit{Adapt. Behav.}, vol.~16, no.~6, pp.~361--384, 2008.
+\bibitem{kozielska24} M.~Kozielska and F.~J. Weissing, ``A neural network model for the evolution of learning in changing environments,'' \textit{PLoS Comput. Biol.}, vol.~20, no.~1, e1011840, 2024.
+\bibitem{mendez23} E.~M\'endez Salinas, F.~J. Weissing and M.~Kozielska, ``Neural network models for the evolution of associative learning,'' bioRxiv 10.1101/2023.07.21.549996, 2023.
+\bibitem{niv02} Y.~Niv, D.~Joel, I.~Meilijson and E.~Ruppin, ``Evolution of reinforcement learning in uncertain environments: A simple explanation for complex foraging behaviors,'' \textit{Adapt. Behav.}, vol.~10, no.~1, pp.~5--24, 2002.
+\bibitem{keramati14} M.~Keramati and B.~Gutkin, ``Homeostatic reinforcement learning for integrating reward collection and physiological stability,'' \textit{eLife}, vol.~3, e04811, 2014.
 \end{thebibliography}
 \noindent\footnotesize{\unv\,Not yet verified against the source.}
 

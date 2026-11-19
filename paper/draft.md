@@ -3,8 +3,8 @@
 *Draft v0.2 — 2026-11-19. Ronak Daniel. Working draft for internal review; not for circulation.*
 
 > **Status notes for co-authors.**
-> (1) References marked † were cited from memory and must be checked against the source before
-> submission (see `docs/LITERATURE.md`). (2) Every number below is produced by a committed script
+> (1) References were checked against bibliographic records on 2026-11-19
+> (`docs/LITERATURE_CHECK.md`); the one still marked  has unconfirmed volume/page details. (2) Every number below is produced by a committed script
 > from `results/`; the script is named next to each result. (3) Sections 2.1–2.3 are the
 > pre-registered confirmatory results (git tag `prereg-v1`, commit `b4d07cf`); everything from 2.4 on is
 > exploratory and labelled as such.
@@ -41,25 +41,35 @@ latent inhibition, partial-reinforcement extinction effect or spontaneous recove
 ## 1. Introduction
 
 Classical conditioning is usually described with two kinds of models. Prediction models such as
-Rescorla–Wagner (RW)† and temporal-difference (TD) learning† explain how a conditioned stimulus (CS)
+Rescorla–Wagner (RW) and temporal-difference (TD) learning explain how a conditioned stimulus (CS)
 comes to predict an unconditioned stimulus (US). Agent models of "Pavlovian control" then attach a
-fixed response to that prediction by construction (Modayil & Sutton 2014†; Butcher et al. 2022).
+fixed response to that prediction by construction (Modayil & Sutton 2014; Pilarski et al. 2022).
 Both take the link between prediction and response as given. A functional view of conditioning
 (Domjan 2005; Hollis 1997†) instead holds that conditioned responses exist because they improve how
 an animal deals with the US — saliva secreted before food arrives speeds digestion. On this view the
 prediction–response link is itself a product of evolution, and so is its most puzzling property:
-in omission experiments (Sheffield 1965†; Williams & Williams 1969†), animals keep producing the
+in omission experiments (Sheffield 1965; Williams & Williams 1969), animals keep producing the
 CR even when it cancels the US. Normative accounts explain this as a hard-wired, outcome-insensitive
-"Pavlovian" controller that is usually right (Dayan et al. 2006†).
+"Pavlovian" controller that is usually right (Dayan et al. 2006).
 
 Theory of the evolution of learning predicts *when* learning should be favoured over fixed behaviour:
-when the world varies between generations but is predictable within a lifetime (Stephens 1991†;
+when the world varies between generations but is predictable within a lifetime (Stephens 1991;
 Katsnelson et al. 2012). Meta-reinforcement learning (meta-RL) gives a concrete way to test such
 ideas: an outer optimisation loop over many lifetimes produces a recurrent network whose fixed
-weights implement a within-lifetime learning algorithm in its activations (Wang et al. 2018†; Binz
-et al. 2023†). Meta-learned agents have been compared with RW-type models in decision tasks
+weights implement a within-lifetime learning algorithm in its activations (Wang et al. 2018; Binz
+et al. 2024). Meta-learned agents have been compared with RW-type models in decision tasks
 (Schubert et al. 2024), but, as far as we know, none has been taken through Pavlov's protocols or
 an omission test.
+
+Neural networks have been evolved in Pavlovian settings before. Burgos (1997) evolved networks that
+learned with a designed neurocomputational rule; Izquierdo and colleagues (Izquierdo & Harvey 2007;
+Izquierdo, Harvey & Beer 2008) evolved recurrent networks without synaptic plasticity that learn a
+food–temperature association in their dynamics; and evolved networks with a prediction-error rule
+show that learning is disfavoured in constant environments (Méndez Salinas et al. 2023; Kozielska &
+Weissing 2024; see also Niv et al. 2002). In these models either the learning rule was designed or
+fitness rewarded performing the association task. Here neither holds: fitness is digestion only,
+there is no learning rule, and conditioning is assessed with held-out protocols, including the
+omission test, that evolution never saw.
 
 We built such a test. The agent's only effector is salivation; its only consequence is
 physiological. An outer loop (evolution strategies, the analogue of evolution) optimises digestion
@@ -79,7 +89,7 @@ lifetime so no channel — in particular not the lab's bell channel — has an i
 there are no auxiliary losses, (v) weights are frozen in the lab, and (vi) the lab protocols and the
 omission contingency never occur during evolution. These invariants are enforced by tests in the
 code base. What we do build in, and state openly, is the functional premise that saliva improves
-digestion, and standard meta-RL inputs (food in the mouth, own saliva level, previous action and
+digestion (a minimal homeostatic objective; cf. Keramati & Gutkin 2014), and standard meta-RL inputs (food in the mouth, own saliva level, previous action and
 reward).
 
 ---
@@ -289,11 +299,11 @@ removed the bell response rather than bringing it under instrumental control, al
 instrumental policy would have paid more (pilot oracle analysis). A four-times larger search
 (pilot, Section 4.1) did not change this, but we cannot exclude that a stronger search would find
 the instrumental solution. The result supports the normative view that Pavlovian control is a
-cheap, usually adequate default (Dayan et al. 2006†), and adds that in our setting it was the only
+cheap, usually adequate default (Dayan et al. 2006), and adds that in our setting it was the only
 evolved form of anticipatory responding.
 
 **When does learning evolve?** The exploratory cue-variability experiment matches classic
-predictions (Stephens 1991†): fixed meanings produced an inborn response, variable meanings produced
+predictions (Stephens 1991) and evolved-network models (Kozielska & Weissing 2024): fixed meanings produced an inborn response, variable meanings produced
 learning. Agents also neglected cues that were relevant only rarely, a selective associability that
 emerged without any built-in attention mechanism.
 
@@ -357,7 +367,7 @@ halves that trial's US probability).
 
 The agent is a GRU (64 units) over a 64-unit tanh embedding of [cues, food in mouth, S_t, u_{t−1},
 r_{t−1}], with a Bernoulli salivation head and a value head (not used by the evolutionary outer loop).
-There are no auxiliary losses. Weights were optimised with OpenAI evolution strategies (Salimans et al. 2017†): antithetic
+There are no auxiliary losses. Weights were optimised with OpenAI evolution strategies (Salimans et al. 2017): antithetic
 sampling, centred-rank fitness shaping, population 64, 8 lifetimes per member, σ = 0.03, Adam with
 learning rate 0.02 and weight decay 0.005, common random numbers within antithetic pairs. Ancestors
 evolved for 4000 generations from scratch; sisters for 2000 generations from the ancestor's
@@ -413,24 +423,31 @@ project repository. Figures are regenerated from `results/` by `scripts/make_fig
 
 ## References
 
-(† = not yet verified against the source; see `docs/LITERATURE.md`.)
+(† = volume/page details not yet confirmed against the publisher; see `docs/LITERATURE_CHECK.md`.)
 
-- Binz, M. et al. (2023). Meta-learned models of cognition. *Behavioral and Brain Sciences*. †
-- Butcher, J., Pilarski, P. M. et al. (2022). Frost Hollow: Pavlovian signalling. arXiv:2203.09498.
-- Dayan, P., Niv, Y., Seymour, B. & Daw, N. D. (2006). The misbehavior of value and the discipline of the will. *Neural Networks*. †
-- Domjan, M. (2005). Pavlovian conditioning: a functional perspective. *Annual Review of Psychology*, 56. doi:10.1146/annurev.psych.55.090902.141409
-- Hollis, K. L. (1997). Contemporary research on Pavlovian conditioning: a "new" functional analysis. *American Psychologist*. †
-- Kamin, L. J. (1969). Predictability, surprise, attention, and conditioning. †
-- Katsnelson, E. et al. (2012). *Proceedings of the Royal Society B*. †(title)
-- Lubow, R. E. & Moore, A. U. (1959). Latent inhibition. †
-- Modayil, J. & Sutton, R. S. (2014). Prediction driven behavior: learning predictions that drive fixed responses. †
+- Binz, M., Dasgupta, I., Jagadish, A. K., Botvinick, M., Wang, J. X. & Schulz, E. (2024). Meta-learned models of cognition. *Behavioral and Brain Sciences*, 47, e147.
+- Burgos, J. E. (1997). Evolving artificial neural networks in Pavlovian environments. In J. W. Donahoe & V. P. Dorsel (Eds.), *Neural-Network Models of Cognition: Biobehavioral Foundations* (pp. 58–79). Elsevier.
+- Dayan, P., Niv, Y., Seymour, B. & Daw, N. D. (2006). The misbehavior of value and the discipline of the will. *Neural Networks*, 19(8), 1153–1160.
+- Domjan, M. (2005). Pavlovian conditioning: a functional perspective. *Annual Review of Psychology*, 56, 179–206. doi:10.1146/annurev.psych.56.091103.070213
+- Hollis, K. L. (1997). Contemporary research on Pavlovian conditioning: a "new" functional analysis. *American Psychologist*, 52(9), 956–965. †
+- Izquierdo, E. & Harvey, I. (2007). The dynamics of associative learning in an evolved situated agent. *Proceedings of the European Conference on Artificial Life (ECAL 2007)*, LNAI 4648. Springer.
+- Izquierdo, E., Harvey, I. & Beer, R. D. (2008). Associative learning on a continuum in evolved dynamical neural networks. *Adaptive Behavior*, 16(6), 361–384.
+- Kamin, L. J. (1969). Predictability, surprise, attention, and conditioning. In B. A. Campbell & R. M. Church (Eds.), *Punishment and Aversive Behavior* (pp. 279–296). Appleton-Century-Crofts.
+- Katsnelson, E., Motro, U., Feldman, M. W. & Lotem, A. (2012). Evolution of learned strategy choice in a frequency-dependent game. *Proceedings of the Royal Society B*, 279(1731), 1176–1184.
+- Keramati, M. & Gutkin, B. (2014). Homeostatic reinforcement learning for integrating reward collection and physiological stability. *eLife*, 3, e04811.
+- Kozielska, M. & Weissing, F. J. (2024). A neural network model for the evolution of learning in changing environments. *PLoS Computational Biology*, 20(1), e1011840.
+- Lubow, R. E. & Moore, A. U. (1959). Latent inhibition: the effect of nonreinforced pre-exposure to the conditional stimulus. *Journal of Comparative and Physiological Psychology*, 52, 415–419.
+- Méndez Salinas, E., Weissing, F. J. & Kozielska, M. (2023). Neural network models for the evolution of associative learning. bioRxiv 10.1101/2023.07.21.549996.
+- Modayil, J. & Sutton, R. S. (2014). Prediction driven behavior: learning predictions that drive fixed responses. AAAI-14 Workshop on Artificial Intelligence and Robotics.
+- Niv, Y., Joel, D., Meilijson, I. & Ruppin, E. (2002). Evolution of reinforcement learning in uncertain environments: a simple explanation for complex foraging behaviors. *Adaptive Behavior*, 10(1), 5–24.
 - Pavlov, I. P. (1927). *Conditioned Reflexes*. Oxford University Press.
-- Rescorla, R. A. (1967). Pavlovian conditioning and its proper control procedures. *Psychological Review*. †
-- Rescorla, R. A. & Wagner, A. R. (1972). A theory of Pavlovian conditioning. †
-- Salimans, T., Ho, J., Chen, X., Sidor, S. & Sutskever, I. (2017). Evolution strategies as a scalable alternative to reinforcement learning. arXiv:1703.03864. †
-- Schubert, J. A., Jagadish, A. K., Binz, M. & Schulz, E. (2024). arXiv:2402.03969.
-- Sheffield, F. D. (1965). Relation between classical conditioning and instrumental learning. †
-- Stephens, D. W. (1991). Change, regularity, and value in the evolution of animal learning. *Behavioral Ecology*. †
-- Sutton, R. S. & Barto, A. G. (1990). Time-derivative models of Pavlovian reinforcement. †
-- Wang, J. X. et al. (2018). Prefrontal cortex as a meta-reinforcement learning system. *Nature Neuroscience*. †
-- Williams, D. R. & Williams, H. (1969). Auto-maintenance in the pigeon. *Journal of the Experimental Analysis of Behavior*. †
+- Pilarski, P. M., Butcher, A. et al. (2022). The Frost Hollow experiments: Pavlovian signalling as a path to coordination and communication between agents. arXiv:2203.09498.
+- Rescorla, R. A. (1967). Pavlovian conditioning and its proper control procedures. *Psychological Review*, 74(1), 71–80.
+- Rescorla, R. A. & Wagner, A. R. (1972). A theory of Pavlovian conditioning: variations in the effectiveness of reinforcement and nonreinforcement. In A. H. Black & W. F. Prokasy (Eds.), *Classical Conditioning II* (pp. 64–99). Appleton-Century-Crofts.
+- Salimans, T., Ho, J., Chen, X., Sidor, S. & Sutskever, I. (2017). Evolution strategies as a scalable alternative to reinforcement learning. arXiv:1703.03864.
+- Schubert, J. A., Jagadish, A. K., Binz, M. & Schulz, E. (2024). In-context learning agents are asymmetric belief updaters. *Proceedings of ICML*, PMLR 235, 43928–43946.
+- Sheffield, F. D. (1965). Relation between classical conditioning and instrumental learning. In W. F. Prokasy (Ed.), *Classical Conditioning: A Symposium* (pp. 302–321). Appleton-Century-Crofts.
+- Stephens, D. W. (1991). Change, regularity, and value in the evolution of animal learning. *Behavioral Ecology*, 2(1), 77–89.
+- Sutton, R. S. & Barto, A. G. (1990). Time-derivative models of Pavlovian reinforcement. In M. Gabriel & J. Moore (Eds.), *Learning and Computational Neuroscience: Foundations of Adaptive Networks* (pp. 497–537). MIT Press.
+- Wang, J. X. et al. (2018). Prefrontal cortex as a meta-reinforcement learning system. *Nature Neuroscience*, 21(6), 860–868.
+- Williams, D. R. & Williams, H. (1969). Auto-maintenance in the pigeon: sustained pecking despite contingent non-reinforcement. *Journal of the Experimental Analysis of Behavior*, 12(4), 511–520.
