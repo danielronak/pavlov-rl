@@ -31,6 +31,14 @@ plt.rcParams.update({
 })
 
 
+PAPER = False  # --paper: no figure-level titles (the paper's captions carry them)
+
+
+def _suptitle(fig, text, **kw):
+    if not PAPER:
+        fig.suptitle(text, **kw)
+
+
 def run_name(arm, a):
     return f"anc_{a:02d}" if arm == "ancestor" else f"{arm}_{a:02d}"
 
@@ -89,7 +97,7 @@ def fig1_curves(root, seeds, out):
         ax.set_title(f"{LABEL[arm].replace(chr(10), ' ')}s (N = {len(seeds)})")
     axes[0].set_ylabel("Conditioned response\n(Δ p(salivate) before food)")
     axes[0].legend(loc="center right", bbox_to_anchor=(1.0, 0.55), fontsize=8)
-    fig.suptitle("Fig. 1  A frozen agent learns to salivate to a new bell, then extinguishes",
+    _suptitle(fig, "Fig. 1  A frozen agent learns to salivate to a new bell, then extinguishes",
                  x=0.01, ha="left", fontsize=11, fontweight="bold")
     fig.tight_layout()
     fig.savefig(os.path.join(out, "fig1_acquisition_extinction.png"), dpi=200)
@@ -115,7 +123,7 @@ def fig2_controls(per, seeds, out):
     for ax in axes:
         ax.axhline(0, color=AXIS, lw=0.8)
         ax.set_ylim(-0.15, 1.0)
-    fig.suptitle("Fig. 2  The response needs the bell to predict food (ancestors, N = 20; dots = seeds)",
+    _suptitle(fig, "Fig. 2  The response needs the bell to predict food (ancestors, N = 20; dots = seeds)",
                  x=0.01, ha="left", fontsize=11, fontweight="bold")
     fig.tight_layout()
     fig.savefig(os.path.join(out, "fig2_controls.png"), dpi=200)
@@ -142,7 +150,7 @@ def fig3_omission(per, seeds, out):
         ax.set_title(LABEL[arm].replace("-\n", "-").replace("\n", " "), fontsize=9)
     axes[0].set_ylabel("Response to bell\n(last 15 training trials)")
     axes[0].set_ylim(-0.05, 0.95)
-    fig.suptitle("Fig. 3  Salivation does not stop when it costs the food (Sheffield-style omission test)",
+    _suptitle(fig, "Fig. 3  Salivation does not stop when it costs the food (Sheffield-style omission test)",
                  x=0.01, ha="left", fontsize=11, fontweight="bold")
     fig.tight_layout()
     fig.savefig(os.path.join(out, "fig3_omission.png"), dpi=200)
@@ -169,7 +177,7 @@ def fig4_arms(per, seeds, out):
     axes[2].axhline(0.2, color=INK2, lw=0.8, ls=(0, (3, 3)))
     axes[2].text(3.45, 0.21, "pre-registered\nmargin 0.2", ha="right", va="bottom", fontsize=7.5, color=INK2)
     axes[2].set_ylim(-0.05, 1.0)
-    fig.suptitle("Fig. 4  The evolutionary environment decides whether conditioning exists, not whether it is Pavlovian",
+    _suptitle(fig, "Fig. 4  The evolutionary environment decides whether conditioning exists, not whether it is Pavlovian",
                  x=0.01, ha="left", fontsize=11, fontweight="bold")
     fig.tight_layout()
     fig.savefig(os.path.join(out, "fig4_ecology_arms.png"), dpi=200)
@@ -180,7 +188,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", default="results/confirm")
     ap.add_argument("--out", default="figures")
+    ap.add_argument("--paper", action="store_true", help="omit figure titles (for the IEEE paper)")
     args = ap.parse_args()
+    global PAPER
+    PAPER = args.paper
     os.makedirs(args.out, exist_ok=True)
     an = json.load(open(os.path.join(args.root, "analysis.json")))
     seeds, per = an["seeds_analysed"], an["per_seed"]
@@ -220,7 +231,7 @@ def fig6_phenomena(root, seeds, out):
         ax.set_xticks([0.1, 1.1], ["Ancestors", "Stable\nsisters"], fontsize=8)
         ax.set_title(title, fontsize=8.5)
     axes[0].set_ylabel("Effect per seed\n(shaded = animal direction)")
-    fig.suptitle("Fig. 6  Beyond basic conditioning, the classic phenomena are absent or tiny (exploratory)",
+    _suptitle(fig, "Fig. 6  Beyond basic conditioning, the classic phenomena are absent or tiny (exploratory)",
                  x=0.01, ha="left", fontsize=11, fontweight="bold")
     fig.tight_layout()
     fig.savefig(os.path.join(out, "fig6_phenomena.png"), dpi=200)
@@ -254,7 +265,7 @@ def fig5_svar(split, out):
         ax.set_ylim(-0.12, 1.05)
     axes[0].set_ylabel("Response to the bell")
     axes[0].legend(loc="upper right", fontsize=7.5)
-    fig.suptitle("Fig. 5  Inborn responses to signals with a fixed meaning, learning for signals whose meaning varies (exploratory)",
+    _suptitle(fig, "Fig. 5  Inborn responses to signals with a fixed meaning, learning for signals whose meaning varies (exploratory)",
                  x=0.01, ha="left", fontsize=11, fontweight="bold")
     fig.tight_layout()
     fig.savefig(os.path.join(out, "fig5_so_variability.png"), dpi=200)

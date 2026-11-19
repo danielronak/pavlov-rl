@@ -6,3 +6,6 @@ __pycache__/
 results/**/lab/*.npz
 results/gpu_smoke/
 results/gpu_smoke.log
+paper/ieee/*.aux
+paper/ieee/*.log
+paper/ieee/*.out
