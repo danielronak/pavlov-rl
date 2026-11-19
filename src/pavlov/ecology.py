@@ -99,6 +99,11 @@ def generate_schedule(key, cfg: EcologyConfig) -> Schedule:
             start = jnp.all(idle) & (jax.random.uniform(k4) < P.event_rate)
             ch = jax.random.randint(k7, (), 0, n)
             onset = start & (jnp.arange(n) == ch)
+            if cfg.p_compound > 0:  # compound events; separate key stream keeps p_compound = 0 bit-identical
+                kc1, kc2 = jax.random.split(jax.random.fold_in(k, 101))
+                second = jax.random.randint(kc2, (), 0, n - 1)
+                ch2 = second + (second >= ch)
+                onset = onset | (start & (jax.random.uniform(kc1) < cfg.p_compound) & (jnp.arange(n) == ch2))
         else:
             onset = idle & (jax.random.uniform(k4, (n,)) < P.rate)
         timer = jnp.where(onset, P.dur, timer)

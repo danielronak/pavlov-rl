@@ -149,3 +149,20 @@ def test_a4_flip_family_matches_baseline():
     assert pc.flip_family == "matched_baseline"
     assert np.isclose(float(efficiency(0.0, True, pc)), float(efficiency(0.0, False, pc)))
     assert float(efficiency(0.5, True, pc)) < float(efficiency(0.0, True, pc)) < float(efficiency(0.5, False, pc))
+
+
+def test_compound_events_only_when_enabled():
+    import dataclasses
+
+    import jax
+    import numpy as np
+
+    from pavlov.config import EcologyConfig
+    from pavlov.ecology import generate_batch
+    base = EcologyConfig()
+    s0 = generate_batch(jax.random.PRNGKey(3), base, 16)
+    s1 = generate_batch(jax.random.PRNGKey(3), dataclasses.replace(base, p_compound=0.3), 16)
+    n0 = np.asarray(s0.cues).sum(-1)
+    n1 = np.asarray(s1.cues).sum(-1)
+    assert n0.max() <= 1                      # one stimulus at a time without compounds
+    assert n1.max() == 2 and (n1 == 2).mean() > 0.01

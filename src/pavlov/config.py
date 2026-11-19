@@ -35,6 +35,7 @@ class EcologyConfig:
     contingency_min: float = 0.5    # P(US | CS onset)
     contingency_max: float = 1.0
     exclusive_events: bool = True   # A3: one stimulus at a time (world-level events, uniform channel)
+    p_compound: float = 0.0         # compound follow-up (DECISIONS 2026-11-19): prob an event also starts a 2nd channel
     event_rate_min: float = 1 / 40  # per idle tick, used when exclusive_events (A3 rule, DECISIONS.md)
     event_rate_max: float = 1 / 20
     cue_rate_min: float = 1 / 60    # onset rate of EVERY cue channel (per idle tick); predictive and

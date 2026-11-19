@@ -1,0 +1,6 @@
+# Compound-cue follow-up (exploratory, DECISIONS 2026-11-19): ancestor ecology + compound events.
+physiology: {}
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.0
+  p_compound: 0.3
