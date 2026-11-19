@@ -1,0 +1,8 @@
+# Robustness (exploratory, DECISIONS 2026-11-19): confirmatory ancestor ecology, physiology weak.
+# Saliva build-up k_up and saliva benefit (1 - b0) both scaled by 0.75 (default k_up 0.35, b0 0.3).
+physiology:
+  k_up: 0.2625
+  b0: 0.475
+ecology:
+  q_so_variability: 1.0
+  v_ro_variability: 0.0
