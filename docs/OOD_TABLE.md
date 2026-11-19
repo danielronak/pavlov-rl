@@ -32,3 +32,13 @@ contingency ∈ [0.5, 1], event rate U(1/40, 1/20), lifetime 3000 ticks).
 | Digestion-variable sister | Omission (salivation cancels the US) | OOD (I6) | |
 | Partial-omission sister | Salivation in the CS window halves US probability in half the lifetimes | IN for that arm | declared `ro_gate.py` family (I2) |
 | Partial-omission sister | Full omission in the lab | NEAR-distribution | stronger and deterministic version of the training gate (DECISIONS 2026-11-07) |
+
+## Phenomena battery (Phase 9, DECISIONS 2026-11-19)
+
+| Test | Feature | Status | Note |
+|---|---|---|---|
+| Blocking | Two cues on together (AX compound) | OOD | training has one stimulus at a time (A3) |
+| Latent inhibition | 20 unreinforced presentations of one cue in a row | partially OOD | training contingency ≥ 0.5 |
+| PREE | 50% reinforcement during acquisition | IN (edge) | training contingency ∈ [0.5, 1] |
+| Inhibition of delay | 24-tick CS | OOD | training ISI ≤ 12; the 12-tick version is IN (edge) |
+| Second-order | B then A, no US (serial) | IN | one stimulus at a time; unreinforced A is partially OOD |
