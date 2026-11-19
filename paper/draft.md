@@ -320,7 +320,7 @@ halves that trial's US probability).
 
 The agent is a GRU (64 units) over a 64-unit tanh embedding of [cues, food in mouth, S_t, u_{t−1},
 r_{t−1}], with a Bernoulli salivation head and a value head (not used by the evolutionary outer loop).
-There are no auxiliary losses. Weights were optimised with OpenAI evolution strategies: antithetic
+There are no auxiliary losses. Weights were optimised with OpenAI evolution strategies (Salimans et al. 2017†): antithetic
 sampling, centred-rank fitness shaping, population 64, 8 lifetimes per member, σ = 0.03, Adam with
 learning rate 0.02 and weight decay 0.005, common random numbers within antithetic pairs. Ancestors
 evolved for 4000 generations from scratch; sisters for 2000 generations from the ancestor's
@@ -386,6 +386,7 @@ project repository. Figures are regenerated from `results/` by `scripts/make_fig
 - Pavlov, I. P. (1927). *Conditioned Reflexes*. Oxford University Press.
 - Rescorla, R. A. (1967). Pavlovian conditioning and its proper control procedures. *Psychological Review*. †
 - Rescorla, R. A. & Wagner, A. R. (1972). A theory of Pavlovian conditioning. †
+- Salimans, T., Ho, J., Chen, X., Sidor, S. & Sutskever, I. (2017). Evolution strategies as a scalable alternative to reinforcement learning. arXiv:1703.03864. †
 - Schubert, J. A., Jagadish, A. K., Binz, M. & Schulz, E. (2024). arXiv:2402.03969.
 - Sheffield, F. D. (1965). Relation between classical conditioning and instrumental learning. †
 - Stephens, D. W. (1991). Change, regularity, and value in the evolution of animal learning. *Behavioral Ecology*. †
