@@ -49,15 +49,21 @@ def run(run_dir):
     nc = EcologyConfig(**meta["config"]["ecology"]).n_channels
     ck = sorted(f for f in os.listdir(os.path.join(run_dir, "checkpoints")) if f.startswith("params_0"))[-1]
     params = pickle.load(open(os.path.join(run_dir, "checkpoints", ck), "rb"))
-    res = {"run": run_dir, "ckpt": ck, "n_subjects": N_SUBJECTS, "lab_seed": LAB_SEED, "designs": {}}
+    res = {"run": run_dir, "ckpt": ck, **battery(lambda B: agent_policy(params, meta["agent"]["hidden"], B), pc, nc)}
+    json.dump(res, open(os.path.join(run_dir, "phenomena.json"), "w"), indent=1)
+    return res
+
+
+def battery(make_policy, pc, nc):
+    """Run every design and group with policies from make_policy(B) -> (step, carry)."""
+    res = {"n_subjects": N_SUBJECTS, "lab_seed": LAB_SEED, "designs": {}}
     for di, design in enumerate(P.DESIGNS):
         res["designs"][design] = {}
         for gi, (group, scheds) in enumerate(P.schedules(design, N_SUBJECTS, nc, LAB_SEED).items()):
-            step, carry = agent_policy(params, meta["agent"]["hidden"], N_SUBJECTS)
+            step, carry = make_policy(N_SUBJECTS)
             out = run_lab(step, carry, stack_schedules(scheds), "none", pc, jax.random.PRNGKey(2000 + 10 * di + gi))
             metrics, curve, tags = group_metrics(design, out["p"], scheds)
             res["designs"][design][group] = {"metrics": metrics, "curve": curve, "tags": tags}
-    json.dump(res, open(os.path.join(run_dir, "phenomena.json"), "w"), indent=1)
     return res
 
 
