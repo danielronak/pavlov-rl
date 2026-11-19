@@ -1,6 +1,6 @@
 # Pavlov's dog as an evolved learner: ecological statistics determine when conditioning emerges, and why it ignores its consequences
 
-*Draft v0.1 — 2026-11-19. Ronak Daniel. Working draft for internal review; not for circulation.*
+*Draft v0.2 — 2026-11-19. Ronak Daniel. Working draft for internal review; not for circulation.*
 
 > **Status notes for co-authors.**
 > (1) References marked † were cited from memory and must be checked against the source before
@@ -32,8 +32,9 @@ of salivating still ignored omission, and lineages in which salivating could can
 the CR altogether. Exploratory experiments indicate that an inborn response evolves to cues of fixed
 meaning and within-lifetime conditioning to cues of variable meaning, that the learned association
 is stored in a small, cue-specific subset of recurrent units, and that the evolved learner is fast
-and non-competitive: unlike Rescorla–Wagner and temporal-difference models, it shows no blocking,
-and it shows no latent inhibition, partial-reinforcement extinction effect or spontaneous recovery.
+and non-competitive: unlike Rescorla–Wagner and temporal-difference models, it shows no blocking —
+even after evolving in a world of compound cues to which it measurably adapted — and it shows no
+latent inhibition, partial-reinforcement extinction effect or spontaneous recovery.
 
 ---
 
@@ -234,6 +235,40 @@ response within a lab session.
 ![Figure 6](../figures/fig6_phenomena.png)
 **Figure 6.** Phenomena battery. Per-seed effects; the shaded half is the direction animals show.
 
+### 2.7 Compound cues: adaptation without blocking (exploratory)
+
+The ancestors' world presented one stimulus at a time, so cue competition could never pay, and the
+absence of blocking might simply reflect that. We therefore evolved ten *compound sisters* from
+ancestors 0–9 (seeds 140–149; 2000 generations, like the stable sisters) in the same world, except
+that 30% of events added a second, randomly chosen channel (`configs/exp/compound.yaml`). Predictions
+and the analysis script were committed before the run (`docs/DECISIONS.md`, 2026-11-19): (C1)
+compound sisters show blocking, more than their stable sisters; (C2) they still condition
+(discrimination > 0.3) and stay omission-insensitive (OSI < 0.2). If C1 failed, the missing compounds
+would not explain the missing blocking.
+
+All ten compound sisters passed the Phase-2 gate. C2 was supported, C1 was not (Table 2). The
+redundant cue X gained as much CR after A had been trained as without (0.24 vs 0.23; blocking
++0.012 [−0.018, 0.044], wrong sign; compound − stable −0.002 [−0.065, 0.059], p = 0.96). A post-hoc
+cross-evaluation (`scripts/compound_crosseval.py`, planned after C1 failed and before it was run)
+ruled out the possibility that compounds simply exerted no selection pressure. On the same held-out lifetimes of the
+compound world, compound sisters earned more than their stable sisters (+0.39 [0.30, 0.49],
+p = 3·10⁻⁵), while in the ancestral world they earned slightly less (−0.10 [−0.21, −0.01], p = 0.09):
+a specialist trade-off. Evolution adapted the learner to compounds, but not through
+Rescorla–Wagner-like cue competition. Which adaptation it found was not investigated. Compound
+sisters also showed a slightly flatter response across a 24-tick CS than their stable sisters
+(−0.004 [−0.007, −0.001], p = 0.04, unadjusted); the other battery effects did not differ.
+
+**Table 2.** Compound vs stable sisters of the same 10 ancestors (mean [95% CI]).
+
+| Measure | Compound sisters | Stable sisters |
+|---|---|---|
+| Acquired discrimination | 0.67 [0.60, 0.75] | 0.75 [0.71, 0.80] |
+| Omission (OSI) | 0.03 [0.00, 0.07] | 0.00 [0.00, 0.00] |
+| Gap closed (gate ≥ 0.5) | 0.60 [0.58, 0.63] | 0.65 [0.62, 0.67] |
+| Blocking (animals < 0) | +0.01 [−0.02, 0.04] | +0.01 [−0.02, 0.05] |
+| Return in the compound world | 16.25 [16.17, 16.33] | 15.86 [15.80, 15.92] |
+| Return in the ancestral world | 13.45 [13.38, 13.54] | 13.56 [13.49, 13.62] |
+
 ---
 
 ## 3. Discussion
@@ -265,16 +300,18 @@ emerged without any built-in attention mechanism.
 **What kind of learner is it?** The evolved learner is fast and channel-specific, and its memory is
 compact: about 8–16 recurrent units carry a transferable, channel-indexed association. It does not
 behave like an error-correcting associative model: it shows no blocking, which both RW and TD
-predict strongly, and no latent inhibition or partial-reinforcement extinction effect. We read these
-absences as boundary conditions set by the ecology rather than as failures of the approach: the
-training world presented one stimulus at a time (so cue competition was never useful) and
-contingencies rarely changed within a lifetime. A direct test is to evolve agents in worlds with
-compound cues and frequent contingency changes and ask whether blocking and the PREE then emerge.
+predict strongly, and no latent inhibition or partial-reinforcement extinction effect. A world of one stimulus at a
+time could explain this, but agents evolved with compound cues adapted to them and still did not
+block (Section 2.7). Blocking is therefore not a by-product of being a good conditioner, even in a
+world that contains compounds. Whether it needs a stronger pressure (the same redundant cue
+throughout a lifetime, or costlier false alarms) or a different architecture is open. Latent
+inhibition and the PREE may similarly need worlds in which contingencies change often.
 
 **Limitations.** (i) The ecology is simple: four channels, delay conditioning, one physiological
 consequence. (ii) The R-O families we tested are two of many. (iii) Several lab conditions are out
 of distribution (compounds, long CSs, long rests; `docs/OOD_TABLE.md`). (iv) Exploratory results
-(2.4–2.6) use fewer seeds or post-hoc splits and need confirmation. (v) The baseline models use
+(2.4–2.7) use fewer seeds (e.g. 10 compound sisters on development seeds) or post-hoc splits and
+need confirmation; the compound world used a single design (p = 0.3, random second channel). (v) The baseline models use
 textbook parameters, which were not fitted. (vi) We claim CR-like behaviour and Pavlovian-like
 signatures, not any equivalence of mechanism or experience with animals.
 
@@ -360,6 +397,10 @@ tick before the first naive CS+. *Phenomena:* between-subject designs with 32 su
 blocking (A+ ×20, AX+ ×10, X test vs a B-pretrained control), latent inhibition (A− ×20 then A+ ×10
 vs B pre-exposure), PREE (100% vs 50% reinforcement, equal US count, then 20 extinction trials),
 inhibition of delay (24- and 12-tick CS), second-order conditioning (A+, then B→A, vs unpaired B).
+*Compound cues:* `p_compound` = 0.3; when an event starts, with this probability a second
+channel, drawn uniformly from the other three, starts at the same tick (separate random stream, so
+p_compound = 0 reproduces the original world exactly). Cross-evaluation used 256 held-out lifetimes
+per world, identical for every agent.
 *Baselines:* RW (α = 0.3), TD(0) with a complete serial compound (α = 0.1, γ = 0.9), tabular
 Q-learning on physiological reward (α = 0.2, γ = 0.9, softmax β = 5); all with a food reflex.
 

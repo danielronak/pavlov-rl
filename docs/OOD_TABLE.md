@@ -42,3 +42,10 @@ contingency ∈ [0.5, 1], event rate U(1/40, 1/20), lifetime 3000 ticks).
 | PREE | 50% reinforcement during acquisition | IN (edge) | training contingency ∈ [0.5, 1] |
 | Inhibition of delay | 24-tick CS | OOD | training ISI ≤ 12; the 12-tick version is IN (edge) |
 | Second-order | B then A, no US (serial) | IN | one stimulus at a time; unreinforced A is partially OOD |
+
+## Compound-cue follow-up (DECISIONS 2026-11-19)
+
+For the compound sisters (`configs/exp/compound.yaml`, p_compound = 0.3), two cues starting together is
+**IN** distribution. The lab's fixed redundant cue X (the same X on all 10 AX+ trials, after 20 A+
+trials) is **partially OOD**: in that ecology the second cue of a compound is a fresh random channel
+at each event. All other lab tests have the same status as for the ancestors.

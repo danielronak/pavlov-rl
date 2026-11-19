@@ -16,12 +16,12 @@
 \title{Pavlov's Dog as an Evolved Learner: Ecological Statistics Determine When Conditioning Emerges and Why It Ignores Its Consequences}
 
 \author{\IEEEauthorblockN{Ronak Daniel}
-\IEEEauthorblockA{\textit{Draft v0.1, 19 November 2026 --- not for circulation}}}
+\IEEEauthorblockA{\textit{Draft v0.2, 19 November 2026 --- not for circulation}}}
 
 \maketitle
 
 \begin{abstract}
-Pavlov's dogs salivated to a bell that predicted food, and later experiments showed that the response persists even when salivating cancels the food. We asked whether such a conditioned response emerges on its own in artificial agents whose only action is salivation and whose only objective is physiological: saliva improves digestion and costs energy. Recurrent agents were evolved with evolution strategies over simulated lifetimes in which the cue that predicted food changed from lifetime to lifetime. Nothing in the objective referred to cues, and the laboratory tests were never part of evolution. Frozen and placed in a simulated Pavlov laboratory with a bell they had never encountered, agents from 20 pre-registered evolutionary runs acquired a conditioned-response-like (CR-like) salivation to the bell within a few pairings (bell$-$metronome discrimination 0.60, 95\% CI [0.53, 0.67]; none before pairing). The response depended on the bell--food contingency, partly extinguished, and was insensitive to an omission contingency (omission sensitivity index 0.01 [0.00, 0.02]): agents kept salivating although this cost them 84\% of the food. Sister lineages evolved under different response--outcome statistics showed that ecology decides whether a CR exists, not whether it is Pavlovian. Exploratory experiments indicate that inborn responses evolve to cues of fixed meaning and conditioning to cues of variable meaning, that the association is stored in a few cue-specific recurrent units, and that the evolved learner, unlike Rescorla--Wagner and temporal-difference models, shows no blocking.
+Pavlov's dogs salivated to a bell that predicted food, and later experiments showed that the response persists even when salivating cancels the food. We asked whether such a conditioned response emerges on its own in artificial agents whose only action is salivation and whose only objective is physiological: saliva improves digestion and costs energy. Recurrent agents were evolved with evolution strategies over simulated lifetimes in which the cue that predicted food changed from lifetime to lifetime. Nothing in the objective referred to cues, and the laboratory tests were never part of evolution. Frozen and placed in a simulated Pavlov laboratory with a bell they had never encountered, agents from 20 pre-registered evolutionary runs acquired a conditioned-response-like (CR-like) salivation to the bell within a few pairings (bell$-$metronome discrimination 0.60, 95\% CI [0.53, 0.67]; none before pairing). The response depended on the bell--food contingency, partly extinguished, and was insensitive to an omission contingency (omission sensitivity index 0.01 [0.00, 0.02]): agents kept salivating although this cost them 84\% of the food. Sister lineages evolved under different response--outcome statistics showed that ecology decides whether a CR exists, not whether it is Pavlovian. Exploratory experiments indicate that inborn responses evolve to cues of fixed meaning and conditioning to cues of variable meaning, that the association is stored in a few cue-specific recurrent units, and that the evolved learner, unlike Rescorla--Wagner and temporal-difference models, shows no blocking, even after evolving in a world of compound cues to which it measurably adapted.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -157,6 +157,29 @@ Second-order & $>0$ & 0.01 [0.00, 0.03] & 0 & 0.01 & 0 \\
 \label{fig:ph}
 \end{figure*}
 
+\subsection{Compound cues: adaptation without blocking (exploratory)}
+The ancestors' world presented one stimulus at a time, so cue competition could never pay. We therefore evolved ten compound sisters from ancestors 0--9 (2000 generations, as the stable sisters) in the same world except that 30\% of events added a second, randomly chosen channel; predictions were logged before the run. Two things could happen: blocking emerges, or it does not, in which case the missing compounds do not explain its absence. Table~\ref{tab:comp} shows the second. Compound sisters still conditioned and ignored omission (prediction C2 supported), but the redundant cue $X$ gained as much CR after $A$ had been trained as without ($0.24$ vs $0.23$; blocking $+0.01$, wrong sign; C1 not supported). A post-hoc cross-evaluation ruled out that the compound world simply exerted no selection pressure: in that world compound sisters earned more than their stable sisters ($+0.39$ [0.30, 0.49], $p=3\times10^{-5}$), and slightly less in the ancestral world ($-0.10$ [$-0.21$, $-0.01$], $p=0.09$). Evolution adapted the learner to compounds, but not through RW-like cue competition. Which adaptation it found was not investigated.
+
+\begin{table}[t]
+\centering
+\caption{Compound vs stable sisters of the same 10 ancestors (mean [95\% CI])}
+\label{tab:comp}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Measure & Compound & Stable \\
+\midrule
+Acquired discrim. & 0.67 [0.60, 0.75] & 0.75 [0.71, 0.80] \\
+OSI & 0.03 [0.00, 0.07] & 0.00 [0.00, 0.00] \\
+Gap closed (gate $\geq$ 0.5) & 0.60 [0.58, 0.63] & 0.65 [0.62, 0.67] \\
+Blocking ($<0$ in animals) & $+0.01$ [$-0.02$, 0.04] & $+0.01$ [$-0.02$, 0.05] \\
+Return, compound world & 16.25 [16.17, 16.33] & 15.86 [15.80, 15.92] \\
+Return, ancestral world & 13.45 [13.38, 13.54] & 13.56 [13.49, 13.62] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Discussion}
 Optimising nothing but digestion, over lifetimes in which cue meanings varied, produced agents that reproduce the core of Pavlov's findings in a laboratory they had never seen: a response to a novel bell that is acquired within a few pairings, depends on the bell--food contingency, extinguishes partly and persists when it costs the food.
 
@@ -164,9 +187,9 @@ Optimising nothing but digestion, over lifetimes in which cue meanings varied, p
 
 \textit{When does learning evolve?} Fixed meanings produced an inborn response and variable meanings produced learning, as theory predicts \cite{stephens91}; rarely relevant cues were neglected without any built-in attention mechanism.
 
-\textit{What kind of learner?} The evolved learner is fast and channel-specific, with a compact memory of 8--16 units. It is not error-correcting in the RW sense: it shows no blocking, latent inhibition or partial-reinforcement extinction effect. We read these as boundary conditions set by the ecology, which presented one stimulus at a time and rarely changed contingencies within a life; evolving agents with compound cues is the direct test.
+\textit{What kind of learner?} The evolved learner is fast and channel-specific, with a compact memory of 8--16 units. It is not error-correcting in the RW sense: it shows no blocking, latent inhibition or partial-reinforcement extinction effect. A world of one stimulus at a time could explain this, but agents evolved with compound cues adapted to them and still did not block. Blocking is therefore not a by-product of being a good conditioner, even in a world that contains compounds. Whether it needs a stronger pressure (a fixed redundant cue within a lifetime, or costlier false alarms) or a different architecture is open; latent inhibition and the partial-reinforcement extinction effect may similarly need frequent contingency changes.
 
-\textit{Limitations.} The ecology is simple; we tested two response--outcome families; several lab conditions are out of distribution (compounds, long CSs, long rests); exploratory results use fewer seeds or post-hoc splits; baseline parameters were not fitted; and we claim CR-like behaviour, not equivalence with animals.
+\textit{Limitations.} The ecology is simple; we tested two response--outcome families; several lab conditions are out of distribution (compounds, long CSs, long rests); exploratory results use fewer seeds (10 compound sisters, development seeds) or post-hoc splits; the compound world used one design ($p=0.3$, random second channel); baseline parameters were not fitted; and we claim CR-like behaviour, not equivalence with animals.
 
 \section{Conclusion}
 A physiology-only objective in a world of shifting cue meanings is sufficient for a Pavlovian-like conditioned response, including its insensitivity to omission, to evolve without being built in. Ecology decided whether such a response exists; in no case did it become instrumental.

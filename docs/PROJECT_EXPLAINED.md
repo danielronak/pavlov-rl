@@ -39,6 +39,7 @@ If you understand Parts A–E you can defend every sentence in the paper.
   - D5 Exploratory 2: inside the network
   - D6 Exploratory 3: the phenomena battery
   - D7 Exploratory 4: baseline models
+  - D8 Exploratory 5: the compound-cue follow-up (does blocking evolve?)
 - Part E — Critical review
 - Part F — How to rewrite the paper from this document
 - Part G — Glossary, file map, numbers cheat sheet, reproduction
@@ -500,6 +501,15 @@ exactly), 320 jobs, 0 failures, no exclusions. Analysis run unchanged.
 **After the confirmatory run (Nov 18–19)**, all exploratory and planned before running: figures;
 the q-control; mechanism v1 and v2; phenomena battery; baseline models; paper draft; IEEE version.
 
+**Compound-cue follow-up (Nov 19).** The battery found no blocking, and the obvious excuse was that
+the ancestors' world never showed two cues at once. To test it, a `p_compound` option was added to
+the world (off = the old world, bit for bit; checked by re-running an old evaluation and by a new
+test). Ten compound sisters were evolved from ancestors 0–9; predictions C1/C2 and the analysis
+script were committed before launch. Result: no blocking (C1 failed), still Pavlovian (C2 held).
+Because "maybe compounds didn't matter to evolution" was the next obvious excuse, a cross-evaluation
+was planned (after seeing C1, labelled post hoc) and run: compounds did matter, and the compound
+sisters adapted, just not by blocking (D8).
+
 Every one of these steps has a dated entry in `docs/DECISIONS.md` with the reason, and whether it was
 made after seeing lab results (y/n).
 
@@ -705,9 +715,9 @@ shaded half = the direction animals show. Every mean sits on or near 0.
 
 **Interpretation.** The evolved learner is **fast (one-shot), channel-specific and non-competitive**.
 It does not share prediction error among cues (no blocking), does not lower attention to familiar
-cues (no LI), and does not track reinforcement history (no PREE). Plausible reason: the ecology never
-presents compound cues and contingencies rarely change within a life, so these abilities never paid.
-Testable: evolve with compounds (the blocking follow-up experiment).
+cues (no LI), and does not track reinforcement history (no PREE). The first plausible reason, that
+the ecology never presents compound cues, was tested directly and is *not* enough (D8). For LI and
+PREE, the untested candidate reason is that contingencies rarely change within a life.
 
 ## D7 Exploratory 4: baseline models
 
@@ -725,6 +735,76 @@ Key comparisons (`results/baselines/scorecard.md`):
 - The instrumental learner never learns to anticipate within a session (lab-length trial and error is
   not enough; evolution provides what it lacks).
 - None shows spontaneous recovery or latent inhibition.
+
+## D8 Exploratory 5: the compound-cue follow-up (does blocking evolve?)
+
+**Why.** Blocking is the result that made Rescorla–Wagner famous, and both RW and TD show it in our
+lab. Our agents did not. If the reason is simply that their world never showed two cues together,
+then adding such moments to the world should make blocking evolve. If it does not, the absence is a
+real property of the evolved learner.
+
+**What changed in the world** (`src/pavlov/ecology.py`, `configs/exp/compound.yaml`). With
+probability `p_compound` = 0.3, an event shows a second channel at the same time as the first. The
+second channel is drawn at random from the other three, fresh at every event. Everything else is the
+ancestors' world. The extra randomness uses its own random stream, so with `p_compound` = 0 the world
+is exactly the old one.
+
+**Design.** Common ancestor, like the sisters in the main experiment: copies of ancestors 0–9 evolved
+for 2000 more generations in the compound world (seeds 140–149, development range). Each is compared
+with the stable sister of the *same* ancestor, which evolved 2000 generations in the old world.
+Pairing by ancestor removes the ancestor-to-ancestor differences. N = 10, exploratory.
+
+**Predictions, written before the run** (`docs/DECISIONS.md`, 2026-11-19):
+- C1: compound sisters show blocking (CR(X) in the blocking group minus the control < 0), and more
+  than their stable sisters.
+- C2: they still condition (D_acq > 0.3) and stay omission-insensitive (OSI < 0.2).
+- If C1 fails, missing compounds alone do not explain missing blocking.
+
+**How the blocking test works** (same as D6). Blocking group: A+ ×20, then AX+ ×10, then X alone.
+Control ("overshadowing") group: B+ ×20, then AX+ ×10, then X alone. In the blocking group, A already
+predicts the food when X is added, so a competitive learner learns little about X. Effect = CR(X)
+blocking − CR(X) control; animals and RW/TD give a negative number.
+
+**Results** (`results/compound/analysis.md`):
+
+| Measure | Compound sisters | Stable sisters |
+|---|---|---|
+| Acquired discrimination | 0.67 [0.60, 0.75] | 0.75 [0.71, 0.80] |
+| OSI | 0.03 [0.00, 0.07] | 0.00 [0.00, 0.00] |
+| Gap closed (gate ≥ 0.5) | 0.60 [0.58, 0.63] (10/10 pass) | 0.65 [0.62, 0.67] |
+| Blocking | +0.012 [−0.018, 0.044] | +0.013 [−0.020, 0.050] |
+
+- C1 **not supported**. CR to X was 0.24 in the blocking group and 0.23 in the control: X was learned
+  equally either way. Compound − stable: −0.002 [−0.065, 0.059], p = 0.96.
+- C2 **supported**.
+- Other battery effects: unchanged in kind. One small difference: a flatter response across the
+  24-tick CS (−0.004, p = 0.04, uncorrected; not something to build on).
+
+**The post-hoc cross-evaluation** (`scripts/compound_crosseval.py`, `results/compound/crosseval.md`).
+The next excuse would be "compounds were too rare or too cheap to matter, so evolution ignored them."
+To check, every compound and stable sister played the *same* 256 held-out lifetimes of *both* worlds;
+the score is the training return (the quantity evolution acts on).
+
+| Tested in | Compound sisters | Stable sisters | Difference (paired) |
+|---|---|---|---|
+| Compound world | 16.25 [16.17, 16.33] | 15.86 [15.80, 15.92] | +0.39 [0.30, 0.49], p = 3·10⁻⁵ |
+| Ancestral world | 13.45 [13.38, 13.54] | 13.56 [13.49, 13.62] | −0.10 [−0.21, −0.01], p = 0.09 |
+
+Reference oracles in the compound world: never 8.51, reflex 13.94, pred_cue_on 16.43, cue oracle 17.76.
+
+**What it means.** Compounds mattered: the compound sisters became specialists, better in their world
+and slightly worse in the old one. So evolution did respond to compounds, but the solution it found is
+not RW-style cue competition. Blocking is not a by-product of being a good conditioner, even in a
+world with compounds.
+
+**Why might blocking still not pay? (my reasoning, untested.)** In this world the second cue is a
+fresh random channel each time, so there is never one fixed redundant cue in a lifetime, which is
+what the lab test uses. Wrongly salivating to a cue that was sometimes paired with food costs only
+c = 0.01 per tick. A world where the same redundant cue recurs throughout a lifetime, or where false
+alarms cost more, would be the stronger test (about 3 hours of compute).
+
+**What the adaptation is** was not investigated. Candidates: responding differently to two-cue
+events, or weighing within-lifetime evidence about distractor channels differently.
 
 ---
 
@@ -764,8 +844,10 @@ Key comparisons (`results/baselines/scorecard.md`):
    The agents' world had ~30 pairings per lifetime and strong contingencies, so fast learning paid.
    Report as a difference.
 7. *"No spontaneous recovery, no blocking, no LI, no PREE."* These are real boundary conditions. They
-   are also informative (non-competitive learner). The compound-cue follow-up tests whether ecology
-   explains the blocking gap.
+   are also informative (non-competitive learner). The compound-cue follow-up removed the easiest
+   excuse for blocking: agents evolved with compounds adapted to them and still did not block (D8).
+   A reviewer may say our compound world was the wrong one (random second cue, cheap false alarms);
+   that is fair, and the stronger version is listed below.
 8. *"The lab differs from the ecology in places."* Yes (`docs/OOD_TABLE.md`): only 2 of 4 channels
    used, no unsignalled food, a long rest, compounds, long CS. Reported.
 9. *"The CR uses p, not actions."* p is the policy's probability; using it reduces noise. The sampled
@@ -783,7 +865,8 @@ Key comparisons (`results/baselines/scorecard.md`):
 14. *Citations.* Many references are from memory and must be verified († in the paper).
 
 **What I would do to strengthen the paper (priority order).**
-1. Compound-cue ecology → does blocking evolve? (running next)
+1. Stronger blocking test: the same redundant cue throughout a lifetime and/or costlier false
+   alarms; and find out what the compound sisters adapted (D8). (The first compound test is done.)
 2. A dedicated, pre-registered test of the q-pattern (selective associability), more seeds.
 3. Robustness: GRU size 32/128, LSTM, physiology ±25%, PPO replication.
 4. More R-O families and a stronger search for the instrumental solution.
@@ -804,7 +887,7 @@ Key comparisons (`results/baselines/scorecard.md`):
 | Methods: lab and measures | B7, B8 |
 | Methods: pre-registration & stats | D1, Part C (deviations) |
 | Results 1–3 (confirmatory) | D3 table and figure explanations |
-| Results 4–6 (exploratory) | D4, D5, D6, D7 |
+| Results 4–7 (exploratory) | D4, D5, D6, D7, D8 |
 | Discussion | D3 message lines, D6 interpretation, Part E points 1–8 |
 | Limitations | Part E |
 
@@ -857,9 +940,10 @@ animals. Label exploratory results. Report magnitudes and CIs first, p-values se
 | `scripts/mechanism.py`, `mechanism_patch.py` | Mechanism v1, v2 |
 | `scripts/run_phenomena.py`, `analyze_phenomena.py` | Phenomena battery |
 | `scripts/run_baselines.py`, `compare_baselines.py` | Baselines and scorecard |
+| `scripts/run_compound.py`, `analyze_compound.py`, `compound_crosseval.py` | Compound-cue follow-up |
 | `scripts/make_figures.py` | All figures (`--paper` for title-free versions) |
 | `results/confirm/` | Confirmatory runs, analysis, mechanism, phenomena |
-| `results/svar/`, `results/baselines/` | Exploratory results |
+| `results/svar/`, `results/baselines/`, `results/compound/` | Exploratory results |
 | `paper/draft.md`, `paper/ieee/main.tex`, `main.pdf` | The paper |
 
 ## Numbers cheat sheet
@@ -879,6 +963,8 @@ animals. Label exploratory results. Report magnitudes and CIs first, p-values se
 - Mechanism: probe R² 0.59; patching 76% at 8 units, 100%+ at 16; mismatched −26%.
 - Phenomena (ancestors): blocking −0.005, LI −0.015, PREE +0.054 (artefact), IoD −0.001, SOC +0.012.
 - Baselines blocking: RW −0.28, TD −0.16.
+- Compound follow-up (10 vs 10, paired): blocking +0.012 (C1 fails); D_acq 0.67, OSI 0.03 (C2 holds);
+  return in compound world +0.39 [0.30, 0.49] over stable sisters, −0.10 in the ancestral world.
 
 ## Reproduction
 
@@ -890,6 +976,7 @@ python scripts/analyze_svar.py && python scripts/svar_channel_split.py
 python scripts/summarize_mechanism.py
 python scripts/analyze_phenomena.py
 python scripts/run_baselines.py && python scripts/compare_baselines.py
+python scripts/analyze_compound.py && python scripts/compound_crosseval.py
 python scripts/make_figures.py && python scripts/make_figures.py --paper --out figures/paper
 cd paper/ieee && pdflatex main.tex && pdflatex main.tex
 ```
