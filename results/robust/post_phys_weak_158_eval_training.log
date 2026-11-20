@@ -1,0 +1,9 @@
+  cue_oracle     15.42
+  pred_cue_on    14.34
+  agent          14.07
+  reflex         13.64
+  never          11.31
+  any_cue        10.24
+  fraction of reflex->cue_oracle gap closed: +0.24 [+0.19, +0.29]
+  [diagnostic] p(saliva) pre-expected-US=0.211  elsewhere=0.027
+  PHASE-2 GATE: FAIL

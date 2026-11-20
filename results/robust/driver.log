@@ -1,0 +1,77 @@
+19:19:08 started: train h128_153
+19:19:08 started: train h128_154
+19:19:08 started: train h128_155
+19:19:08 started: train h32_150
+20:42:08 finished (0): train h32_150
+20:42:08 started: post h32_150 eval_training.py
+20:42:38 finished (0): post h32_150 eval_training.py
+20:42:38 started: post h32_150 run_lab.py
+20:43:08 finished (0): post h32_150 run_lab.py
+20:43:08 started: train h32_151
+22:04:39 finished (0): train h32_151
+22:04:39 started: post h32_151 eval_training.py
+22:05:09 finished (0): post h32_151 eval_training.py
+22:05:09 started: post h32_151 run_lab.py
+22:05:39 finished (0): post h32_151 run_lab.py
+22:05:39 started: train h32_152
+04:56:35 started: train h128_153
+04:56:35 started: train h128_154
+04:56:35 started: train h128_155
+04:56:35 started: train h32_152
+05:05:05 finished (0): train h32_152
+05:05:05 started: post h32_152 eval_training.py
+05:05:35 finished (0): post h32_152 eval_training.py
+05:05:35 started: post h32_152 run_lab.py
+05:06:05 finished (0): post h32_152 run_lab.py
+05:06:05 started: train phys_weak_156
+06:36:05 finished (0): train h128_153
+06:36:05 finished (0): train h128_154
+06:36:05 finished (0): train h128_155
+06:36:05 started: post h128_153 eval_training.py
+06:36:05 started: post h128_154 eval_training.py
+06:36:05 started: post h128_155 eval_training.py
+06:36:35 finished (0): post h128_153 eval_training.py
+06:36:35 finished (0): post h128_154 eval_training.py
+06:36:35 finished (0): post h128_155 eval_training.py
+06:36:35 started: post h128_153 run_lab.py
+06:36:35 started: post h128_154 run_lab.py
+06:36:35 started: post h128_155 run_lab.py
+06:37:05 finished (0): post h128_153 run_lab.py
+06:37:05 finished (0): post h128_154 run_lab.py
+06:37:05 finished (0): post h128_155 run_lab.py
+06:37:05 started: train phys_weak_157
+06:37:05 started: train phys_weak_158
+06:37:05 started: train phys_strong_159
+07:41:35 finished (0): train phys_weak_156
+07:41:35 started: post phys_weak_156 eval_training.py
+07:42:05 finished (0): post phys_weak_156 eval_training.py
+07:42:05 started: post phys_weak_156 run_lab.py
+07:42:35 finished (0): post phys_weak_156 run_lab.py
+07:42:35 started: train phys_strong_160
+09:14:05 finished (0): train phys_weak_157
+09:14:05 started: post phys_weak_157 eval_training.py
+09:14:35 finished (0): train phys_weak_158
+09:14:35 finished (0): train phys_strong_159
+09:14:35 finished (0): post phys_weak_157 eval_training.py
+09:14:35 started: post phys_weak_157 run_lab.py
+09:14:35 started: post phys_weak_158 eval_training.py
+09:14:35 started: post phys_strong_159 eval_training.py
+09:15:05 finished (0): post phys_weak_157 run_lab.py
+09:15:05 finished (0): post phys_weak_158 eval_training.py
+09:15:05 finished (0): post phys_strong_159 eval_training.py
+09:15:05 started: post phys_weak_158 run_lab.py
+09:15:05 started: post phys_strong_159 run_lab.py
+09:15:05 started: train phys_strong_161
+09:15:35 finished (0): post phys_weak_158 run_lab.py
+09:15:35 finished (0): post phys_strong_159 run_lab.py
+09:55:36 finished (0): train phys_strong_160
+09:55:36 started: post phys_strong_160 eval_training.py
+09:56:06 finished (0): post phys_strong_160 eval_training.py
+09:56:06 started: post phys_strong_160 run_lab.py
+09:56:36 finished (0): post phys_strong_160 run_lab.py
+10:35:36 finished (0): train phys_strong_161
+10:35:36 started: post phys_strong_161 eval_training.py
+10:36:06 finished (0): post phys_strong_161 eval_training.py
+10:36:06 started: post phys_strong_161 run_lab.py
+10:36:36 finished (0): post phys_strong_161 run_lab.py
+10:36:36 ALL DONE
