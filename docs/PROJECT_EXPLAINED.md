@@ -1,6 +1,6 @@
 # The Pavlov project, explained from the ground up
 
-*Companion to `paper/draft.md` and `paper/ieee/main.pdf`. Written 2026-11-19. Everything here is
+*Companion to `paper/draft.md` and `paper/ieee/main.pdf`. Written 2026-11-19; robustness check added 2026-11-25. Everything here is
 traceable to a file in this repository; the file is named where it matters.*
 
 **How to use this document.** Read Part A to understand the science you need. Part B is the
@@ -40,6 +40,7 @@ If you understand Parts A–E you can defend every sentence in the paper.
   - D6 Exploratory 3: the phenomena battery
   - D7 Exploratory 4: baseline models
   - D8 Exploratory 5: the compound-cue follow-up (does blocking evolve?)
+  - D9 Exploratory 6: robustness to network size and physiology
 - Part E — Critical review
 - Part F — How to rewrite the paper from this document
 - Part G — Glossary, file map, numbers cheat sheet, reproduction
@@ -816,6 +817,68 @@ alarms cost more, would be the stronger test (about 3 hours of compute).
 **What the adaptation is** was not investigated. Candidates: responding differently to two-cue
 events, or weighing within-lifetime evidence about distractor channels differently.
 
+## D9 Exploratory 6: robustness to network size and physiology
+
+**The question.** Two settings were fixed early and never varied: the size of the network (64 units,
+chosen for speed) and the physiology (k_up 0.35, b0 0.3, chosen by the oracle analysis). Would the
+core result survive if either had been set differently?
+
+**The design** (planned and committed before any run; `docs/DECISIONS.md` 2026-11-19). Four
+variants of the confirmatory ancestor, each evolved from scratch for 4000 generations with the same
+ES settings, three development seeds each:
+
+| Variant | Change | Seeds |
+|---|---|---|
+| GRU 128 | twice as many recurrent units | 153–155 |
+| GRU 32 | half as many | 150–152 |
+| Weak physiology | k_up and the saliva benefit (1 − b0) both × 0.75: k_up 0.2625, b0 0.475 | 156–158 |
+| Strong physiology | both × 1.25: k_up 0.4375, b0 0.125 | 159–161 |
+
+The ±25% was set a priori. The only screen allowed (rule I9) was the physiology-only oracle check,
+which both physiology variants pass: anticipation still pays (cue oracle − reflex: weak +1.60,
+default +2.73, strong +3.73).
+
+**The criteria** (on variant means; N = 3 is too small for tests, so no p-values):
+- **R1** conditioning to a novel bell: acquired discrimination > 0.3 and |naive discrimination| < 0.1;
+- **R2** contingency, not mere exposure: paired − truly random CR > 0.1;
+- **R3** omission insensitivity: OSI < 0.2.
+
+A variant "replicates" if all three hold. Every seed counts, including those that fail the gate.
+
+**The result** (`scripts/analyze_robust.py`, `results/robust/analysis.md`):
+
+| Measure | Ancestors (N=20) | GRU 128 | GRU 32 | Weak | Strong |
+|---|---|---|---|---|---|
+| Gap closed | 0.57 | 0.49 | 0.52 | 0.37 | 0.54 |
+| Seeds passing the gate | 17/20 | 1/3 | 2/3 | 0/3 | 2/3 |
+| Naive discrimination | 0.00 | 0.03 | −0.02 | 0.00 | −0.01 |
+| Acquired discrimination (R1) | 0.60 | 0.48 | 0.53 | 0.39 | **0.24** |
+| Paired − truly random (R2) | 0.36 | 0.31 | 0.37 | 0.23 | 0.14 |
+| Extinction drop | 0.45 | 0.29 | 0.48 | 0.38 | 0.16 |
+| OSI (R3) | 0.01 | 0.00 | 0.00 | 0.02 | 0.01 |
+| Food delivered under omission | 0.16 | 0.11 | 0.12 | 0.75 | 0.03 |
+| Replicates? | — | yes | yes | yes | **no (R1)** |
+
+**How to read it.**
+- *Network size does not matter* for the core result: half and double size both replicate.
+- *Weak physiology replicates, with a caveat.* None of its three seeds passed the training gate (gap
+  closed 0.24–0.44), so these agents are less well trained. Their response is about half the size of
+  the ancestors' (CR under omission 0.21 vs 0.45), which is why omission still let 75% of the food
+  through: a smaller response cancels less food. They still ignore omission (OSI 0.02).
+- *Strong physiology does not replicate R1.* Two lineages conditioned normally (acquired
+  discrimination 0.32 and 0.44, both passed the gate). The third (seed 161) evolved no response to a
+  novel bell at all (−0.04), and that pulled the mean to 0.24. It is not because anticipation paid
+  less: with stronger saliva, the payoff of anticipating is *larger*. With three seeds there is
+  nothing more to say safely; one guess (untested) is that seed 161 got stuck in a different local
+  optimum. Report it as a boundary condition: conditioning to a novel cue usually, not always, evolves.
+- *What held in all 12 lineages:* no response to the bell before pairing, and omission insensitivity
+  (every OSI ≤ 0.05). This is the most robust result in the project.
+
+**Why it matters for the paper.** A reviewer can no longer say the result depends on one network
+size or one hand-picked physiology. It also narrows the search-limit worry a little: a network twice
+as large still evolved an omission-insensitive response. It does not close it (same optimiser, same
+compute).
+
 ---
 
 # Part E — Critical review (my honest assessment)
@@ -824,7 +887,8 @@ events, or weighing within-lifetime evidence about distractor channels different
 1. Clean design: two loops, invariants enforced by tests, blind lab, yoked controls, naive baselines.
 2. Pre-registration with a frozen analysis, intention-to-treat, no exclusions, exact resumption after
    restarts, every decision logged with whether results had been seen.
-3. Large, consistent effects across 20 independent evolutionary histories.
+3. Large, consistent effects across 20 independent evolutionary histories, and across network sizes
+   and physiologies (D9; omission insensitivity held in all 12 robustness lineages).
 4. The H2 failure is turned into a sharper, interesting claim (H2′), and the disclosure is complete.
 5. Mechanistic evidence uses causal interventions (patching), not only decoding.
 
@@ -842,8 +906,9 @@ events, or weighing within-lifetime evidence about distractor channels different
    are what make it informative: even when R-O variability is present, the CR did not become
    instrumental.
 3. *"The instrumental solution exists but evolution did not find it — maybe a search limit."* The 4×
-   search check narrows this but cannot close it. A different optimiser, a larger network, or
-   longer evolution might find it. State as a limitation (we do).
+   search check narrows this but cannot close it; so does the robustness check, where a network
+   twice as large still stayed Pavlovian (D9). A different optimiser or longer evolution might find
+   it. State as a limitation (we do).
 4. *"H2′ is post hoc."* It is pilot-derived, then tested on fresh seeds. That is legitimate but must
    be labelled (it is).
 5. *"The digestion sisters failed the training gate (0/20)."* True: they closed only 8% of the
@@ -870,20 +935,24 @@ events, or weighing within-lifetime evidence about distractor channels different
     needed (8–16) is the informative part.
 12. *"Baselines are untuned."* Deliberately (I9). RW and TD with other parameters would still block;
     the instrumental learner's failure might change with other parameters — stated as a caveat.
-13. *Process issues.* Several date errata, seven restarts, one control redesigned. All logged; none
-    affected results.
+13. *Process issues.* Several date errata, seven restarts (plus one in the robustness check), one
+    control redesigned. All logged; none affected results.
 14. *Citations and prior work.* Checked on 2026-11-19 (`docs/LITERATURE_CHECK.md`): three
     references corrected (Frost Hollow first author and title, Domjan DOI, Binz year), titles
     added, one detail still † (Hollis page numbers). Five closely related papers that were missing
     are now cited (A7). A reviewer from artificial life will know Izquierdo et al.; the answer is
     the physiology-only objective, no learning rule, and the held-out omission test. The two
     closest papers were checked at abstract level only and should be read in full.
+15. *"Does it depend on your settings?"* Mostly not (D9): 3 of 4 variants replicate. With a
+    stronger saliva benefit, 1 of 3 lineages evolved no conditioning. Report it; with N = 3 per
+    variant we cannot say how often this happens.
 
 **What I would do to strengthen the paper (priority order).**
 1. Stronger blocking test: the same redundant cue throughout a lifetime and/or costlier false
    alarms; and find out what the compound sisters adapted (D8). (The first compound test is done.)
 2. A dedicated, pre-registered test of the q-pattern (selective associability), more seeds.
-3. Robustness: GRU size 32/128, LSTM, physiology ±25%, PPO replication.
+3. Robustness: GRU size 32/128 and physiology ±25% are done (D9). Still open: LSTM, PPO
+   replication, and more seeds for the strong-physiology variant.
 4. More R-O families and a stronger search for the instrumental solution.
 5. The human-experimenter lab bench (Phase 12) as a demonstration.
 6. Read the five closest papers in full (`docs/LITERATURE_CHECK.md` §2–3); post the
@@ -903,7 +972,7 @@ events, or weighing within-lifetime evidence about distractor channels different
 | Methods: lab and measures | B7, B8 |
 | Methods: pre-registration & stats | D1, Part C (deviations) |
 | Results 1–3 (confirmatory) | D3 table and figure explanations |
-| Results 4–7 (exploratory) | D4, D5, D6, D7, D8 |
+| Results 4–8 (exploratory) | D4, D5, D6, D7, D8, D9 |
 | Discussion | D3 message lines, D6 interpretation, Part E points 1–8 |
 | Limitations | Part E |
 
@@ -957,9 +1026,10 @@ animals. Label exploratory results. Report magnitudes and CIs first, p-values se
 | `scripts/run_phenomena.py`, `analyze_phenomena.py` | Phenomena battery |
 | `scripts/run_baselines.py`, `compare_baselines.py` | Baselines and scorecard |
 | `scripts/run_compound.py`, `analyze_compound.py`, `compound_crosseval.py` | Compound-cue follow-up |
+| `scripts/run_robust.py`, `analyze_robust.py` | Robustness check |
 | `scripts/make_figures.py` | All figures (`--paper` for title-free versions) |
 | `results/confirm/` | Confirmatory runs, analysis, mechanism, phenomena |
-| `results/svar/`, `results/baselines/`, `results/compound/` | Exploratory results |
+| `results/svar/`, `results/baselines/`, `results/compound/`, `results/robust/` | Exploratory results |
 | `paper/draft.md`, `paper/ieee/main.tex`, `main.pdf` | The paper |
 
 ## Numbers cheat sheet
@@ -981,6 +1051,8 @@ animals. Label exploratory results. Report magnitudes and CIs first, p-values se
 - Baselines blocking: RW −0.28, TD −0.16.
 - Compound follow-up (10 vs 10, paired): blocking +0.012 (C1 fails); D_acq 0.67, OSI 0.03 (C2 holds);
   return in compound world +0.39 [0.30, 0.49] over stable sisters, −0.10 in the ancestral world.
+- Robustness (3 seeds each): D_acq GRU128 0.48, GRU32 0.53, weak 0.39, strong 0.24 (seed 161 −0.04);
+  OSI ≤ 0.05 in all 12; 3 of 4 variants meet R1–R3.
 
 ## Reproduction
 
@@ -993,6 +1065,7 @@ python scripts/summarize_mechanism.py
 python scripts/analyze_phenomena.py
 python scripts/run_baselines.py && python scripts/compare_baselines.py
 python scripts/analyze_compound.py && python scripts/compound_crosseval.py
+python scripts/analyze_robust.py
 python scripts/make_figures.py && python scripts/make_figures.py --paper --out figures/paper
 cd paper/ieee && pdflatex main.tex && pdflatex main.tex
 ```

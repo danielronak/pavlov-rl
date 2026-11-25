@@ -1,6 +1,6 @@
 # Pavlov's dog as an evolved learner: ecological statistics determine when conditioning emerges, and why it ignores its consequences
 
-*Draft v0.2 — 2026-11-19. Ronak Daniel. Working draft for internal review; not for circulation.*
+*Draft v0.3 — 2026-11-25. Ronak Daniel. Working draft for internal review; not for circulation.*
 
 > **Status notes for co-authors.**
 > (1) References were checked against bibliographic records on 2026-11-19
@@ -279,6 +279,47 @@ sisters also showed a slightly flatter response across a 24-tick CS than their s
 | Return in the compound world | 16.25 [16.17, 16.33] | 15.86 [15.80, 15.92] |
 | Return in the ancestral world | 13.45 [13.38, 13.54] | 13.56 [13.49, 13.62] |
 
+### 2.8 Robustness to network size and physiology (exploratory)
+
+Two settings had been fixed in advance rather than chosen for the result: the network size and the
+physiology. Before any run (`docs/DECISIONS.md`, 2026-11-19) we planned four variants of the
+confirmatory ancestor, each evolved from scratch for 4000 generations with three development seeds:
+a GRU of 128 units (seeds 153–155) or 32 units (150–152), and a weak (156–158) or strong (159–161)
+physiology in which k↑ and the saliva benefit 1 − b₀ were both scaled by 0.75 or 1.25
+(`configs/exp/robust_phys_{weak,strong}.yaml`). The ±25% values were set a priori; both physiology
+variants pass the physiology-only oracle check, the only screen allowed. With N = 3 we ran no tests.
+A variant counted as replicating if its means met three criteria, committed with the analysis script
+(`scripts/analyze_robust.py`) before any run: (R1) acquired discrimination > 0.3 with
+|naive discrimination| < 0.1; (R2) paired minus truly random CR > 0.1; (R3) OSI < 0.2. Every seed was
+included, whether or not it passed the Phase-2 gate.
+
+Three of the four variants replicated (Table 3; `results/robust/analysis.md`). Network size made
+little difference. Weak-physiology agents conditioned and ignored omission although none of their
+three seeds reached the gate (gap closed 0.24–0.44). Their response was about half as large (CR under
+omission 0.21 vs 0.45 in the ancestors), so omission cancelled less food. The strong-physiology
+variant did not meet R1. Seeds 159 and 160 conditioned (acquired discrimination 0.32, 0.44; both
+passed the gate), but seed 161 evolved no response to the novel bell (−0.04; paired minus random
+−0.03; gap closed 0.45), pulling the mean to 0.24. This is not explained by a smaller payoff for
+anticipation, which was larger in this variant (oracle gain over a food reflex +3.73 vs +2.73 with
+default physiology). With three seeds we do not interpret it further and report it as a boundary
+condition: conditioning to a novel cue usually, but not always, evolved. In all 12 lineages the
+response was absent before pairing and insensitive to omission (every OSI ≤ 0.05).
+
+**Table 3.** Robustness check: variant means over 3 seeds (range in `results/robust/analysis.md`) vs
+the 20 confirmatory ancestors.
+
+| Measure | Ancestors (N=20) | GRU 128 | GRU 32 | Weak physiology | Strong physiology |
+|---|---|---|---|---|---|
+| Gap closed | 0.57 | 0.49 | 0.52 | 0.37 | 0.54 |
+| Seeds passing the gate | 17/20 | 1/3 | 2/3 | 0/3 | 2/3 |
+| Naive discrimination | 0.00 | 0.03 | −0.02 | 0.00 | −0.01 |
+| Acquired discrimination (R1) | 0.60 | 0.48 | 0.53 | 0.39 | **0.24** |
+| Paired − truly random (R2) | 0.36 | 0.31 | 0.37 | 0.23 | 0.14 |
+| Extinction drop | 0.45 | 0.29 | 0.48 | 0.38 | 0.16 |
+| OSI (R3) | 0.01 | 0.00 | 0.00 | 0.02 | 0.01 |
+| Food delivered under omission | 0.16 | 0.11 | 0.12 | 0.75 | 0.03 |
+| R1–R3 met | yes | yes | yes | yes | no (R1) |
+
 ---
 
 ## 3. Discussion
@@ -305,7 +346,9 @@ evolved form of anticipatory responding.
 **When does learning evolve?** The exploratory cue-variability experiment matches classic
 predictions (Stephens 1991) and evolved-network models (Kozielska & Weissing 2024): fixed meanings produced an inborn response, variable meanings produced
 learning. Agents also neglected cues that were relevant only rarely, a selective associability that
-emerged without any built-in attention mechanism.
+emerged without any built-in attention mechanism. Conditioning is not guaranteed, however: in the
+robustness check one of three lineages with a stronger saliva benefit evolved without it (Section
+2.8), while its omission-insensitivity, like that of every other lineage, held.
 
 **What kind of learner is it?** The evolved learner is fast and channel-specific, and its memory is
 compact: about 8–16 recurrent units carry a transferable, channel-indexed association. It does not
@@ -320,8 +363,9 @@ inhibition and the PREE may similarly need worlds in which contingencies change 
 **Limitations.** (i) The ecology is simple: four channels, delay conditioning, one physiological
 consequence. (ii) The R-O families we tested are two of many. (iii) Several lab conditions are out
 of distribution (compounds, long CSs, long rests; `docs/OOD_TABLE.md`). (iv) Exploratory results
-(2.4–2.7) use fewer seeds (e.g. 10 compound sisters on development seeds) or post-hoc splits and
-need confirmation; the compound world used a single design (p = 0.3, random second channel). (v) The baseline models use
+(2.4–2.8) use fewer seeds (e.g. 10 compound sisters on development seeds) or post-hoc splits and
+need confirmation; the compound world used a single design (p = 0.3, random second channel); the
+robustness check (2.8) used three seeds per variant, and one of its four variants missed a criterion. (v) The baseline models use
 textbook parameters, which were not fitted. (vi) We claim CR-like behaviour and Pavlovian-like
 signatures, not any equivalence of mechanism or experience with animals.
 
@@ -411,6 +455,9 @@ inhibition of delay (24- and 12-tick CS), second-order conditioning (A+, then B�
 channel, drawn uniformly from the other three, starts at the same tick (separate random stream, so
 p_compound = 0 reproduces the original world exactly). Cross-evaluation used 256 held-out lifetimes
 per world, identical for every agent.
+*Robustness:* same ES settings and ecology as the confirmatory ancestors; hidden size 128 or 32, or
+physiology k↑ = 0.2625, b₀ = 0.475 (weak) and k↑ = 0.4375, b₀ = 0.125 (strong); 4000 generations
+from scratch; Phase-2 gate and all lab protocols as in the confirmatory run (`scripts/run_robust.py`).
 *Baselines:* RW (α = 0.3), TD(0) with a complete serial compound (α = 0.1, γ = 0.9), tabular
 Q-learning on physiological reward (α = 0.2, γ = 0.9, softmax β = 5); all with a food reflex.
 

@@ -16,7 +16,7 @@
 \title{Pavlov's Dog as an Evolved Learner: Ecological Statistics Determine When Conditioning Emerges and Why It Ignores Its Consequences}
 
 \author{\IEEEauthorblockN{Ronak Daniel}
-\IEEEauthorblockA{\textit{Draft v0.2, 19 November 2026 --- not for circulation}}}
+\IEEEauthorblockA{\textit{Draft v0.3, 25 November 2026 --- not for circulation}}}
 
 \maketitle
 
@@ -182,16 +182,45 @@ Return, ancestral world & 13.45 [13.38, 13.54] & 13.56 [13.49, 13.62] \\
 \end{tabular}
 \end{table}
 
+\subsection{Robustness to network size and physiology (exploratory)}
+Two settings had been fixed in advance rather than chosen for the result: the network size and the physiology. Before any run we planned four variants of the confirmatory ancestor, each evolved from scratch for 4000 generations with three development seeds: a GRU of 128 or 32 units, and a weak or strong physiology in which $k_{\uparrow}$ and the saliva benefit $1-b_0$ were both scaled by 0.75 or 1.25 (values set a priori; both pass the physiology-only oracle check, the only screen allowed). With $N=3$ we ran no tests; a variant counted as replicating if its means met three criteria: (R1) acquired discrimination $>0.3$ with $|$naive discrimination$|<0.1$; (R2) paired minus truly random CR $>0.1$; (R3) OSI $<0.2$. Every seed was included, whether or not it passed the Phase-2 gate.
+
+Three variants replicated (Table~\ref{tab:robust}). Network size made little difference. Weak-physiology agents conditioned and ignored omission although none of their three seeds reached the gate (gap closed 0.24--0.44); their response was about half as large (CR under omission 0.21 vs 0.45 in the ancestors), so omission cancelled less food. The strong-physiology variant did not meet R1: seeds 159 and 160 conditioned (0.32, 0.44), but seed 161 evolved no response to the novel bell ($-0.04$; paired minus random $-0.03$), pulling the mean to 0.24. This is not explained by a smaller payoff for anticipation, which was larger in this variant (oracle gain over a food reflex $+3.73$ vs $+2.73$). In all 12 lineages the response was absent before pairing and insensitive to omission (OSI $\leq 0.05$).
+
+\begin{table}[t]
+\centering
+\caption{Robustness check: variant means (3 seeds each) vs the 20 confirmatory ancestors}
+\label{tab:robust}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Measure & Anc. & GRU 128 & GRU 32 & Weak & Strong \\
+\midrule
+Gap closed & 0.57 & 0.49 & 0.52 & 0.37 & 0.54 \\
+Seeds passing gate & 17/20 & 1/3 & 2/3 & 0/3 & 2/3 \\
+Naive discrim. & 0.00 & $0.03$ & $-0.02$ & $0.00$ & $-0.01$ \\
+Acquired discrim. (R1) & 0.60 & 0.48 & 0.53 & 0.39 & \textbf{0.24} \\
+Paired $-$ random (R2) & 0.36 & 0.31 & 0.37 & 0.23 & 0.14 \\
+Extinction drop & 0.45 & 0.29 & 0.48 & 0.38 & 0.16 \\
+OSI (R3) & 0.01 & 0.00 & 0.00 & 0.02 & 0.01 \\
+Food delivered, omission & 0.16 & 0.11 & 0.12 & 0.75 & 0.03 \\
+\midrule
+R1--R3 met & yes & yes & yes & yes & no (R1) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Discussion}
 Optimising nothing but digestion, over lifetimes in which cue meanings varied, produced agents that reproduce the core of Pavlov's findings in a laboratory they had never seen: a response to a novel bell that is acquired within a few pairings, depends on the bell--food contingency, extinguishes partly and persists when it costs the food.
 
 \textit{Why outcome-insensitivity?} In the ancestors' world, salivating never changed whether food came, only how well it was digested; a response that follows the food prediction and ignores its own consequences is then optimal. The sister lineages sharpen this: given response--outcome variability, evolution either added separate learning about digestion while keeping the bell response Pavlovian, or removed the bell response, rather than bringing it under instrumental control, although an instrumental policy would have paid more. A four-times larger search (pilot) did not change this, but a stronger search might. The result supports the view of Pavlovian control as a cheap, usually adequate default \cite{dayan06}.
 
-\textit{When does learning evolve?} Fixed meanings produced an inborn response and variable meanings produced learning, as theory and evolved-network models predict \cite{stephens91,kozielska24}; rarely relevant cues were neglected without any built-in attention mechanism.
+\textit{When does learning evolve?} Fixed meanings produced an inborn response and variable meanings produced learning, as theory and evolved-network models predict \cite{stephens91,kozielska24}; rarely relevant cues were neglected without any built-in attention mechanism. Conditioning is not guaranteed, however: in the robustness check one of three lineages with a stronger saliva benefit evolved without it, although its omission-insensitivity, like that of every other lineage, held.
 
 \textit{What kind of learner?} The evolved learner is fast and channel-specific, with a compact memory of 8--16 units. It is not error-correcting in the RW sense: it shows no blocking, latent inhibition or partial-reinforcement extinction effect. A world of one stimulus at a time could explain this, but agents evolved with compound cues adapted to them and still did not block. Blocking is therefore not a by-product of being a good conditioner, even in a world that contains compounds. Whether it needs a stronger pressure (a fixed redundant cue within a lifetime, or costlier false alarms) or a different architecture is open; latent inhibition and the partial-reinforcement extinction effect may similarly need frequent contingency changes.
 
-\textit{Limitations.} The ecology is simple; we tested two response--outcome families; several lab conditions are out of distribution (compounds, long CSs, long rests); exploratory results use fewer seeds (10 compound sisters, development seeds) or post-hoc splits; the compound world used one design ($p=0.3$, random second channel); baseline parameters were not fitted; and we claim CR-like behaviour, not equivalence with animals.
+\textit{Limitations.} The ecology is simple; we tested two response--outcome families; several lab conditions are out of distribution (compounds, long CSs, long rests); exploratory results use fewer seeds (10 compound sisters, development seeds) or post-hoc splits; the compound world used one design ($p=0.3$, random second channel); the robustness check used three seeds per variant and one of its four variants missed a criterion; baseline parameters were not fitted; and we claim CR-like behaviour, not equivalence with animals.
 
 \section{Conclusion}
 A physiology-only objective in a world of shifting cue meanings is sufficient for a Pavlovian-like conditioned response, including its insensitivity to omission, to evolve without being built in. Ecology decided whether such a response exists; in no case did it become instrumental.
